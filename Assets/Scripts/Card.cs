@@ -1,0 +1,129 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using System;
+using UnityEngine.UI;
+using TMPro;
+
+public enum CardType { Normal, Spoil};
+
+public class Card : Dragable, IPointerEnterHandler, IPointerExitHandler
+{
+    public CardType cardType;
+    [SerializeField] RectTransform rect;
+    [SerializeField] Hand hand;
+    public int handIndex;
+    public Vector2 handPosition;
+    public Vector3 deltaDragPos;
+    static Vector3 zero = new Vector3(0, 0, 0);
+    public IngredientData ingredientData;
+
+    public Action<Card> onEnter;
+    public Action<Card> onExit;
+    public Action<Card> onStartDrag;
+    public Action<Card> onEndDrag;
+    public Action<GameObject> onDragRayUpdate;
+    public Action<GameObject> onDragRelease;
+
+
+    public Image headerImage;
+    public Image iconImage;
+    public TextMeshProUGUI cardName;
+
+    public CanvasGroup canvasGroup;
+
+
+    public RectTransform Rect { get => rect; set => rect = value; }
+
+    public void Active(bool active)
+    {
+        if (active) canvasGroup.alpha = 1;
+        else canvasGroup.alpha = 0;
+    }
+
+    public override void OnBeginDrag(PointerEventData eventData)
+    {
+        this.transform.localScale *= 1.2f;
+        deltaDragPos = transform.position - Camera.main.ScreenToWorldPoint(eventData.position);
+        deltaDragPos.Set(deltaDragPos.x, deltaDragPos.y, this.transform.position.z);
+        onStartDrag?.Invoke(this);
+    }
+
+    public override void OnDrag(PointerEventData eventData)
+    {
+        var pos = Camera.main.ScreenToWorldPoint(eventData.position);
+        pos.Set(pos.x, pos.y, this.transform.position.z);
+       // Debug.Log(pos);
+
+        this.gameObject.transform.position = pos + deltaDragPos;
+        var result = eventData.pointerCurrentRaycast;
+        if(result.gameObject != null && result.gameObject != gameObject)
+        {
+            onDragRayUpdate?.Invoke(result.gameObject);
+        }
+    }
+
+    public override void OnEndDrag(PointerEventData eventData)
+    {
+        this.transform.localScale = new Vector3(1, 1, 1);
+        deltaDragPos = zero;
+
+        var result = eventData.pointerCurrentRaycast;
+        if (result.gameObject != null && result.gameObject != gameObject)
+        {
+            onDragRelease?.Invoke(result.gameObject);
+        }
+
+        onEndDrag?.Invoke(this);
+    }
+
+    public virtual void OnPointerEnter(PointerEventData eventData)
+    {
+        onEnter?.Invoke(this);
+    }
+
+    public virtual void OnPointerExit(PointerEventData eventData)
+    {
+        onExit?.Invoke(this);
+    }
+
+    #region Setup
+
+    public virtual void Set(IngredientData data)
+    {
+        ingredientData = data;
+        SetColor(data.Color);
+        SetName(data.Name);
+        SetImage(data.Icon);
+    }
+
+    public virtual void SetColor(Color color)
+    {
+        if (headerImage != null) headerImage.color = color;
+    }
+
+    public virtual void SetName(string name)
+    {
+        if(cardName!=null) cardName.text = name;
+    }
+
+    public virtual void SetImage(Sprite sprite)
+    {
+        if (iconImage != null) iconImage.sprite = sprite;
+    }
+
+    public virtual void SetType(CardType cardType)
+    {
+        this.cardType = cardType;
+    }
+
+    #endregion
+
+    public void Discard()
+    {
+
+    }
+
+
+}
