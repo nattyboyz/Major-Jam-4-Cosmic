@@ -1,39 +1,82 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Card")]
+
     [SerializeField] Card baseCard;
     [SerializeField] Hand hand;
     [SerializeField] List<IngredientData> deck;
+    [SerializeField] List<IngredientData> shrine;
+    [SerializeField] int maxHand = 5;
 
-    [SerializeField] Card currentDragCard;
-    [SerializeField] DragOnSpot dragOnSpot;
+    Card currentDragCard;
+    DragOnSpot dragOnSpot;
 
+    [Header("Level")]
 
+    [SerializeField] LevelData levelData;
+    [SerializeField] List<RequestData> allRequests;
     [SerializeField] List<RequestBoard> requests;
     [SerializeField] List<RequestData> completeRequests;
     [SerializeField] List<RequestData> failRequests;
 
+    [SerializeField] int customerPerWave = 3;
+    bool isStart = false;
+
+    [Header("Utensil")]
     [SerializeField] KitchenTool pan;
 
-    public Card CurrentDragCard { get => currentDragCard; }
+    [Header("UI")]
+    [SerializeField] ResultUI resultUI;
+    [SerializeField] Button openShopBtn;
+    [SerializeField] Button closeShopBtn;
+
+    private void Awake()
+    {
+        openShopBtn.onClick.AddListener(StartGame);
+        closeShopBtn.onClick.AddListener(Close);
+    }
+
 
     private void Start()
     {
+        CreateAllRequest();
         InitKitchenTool(pan);
 
-        foreach (RequestBoard r in requests)
+        for(int i = 0; i < requests.Count; i++)
         {
-            InitRequest(r);
+            InitRequest(requests[i]);
+            requests[i].Active(false);
         }
+        openShopBtn.gameObject.SetActive(true);
+    }
+
+    void StartGame()
+    {
+        openShopBtn.gameObject.SetActive(false);
+
+        for (int i = 0; i < requests.Count; i++)
+        {
+            requests[i].Init(allRequests[0]);
+            allRequests.RemoveAt(0);
+            requests[i].Active(true);
+        }
+
+        for (int i = 0; i < maxHand; i++)
+        {
+            DrawCard();
+        }
+
     }
 
     void InitKitchenTool(KitchenTool tool)
     {
         tool.onEnterDrag += (spot) => {
-            if (currentDragCard != null)
+            if (!tool.IsProcessing() && currentDragCard != null)
             {
                 dragOnSpot = spot;
                 if (tool.processMenu.TryGetValue(currentDragCard.ingredientData, out var pack))
@@ -78,6 +121,7 @@ public class GameManager : MonoBehaviour
     void ConsumeCard(Card card)
     {
        Destroy(card.gameObject);
+       
     }
 
     void InitRequest(RequestBoard r)
@@ -117,25 +161,28 @@ public class GameManager : MonoBehaviour
 
         r.onCompleteRequest += () => 
         {
-            CompleteRequest(r.RequestData);
+            CompleteRequest(r);
         };
 
         r.onFailRequest += () =>
         {
-            FailRequest(r.RequestData);         
+            FailRequest(r);         
         };
     }
 
-    void CompleteRequest(RequestData requestData)
+    void CompleteRequest(RequestBoard requestBoard)
     {
         Debug.Log("[GameManager] CompleteRequest");
-        completeRequests.Add(requestData);
+        completeRequests.Add(requestBoard.RequestData);
+        NextCustomer(requestBoard);
+
     }
 
-    void FailRequest(RequestData requestData)
+    void FailRequest(RequestBoard requestBoard)
     {
         Debug.Log("[GameManager] FailRequest");
-        failRequests.Add(requestData);
+        failRequests.Add(requestBoard.RequestData);
+        NextCustomer(requestBoard);
     }
 
     void InitPan()
@@ -143,10 +190,6 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void StartGame()
-    {
-      
-    }
 
     public Card CreateCard(IngredientData data)
     {
@@ -156,6 +199,7 @@ public class GameManager : MonoBehaviour
         card.onStartDrag += (c) => 
         { 
             currentDragCard = card; 
+
         };
 
         card.onEndDrag += (c) => 
@@ -214,5 +258,89 @@ public class GameManager : MonoBehaviour
     {
         hand.Remove(card);
     }
+
+
+    #region Level
+
+    public void AddRandomCustomer()
+    {
+        var index = Random.Range(0, levelData.menus.Count - 1);
+        RequestData requestData = new RequestData();
+        requestData.customerType = CustomerType.Normal;
+        requestData.menu = levelData.menus[index];
+
+
+        for (int i =0;i< 3; i++)
+        {
+            if(requests[i].isComplete)
+            {
+                requests[i].Init(requestData);
+                requests[i].Active(true);
+                return;
+            }
+        }
+
+        Debug.Log("Still reach maximum customer");
+    }
+
+    bool IsLevelComplete()
+    {
+        int maxWave = levelData.max_wave;
+        int total = maxWave * customerPerWave;
+
+        if (completeRequests.Count + failRequests.Count >= total)
+        {
+            return true;
+        }
+
+       return false;
+    }
+
+    void NextCustomer(RequestBoard requestBoard)
+    {
+        if (allRequests.Count == 0)
+        {
+            if (IsLevelComplete()) CompleteLevel();
+            return;
+        }
+
+        requestBoard.Init(allRequests[0]);
+        allRequests.RemoveAt(0);
+    }
+
+    public void CreateAllRequest()
+    {
+        int maxWave = levelData.max_wave;
+        int total = maxWave * customerPerWave;
+
+        for(int i = 0; i < total; i++)
+        {
+            var index = Random.Range(0, levelData.menus.Count - 1);
+            RequestData requestData = new RequestData();
+            requestData.customerType = CustomerType.Normal;
+            requestData.menu = levelData.menus[index];
+
+            allRequests.Add(requestData);
+        }
+    }
+
+    void CompleteLevel()
+    {
+        Debug.Log("CompleteLevel");
+    }
+
+    void Close()
+    {
+        Debug.Log("Close");
+    }
+
+    void ShowResultUI()
+    {
+        Debug.Log("Show result");
+
+    }
+
+    #endregion
+
 
 }

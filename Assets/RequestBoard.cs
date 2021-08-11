@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 
 public class RequestBoard : DragOnSpot
 {
+    [SerializeField] CanvasGroup canvasGroup;
     [SerializeField] IngredientIcon baseIngredientIcon;
     [SerializeField] Image focusGraphic;
     [SerializeField] Image menuImage;
@@ -16,6 +17,8 @@ public class RequestBoard : DragOnSpot
     Dictionary<IngredientSetting, IngredientIcon> ingredientIcons = new Dictionary<IngredientSetting, IngredientIcon>();
     [SerializeField] Transform ingredientParent;
 
+
+    public bool isComplete = false;
     public Action onCompleteRequest;
     public Action onFailRequest;
     public Action<Card> onExecuteComplete;
@@ -26,13 +29,21 @@ public class RequestBoard : DragOnSpot
     private void Start()
     {
         UnFocus();
-        Init(RequestData);
     }
 
     public void Init(RequestData requestData)
     {
         this.RequestData = requestData;
+        isComplete = false;
+
+        foreach (var kvp in ingredientIcons)
+        {
+            Destroy(kvp.Value.gameObject);
+        }
+
+        ingredientIcons = new Dictionary<IngredientSetting, IngredientIcon>();
         settings = new List<IngredientSetting>();
+
         foreach (var ingredient in requestData.menu.ingredients)
         {
             IngredientSetting setting = new IngredientSetting(ingredient, false);
@@ -90,13 +101,15 @@ public class RequestBoard : DragOnSpot
     public void CompleteRequest()
     {
         onCompleteRequest?.Invoke();
-        Destroy(gameObject);
+        isComplete = true;
+        Active(false);
     }
 
     public void FailRequest()
     {
         onFailRequest?.Invoke();
-        Destroy(gameObject);
+        isComplete = true;
+        Active(false);
     }
 
     public virtual void ExecuteFail(Card card)
@@ -108,6 +121,13 @@ public class RequestBoard : DragOnSpot
     {
         onExecuteComplete?.Invoke(card);
     }
+
+    public void Active(bool active)
+    {
+        if (active) canvasGroup.alpha = 1;
+        else canvasGroup.alpha = 0;
+    }
+
 }
 
 [System.Serializable]

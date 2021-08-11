@@ -20,7 +20,7 @@ public class KitchenTool : DragOnSpot
     public Action<Pack> onProcessComplete;
 
     Card processingCard;
-    bool startProcessing = false;
+    bool processing = false;
     float processTime = 2f;
     float time = 0;
 
@@ -50,7 +50,7 @@ public class KitchenTool : DragOnSpot
         if(processMenu.TryGetValue(card.ingredientData,out var pack))
         {
             processingCard = card;
-            startProcessing = true;
+            processing = true;
             processbar.gameObject.SetActive(true);
             ExecuteComplete(card);
         }
@@ -73,7 +73,7 @@ public class KitchenTool : DragOnSpot
 
     public void Update()
     {
-        if (startProcessing)
+        if (processing)
         {
             time += Time.deltaTime;
             processbar.image.fillAmount = time / processTime;
@@ -84,11 +84,16 @@ public class KitchenTool : DragOnSpot
                     onProcessComplete?.Invoke(pack);
                 }
                 processingCard = null;
-                startProcessing = false;
+                processing = false;
                 time = 0;
                 processbar.gameObject.SetActive(false);
             }
         }
+    }
+
+    public bool IsProcessing()
+    {
+        return processing;
     }
 
 }

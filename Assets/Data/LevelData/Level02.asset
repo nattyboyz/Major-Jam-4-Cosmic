@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d95e9629b70b4e8489f45621eff92f00, type: 3}
+  m_Name: Level02
+  m_EditorClassIdentifier: 
+  menus:
+  - {fileID: 11400000, guid: 1bf36febcc91efe448a8041d080154f1, type: 2}
+  - {fileID: 11400000, guid: e1bb0ad5628a00f44b30db9aca60288a, type: 2}
+  - {fileID: 11400000, guid: cf95893f1e5c9e848a001b1ad9afcde9, type: 2}
+  inspector_amount: 0
+  meat_lover_amount: 0
+  max_wave: 7
