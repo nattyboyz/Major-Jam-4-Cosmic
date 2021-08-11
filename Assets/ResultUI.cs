@@ -11,22 +11,48 @@ public class ResultUI : MonoBehaviour
     public Action onClickRetry;
     public Action onClickHome;
 
+    [Header("Animation")]
+    [SerializeField] Animator animator;
+    [SerializeField] AnimationClip in_clip;
+    [SerializeField] AnimationClip out_clip;
 
+    public void Awake()
+    {
+        mainCanvas.enabled = false;
+    }
 
     public void Init()
     {
 
     }
 
-    public void Show()
+    public void Show(Action onComplete = null)
     {
-        mainCanvas.enabled = true;
+        StartCoroutine(ieShow(onComplete));
     }
 
-    public void Hide()
+    public void Hide(Action onComplete = null)
     {
-        mainCanvas.enabled = false;
+        StartCoroutine(ieHide(onComplete));
     }
+
+    IEnumerator ieShow(Action onComplete = null)
+    {
+        mainCanvas.enabled = true;
+        animator.SetTrigger("in");
+        yield return new WaitForSeconds(in_clip.length);
+        onComplete?.Invoke();
+    }
+
+
+    IEnumerator ieHide(Action onComplete = null)
+    {
+        animator.SetTrigger("out");
+        yield return new WaitForSeconds(out_clip.length);
+        mainCanvas.enabled = false;
+        onComplete?.Invoke();
+    }
+
 
     public void Btn_Next()
     {

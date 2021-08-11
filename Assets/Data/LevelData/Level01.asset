@@ -18,4 +18,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: cf95893f1e5c9e848a001b1ad9afcde9, type: 2}
   inspector_amount: 0
   meat_lover_amount: 0
-  max_wave: 1
+  max_wave: 6
+  goalMoney: 600

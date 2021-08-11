@@ -5,10 +5,11 @@ using UnityEngine.UI;
 
 public class Hand : MonoBehaviour
 {
+
+    [Header("General")]
     [SerializeField] Card baseCard;
     [SerializeField] List<Card> cards = new List<Card>();
     [SerializeField] Transform parent;
-    [SerializeField] HorizontalLayoutGroup horizontalLayoutGroup;
     static Vector3 VectorOne = new Vector3(1, 1, 1);
 
     public float zOrder = 0.01f;
@@ -21,6 +22,12 @@ public class Hand : MonoBehaviour
 
     public float defaultSpace = 6;
     public float currentSpace = 6;
+
+    [Header("Animation")]
+    [SerializeField] Animator animator;
+    [SerializeField] AnimationClip in_clip;
+    [SerializeField] AnimationClip out_clip;
+
 
     Card focus;
 
@@ -35,8 +42,6 @@ public class Hand : MonoBehaviour
         card.transform.localScale = VectorOne;
         cards.Add(card);
 
-
-        
         card.onEnter += Focus;
         card.onExit += UnFocus;
         card.onEndDrag += EndDrag;
@@ -67,12 +72,10 @@ public class Hand : MonoBehaviour
         {
             var exceedWidth = handWidth - (totalCard * cardWidth);
             var space = exceedWidth / (totalCard - 1);
-            horizontalLayoutGroup.spacing = space;
             currentSpace = space;
         }
         else
         {
-            horizontalLayoutGroup.spacing = defaultSpace;
             currentSpace = defaultSpace;
         }
 
@@ -123,8 +126,10 @@ public class Hand : MonoBehaviour
         {
             RectTransform rect = card.GetComponent<RectTransform>();
             rect.sizeDelta = new Vector2(rect.sizeDelta.x -(currentSpace), rect.sizeDelta.y);
-            card.transform.localScale = new Vector3(1.1f, 1.1f, 1);
         }
+        card.transform.localScale = new Vector3(1.1f, 1.1f, 1);
+        card.transform.localPosition.Set(card.transform.localPosition.x, card.transform.localPosition.y + 3, card.transform.localPosition.z);
+
     }
 
     public void UnFocus(Card card)
@@ -132,6 +137,7 @@ public class Hand : MonoBehaviour
         RectTransform rect = card.GetComponent<RectTransform>();
         rect.sizeDelta = new Vector2(170f, rect.sizeDelta.y);
         card.transform.localScale = VectorOne;
+        card.transform.localPosition.Set(card.transform.localPosition.x, card.transform.localPosition.y - 3, card.transform.localPosition.z);
     }
     
     public void StartDrag(Card card)
@@ -143,5 +149,15 @@ public class Hand : MonoBehaviour
     {
         card.Rect.anchoredPosition = card.handPosition;
         card.transform.SetSiblingIndex(card.handIndex);
+    }
+
+    public void Hide()
+    {
+        animator.SetTrigger("out");
+    }
+
+    public void Show()
+    {
+        animator.SetTrigger("in");
     }
 }

@@ -31,19 +31,21 @@ public class GameManager : MonoBehaviour
     [SerializeField] KitchenTool pan;
 
     [Header("UI")]
+    [SerializeField] ShopOpenUI shopOpenUI;
     [SerializeField] ResultUI resultUI;
-    [SerializeField] Button openShopBtn;
-    [SerializeField] Button closeShopBtn;
+    //[SerializeField] Button openShopBtn;
+    //[SerializeField] Button closeShopBtn;
 
     private void Awake()
     {
-        openShopBtn.onClick.AddListener(StartGame);
-        closeShopBtn.onClick.AddListener(Close);
+        shopOpenUI.onOpen += StartGame;
+        shopOpenUI.onClose += Close;
     }
 
 
     private void Start()
     {
+        deck.Shuffle();
         CreateAllRequest();
         InitKitchenTool(pan);
 
@@ -52,24 +54,29 @@ public class GameManager : MonoBehaviour
             InitRequest(requests[i]);
             requests[i].Active(false);
         }
-        openShopBtn.gameObject.SetActive(true);
+        //openShopBtn.gameObject.SetActive(true);
+        shopOpenUI.ActiveOpenButton(true);
+
     }
 
     void StartGame()
     {
-        openShopBtn.gameObject.SetActive(false);
+        shopOpenUI.ActiveOpenButton(false);
+        shopOpenUI.ActiveCloseButton(true);
 
         for (int i = 0; i < requests.Count; i++)
         {
             requests[i].Init(allRequests[0]);
             allRequests.RemoveAt(0);
-            requests[i].Active(true);
+            requests[i].Show();
         }
 
         for (int i = 0; i < maxHand; i++)
         {
             DrawCard();
         }
+
+        hand.Show();
 
     }
 
@@ -194,7 +201,7 @@ public class GameManager : MonoBehaviour
     public Card CreateCard(IngredientData data)
     {
         Card card = Instantiate<Card>(baseCard);
-        card.Set(data);
+        card.Init(data);
 
         card.onStartDrag += (c) => 
         { 
@@ -275,7 +282,7 @@ public class GameManager : MonoBehaviour
             if(requests[i].isComplete)
             {
                 requests[i].Init(requestData);
-                requests[i].Active(true);
+                requests[i].Show();
                 return;
             }
         }
@@ -298,6 +305,8 @@ public class GameManager : MonoBehaviour
 
     void NextCustomer(RequestBoard requestBoard)
     {
+        Debug.Log("Call Next Customer");
+
         if (allRequests.Count == 0)
         {
             if (IsLevelComplete()) CompleteLevel();
@@ -305,6 +314,7 @@ public class GameManager : MonoBehaviour
         }
 
         requestBoard.Init(allRequests[0]);
+        requestBoard.Show();
         allRequests.RemoveAt(0);
     }
 
@@ -332,6 +342,21 @@ public class GameManager : MonoBehaviour
     void Close()
     {
         Debug.Log("Close");
+        shopOpenUI.ActiveCloseButton(false);
+        EndGame();
+    }
+
+    void EndGame()
+    {
+        for (int i = 0; i < requests.Count; i++)
+        {
+            InitRequest(requests[i]);
+            requests[i].Hide();
+        }
+
+        hand.Hide();
+
+        ShowResultUI();
     }
 
     void ShowResultUI()

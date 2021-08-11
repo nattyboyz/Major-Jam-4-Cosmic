@@ -9,6 +9,8 @@ public class IngredientData : ScriptableObject
     [SerializeField] Color color;
     [SerializeField] Sprite icon;
     [SerializeField] string name;
+    [SerializeField] string[] modifiers;
+
 
     public Color Color { get => color; set => color = value; }
     public Sprite Icon { get => icon; set => icon = value; }

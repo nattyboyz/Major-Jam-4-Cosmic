@@ -10,6 +10,8 @@ public enum CardType { Normal, Spoil};
 
 public class Card : Dragable, IPointerEnterHandler, IPointerExitHandler
 {
+    public ModifierIcon baseModifierIcon;
+
     public CardType cardType;
     [SerializeField] RectTransform rect;
     [SerializeField] Hand hand;
@@ -17,7 +19,15 @@ public class Card : Dragable, IPointerEnterHandler, IPointerExitHandler
     public Vector2 handPosition;
     public Vector3 deltaDragPos;
     static Vector3 zero = new Vector3(0, 0, 0);
+    static Vector3 one = new Vector3(1 ,1, 1);
+
+    //Cache data
     public IngredientData ingredientData;
+    public List<ModifierData> modifiers = new List<ModifierData>();
+
+    public Transform modifierIconParent;
+    public Dictionary<ModifierData, ModifierIcon> modifierIconDict = new Dictionary<ModifierData, ModifierIcon>();
+
 
     public Action<Card> onEnter;
     public Action<Card> onExit;
@@ -90,12 +100,28 @@ public class Card : Dragable, IPointerEnterHandler, IPointerExitHandler
 
     #region Setup
 
-    public virtual void Set(IngredientData data)
+    public virtual void Init(IngredientData data, List<ModifierData> modifiers = null)
     {
         ingredientData = data;
+
+        if (modifiers != null)
+        {
+            this.modifiers = modifiers;
+            foreach(ModifierData m_data in modifiers)
+            {
+                var icon = Instantiate(baseModifierIcon);
+                icon.transform.SetParent(modifierIconParent);
+                icon.transform.localScale = one;
+                icon.Init(m_data);
+                modifierIconDict.Add(m_data, icon);
+            }
+        }
+
         SetColor(data.Color);
         SetName(data.Name);
         SetImage(data.Icon);
+
+
     }
 
     public virtual void SetColor(Color color)

@@ -4,20 +4,32 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class RequestBoard : DragOnSpot
 {
+    [Header("UI")]
     [SerializeField] CanvasGroup canvasGroup;
     [SerializeField] IngredientIcon baseIngredientIcon;
     [SerializeField] Image focusGraphic;
     [SerializeField] Image menuImage;
+    [SerializeField] Image price_img;
+    [SerializeField] TextMeshProUGUI price_txt;
 
+    [Header("Cache Data")]
     [SerializeField] RequestData requestData;
-    [SerializeField]  List<IngredientSetting> settings;
+    [SerializeField] List<IngredientSetting> settings;
     Dictionary<IngredientSetting, IngredientIcon> ingredientIcons = new Dictionary<IngredientSetting, IngredientIcon>();
     [SerializeField] Transform ingredientParent;
 
+    [Header("Animation")]
+    [SerializeField] Animator animator;
+    [SerializeField] AnimationClip in_clip;
+    [SerializeField] AnimationClip out_clip;
+    [SerializeField] AnimationClip fail_clip;
+    [SerializeField] AnimationClip complete_clip;
 
+    [Header("Event")]
     public bool isComplete = false;
     public Action onCompleteRequest;
     public Action onFailRequest;
@@ -56,6 +68,9 @@ public class RequestBoard : DragOnSpot
             menuImage.sprite = requestData.menu.sprite;
             ingredientIcons.Add(setting, icon);
         }
+
+
+        price_txt.text = "$" +requestData.menu.basePrice.ToString();
     }
 
     public override void Focus(Card card)
@@ -100,16 +115,16 @@ public class RequestBoard : DragOnSpot
 
     public void CompleteRequest()
     {
-        onCompleteRequest?.Invoke();
+        //onCompleteRequest?.Invoke();
         isComplete = true;
-        Active(false);
+        Hide(onCompleteRequest);
     }
 
     public void FailRequest()
     {
-        onFailRequest?.Invoke();
+        //onFailRequest?.Invoke();
         isComplete = true;
-        Active(false);
+        Hide(onFailRequest);
     }
 
     public virtual void ExecuteFail(Card card)
@@ -122,12 +137,43 @@ public class RequestBoard : DragOnSpot
         onExecuteComplete?.Invoke(card);
     }
 
+    #region UI
+
     public void Active(bool active)
     {
         if (active) canvasGroup.alpha = 1;
         else canvasGroup.alpha = 0;
     }
 
+    public void Show(Action onComplete = null)
+    {
+        StartCoroutine(ieShow(onComplete));
+    }
+
+    public void Hide(Action onComplete = null)
+    {
+        StartCoroutine(ieHide(onComplete));
+    }
+
+    IEnumerator ieShow(Action onComplete = null)
+    {
+        canvasGroup.alpha = 1;
+        animator.SetTrigger("in");
+        yield return new WaitForSeconds(in_clip.length);
+        onComplete?.Invoke();
+    }
+
+
+    IEnumerator ieHide(Action onComplete = null)
+    {
+        animator.SetTrigger("out");
+        yield return new WaitForSeconds(out_clip.length);
+        canvasGroup.alpha = 0;
+        onComplete?.Invoke();
+    }
+
+
+    #endregion
 }
 
 [System.Serializable]

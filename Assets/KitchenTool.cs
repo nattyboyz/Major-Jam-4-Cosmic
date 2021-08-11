@@ -103,4 +103,6 @@ public class Pack
 {
     public IngredientData data;
     public int amount;
+    public List<ModifierData> modifier;
 }
+

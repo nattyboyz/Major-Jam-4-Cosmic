@@ -10,4 +10,6 @@ public class LevelData : ScriptableObject
     public int meat_lover_amount = 0;
     [Min(1)]
     public int max_wave = 6;
+
+    public int goalMoney = 600;
 }
