@@ -16,8 +16,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] List<IngredientData> shrine;
     [SerializeField] int maxHand = 5;
 
-    Card currentDragCard;
-    DragOnSpot dragOnSpot;
+    [ReadOnly] [SerializeField] Dragable currentDragable;
+    [ReadOnly] [SerializeField] DragOnSpot dragOnSpot;
 
     [Header("Level")]
 
@@ -30,10 +30,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] int customerPerWave = 3;
     bool isStart = false;
 
+    [Header("Cheat cards")]
+    [SerializeField] CheatCard ratCard;
+
+    [Header("Discard")]
+    [SerializeField] DiscardSpot discardSpot;
+
     [Header("Utensil")]
     [SerializeField] KitchenTool pan;
-    [SerializeField] KitchenTool pan2;
-    [SerializeField] KitchenTool pan3;
 
     [Header("UI")]
     [SerializeField] ShopOpenUI shopOpenUI;
@@ -51,8 +55,7 @@ public class GameManager : MonoBehaviour
         deck.Shuffle();
         CreateAllRequest();
         InitKitchenTool(pan);
-        InitKitchenTool(pan2);
-        InitKitchenTool(pan3);
+        InitDiscardSpot();
         moneyUI.UpdateText(playerData.money);
 
         for (int i = 0; i < requests.Count; i++)
@@ -67,6 +70,8 @@ public class GameManager : MonoBehaviour
 
     void StartGame()
     {
+        InitCheatCard(ratCard);
+
         shopOpenUI.ActiveOpenButton(false);
         shopOpenUI.ActiveCloseButton(true);
         for (int i = 0; i < maxHand; i++)
@@ -92,28 +97,115 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void InitDiscardSpot()
+    {
+        discardSpot.onEnterDrag += (spot) => {
+            if (currentDragable != null)
+            {
+                if (currentDragable is Card)
+                {
+                    var card = currentDragable as Card;
+                    dragOnSpot = spot;
+                    discardSpot.Focus(currentDragable);
+                    card.Active(false);
+                }
+            }
+        };
+
+        discardSpot.onExitDrag += (spot) => {
+            if (currentDragable != null)
+            {
+                if (currentDragable is Card)
+                {
+                    var card = currentDragable as Card;
+                    dragOnSpot = null;
+                    spot.UnFocus();
+                    card.Active(true);
+                }
+            }
+        };
+
+        discardSpot.onExecute += (Dragable dragableObject)=>
+        {
+            if (dragableObject is Card)
+            {
+                Card card = dragableObject as Card;
+                discardSpot.UnFocus();
+                hand.Remove(card);
+                ConsumeCard(card);
+                Debug.Log("Execute complete");
+            }
+            //else if (dragableObject is CheatCard)
+            //{
+            //    CheatCard card = dragableObject as CheatCard;
+            //    discardSpot.UnFocus();
+            //    ConsumeCheatCard(card);
+            //}
+        };
+
+    }
+
+    //void ConsumeCheatCard(CheatCard card)
+    //{
+    //    card.onDragRelease += (g) =>
+    //    {
+    //        if (dragOnSpot != null)
+    //        {
+    //            dragOnSpot.Execute(card);
+    //        }
+
+    //    };
+    //}
+
+
     void InitKitchenTool(KitchenTool tool)
     {
         tool.onEnterDrag += (spot) => {
-            if (!tool.IsProcessing() && currentDragCard != null)
+            if (!tool.IsOccupied && currentDragable != null)
             {
                 dragOnSpot = spot;
-                if (tool.processMenu.TryGetValue(currentDragCard.ingredientData, out var pack))
+                if (currentDragable is Card)
                 {
-                    tool.processIngredient.Set(pack.data, pack.amount);
-                    tool.processIngredient.gameObject.SetActive(true);
-                    spot.Focus(currentDragCard);
-                    currentDragCard.Active(false);
+                    var card = currentDragable as Card;
+                    if (tool.processMenu.TryGetValue(card.ingredientData, out var pack))
+                    {
+                        tool.processIngredient.Set(pack.data, pack.amount);
+                        tool.processIngredient.gameObject.SetActive(true);
+                        spot.Focus(currentDragable);
+                        card.Active(false);
+                    }
+                }
+                else if(currentDragable is CheatCard)
+                {
+                    var card = currentDragable as CheatCard;
+                    if (tool.processMenu.TryGetValue(card.ingredientData, out var pack))
+                    {
+                        tool.processIngredient.Set(pack.data, pack.amount);
+                        tool.processIngredient.gameObject.SetActive(true);
+                        spot.Focus(currentDragable);
+                        card.Active(false);
+                    }
+                    Debug.Log("Try using cheat card");
                 }
             }
         };
 
         tool.onExitDrag += (spot) => {
-            if (currentDragCard != null)
+            if (currentDragable != null)
             {
                 if (spot == dragOnSpot) dragOnSpot = null;
-                spot.UnFocus();
-                currentDragCard.Active(true);
+                if (currentDragable is Card)
+                {
+                    var card = currentDragable as Card;
+                    spot.UnFocus();
+                    card.Active(true);
+                }
+                else if (currentDragable is CheatCard)
+                {
+                    var card = currentDragable as CheatCard;
+                    spot.UnFocus();
+                    card.Active(true);
+                }
             }
         };
 
@@ -122,17 +214,32 @@ public class GameManager : MonoBehaviour
             tool.UnFocus();
             hand.Remove(card);
             ConsumeCard(card);
-            Debug.Log("Execute complete");
+            Debug.Log("Execute card complete on TOOL");
+        };
+
+        tool.onExecuteCheatComplete += (CheatCard card) =>
+        {
+            tool.UnFocus();
+            card.Deduct();
+            Debug.Log("Execute cheat card complete on TOOL");
         };
 
         tool.onProcessComplete += (Pack pack) => 
         {
-            for (int i = 0; i < pack.amount; i++)
-            {
-                var newCard = CreateCard(pack.data);
-                newCard.SetType(CardType.Spoil);
-                AddToHand(newCard);
-            }
+            ////Add that amount of card to hand
+            //for (int i = 0; i < pack.amount; i++)
+            //{
+            //    var newCard = CreateCard(pack.data);
+            //    newCard.SetType(CardType.Spoil);
+            //    AddToHand(newCard);
+            //}
+        };
+
+        tool.onClickToRecieveCard += (CardData cardData) =>
+        {
+            var newCard = CreateCard(cardData.ingredient, cardData.modifiers);
+            newCard.SetType(CardType.Spoil);
+            AddToHand(newCard);
         };
 
     }
@@ -145,36 +252,50 @@ public class GameManager : MonoBehaviour
     void InitRequest(RequestBoard r)
     {
         r.onEnterDrag += (spot) => {
-            if (currentDragCard != null)
+            if (currentDragable != null)
             {
                 dragOnSpot = spot;
-                spot.Focus(currentDragCard);
+                spot.Focus(currentDragable);
             }
         };
 
         r.onExitDrag += (spot) => {
-            if (currentDragCard != null)
+            if (currentDragable != null)
             {
                 if (spot == dragOnSpot) dragOnSpot = null;
                 spot.UnFocus();
             }
         };
 
-        r.onExecuteComplete += (card) =>
-        {
-            Debug.Log("<color=green>Use card</color> " + card.name + "on " + r.name);
-            hand.Remove(card);
-            ConsumeCard(card);
 
-            if (r.IsComplete())
+        r.onExecuteComplete += (Dragable dragableObject) =>
+        {
+            if (dragableObject is Card)
             {
-                r.CompleteRequest();
+                Card card = dragableObject as Card;
+                Debug.Log("<color=green>Use card</color> " + card.name + " [ " + card.ingredientData.Name + "] on " + r.name);
+                hand.Remove(card);
+                ConsumeCard(card);
+
+                if (r.IsComplete())
+                {
+                    r.CompleteRequest();
+                }
             }
+            //else if (dragableObject is CheatCard)
+            //{
+            //    CheatCard card = dragableObject as CheatCard;  
+            //    ConsumeCheatCard(card);
+            //}
         };
 
-        r.onExecuteFail += (card) =>
+        r.onExecuteFail += (Dragable dragableObject) =>
         {
-            Debug.Log("<color=red>fail to use card</color> " + card.name + "on " + r.name);
+            if (dragableObject is Card)
+            {
+                Card card = dragableObject as Card;
+                Debug.Log("<color=red>fail to use card</color> " + card.name + "on " + r.name);
+            }
         };
 
         r.onCompleteRequest += () => 
@@ -204,19 +325,19 @@ public class GameManager : MonoBehaviour
         if (isPlaying) NextCustomer(requestBoard);
     }
 
-    public Card CreateCard(IngredientData data)
+    public Card CreateCard(IngredientData data , List<ModifierData> modifiers = null)
     {
         Card card = Instantiate<Card>(baseCard);
-        card.Init(data);
+        card.Init(data, modifiers);
 
         card.onStartDrag += (c) => 
         { 
-            currentDragCard = card; 
+            currentDragable = card; 
         };
 
         card.onEndDrag += (c) => 
         {
-            if (currentDragCard == card) currentDragCard = null; 
+            if (currentDragable == card) currentDragable = null; 
         };
 
         return card;
@@ -387,8 +508,21 @@ public class GameManager : MonoBehaviour
         EndGame();
     }
 
+    void CalculateResult()
+    {
+        if(playerData.money > levelData.goalMoney)
+        {
+            Debug.Log("<color=green>Win!!</color> : You got money " + playerData.money + " goal is " + levelData.goalMoney);
+        }
+        else
+        {
+            Debug.Log("<color=red>Lose!!</color> : You got money " + playerData.money + " goal is " + levelData.goalMoney);
+        }
+    }
+
     void EndGame()
     {
+        CalculateResult();
         isPlaying = false;
         foreach (var r in requests)
         {
@@ -409,11 +543,36 @@ public class GameManager : MonoBehaviour
 
     void ShowResultUI()
     {
+        resultUI.Show();
         Debug.Log("Show result");
 
     }
 
     #endregion
 
+
+    public void InitCheatCard(CheatCard cheatCard)
+    {
+        cheatCard.Init();
+        cheatCard.onStartDrag += (c) =>
+        {
+            currentDragable = cheatCard;
+        };
+
+        cheatCard.onEndDrag += (c) =>
+        {
+            if (currentDragable == cheatCard) currentDragable = null;
+        };
+
+        cheatCard.onDragRelease += (g) =>
+        {
+            if (dragOnSpot != null)
+            {
+                Debug.Log("Execute drag release");
+                dragOnSpot.Execute(cheatCard);
+            }
+
+        };
+    }
 
 }

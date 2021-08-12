@@ -37,8 +37,8 @@ public class RequestBoard : DragOnSpot
     public bool isComplete = false;
     public Action onCompleteRequest;
     public Action onFailRequest;
-    public Action<Card> onExecuteComplete;
-    public Action<Card> onExecuteFail;
+    public Action<Dragable> onExecuteComplete;
+    public Action<Dragable> onExecuteFail;
 
     [SerializeField] Processbar processbar;
     [SerializeField] bool isProcessing = false;
@@ -109,7 +109,7 @@ public class RequestBoard : DragOnSpot
         FailRequest();
     }
 
-    public override void Focus(Card card)
+    public override void Focus(Dragable dragable)
     {
         focusGraphic.gameObject.SetActive(true);
     }
@@ -119,22 +119,25 @@ public class RequestBoard : DragOnSpot
         focusGraphic.gameObject.SetActive(false);
     }
 
-    public override void Execute(Card card)
+    public override void Execute(Dragable dragableObject)
     {
-        UnFocus();
-
-        foreach (var setting in settings)
+        if (dragableObject is Card)
         {
-            if(card.ingredientData.Key == setting.ingredient.Key && !setting.complete)
-            {
-                setting.complete = true;
-                ingredientIcons[setting].SetCheck(CheckType.Pass);
-                ExecuteComplete(card);
-                return;
-            }
-        }
+            Card card = dragableObject as Card;
+            UnFocus();
 
-        ExecuteFail(card);   
+            foreach (var setting in settings)
+            {
+                if (card.ingredientData.Key == setting.ingredient.Key && !setting.complete)
+                {
+                    setting.complete = true;
+                    ingredientIcons[setting].SetCheck(CheckType.Pass);
+                    ExecuteComplete(card);
+                    return;
+                }
+            }
+            ExecuteFail(card);
+        }
     }
 
     public bool IsComplete()

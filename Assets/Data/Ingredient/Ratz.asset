@@ -9,14 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3429acc5471a004face7baa96426527, type: 3}
-  m_Name: Rat
+  m_Script: {fileID: 11500000, guid: c3fc826adb2f4524dae358d757e09d9f, type: 3}
+  m_Name: Ratz
   m_EditorClassIdentifier: 
-  key: ratz
-  modifierName: ratz meat
-  description: 'Rat meat
-
-    +15% chance detected bad ingredient
-
-'
-  sprite: {fileID: 21300000, guid: e12ebb1372e5d5240a46d1dae5f3c71a, type: 3}
+  key: rat
+  color: {r: 0.52029836, g: 0.35955858, b: 0.754717, a: 1}
+  icon: {fileID: 21300000, guid: 08ad02e84870b71418c7004cadfe1676, type: 3}
+  name: Ratz
+  modifiers: []
