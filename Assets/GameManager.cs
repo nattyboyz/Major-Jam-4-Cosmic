@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public static PlayerData playerData = new PlayerData();
+    bool isPlaying = false;
 
     [Header("Card")]
 
@@ -73,6 +74,8 @@ public class GameManager : MonoBehaviour
         {
             hand.Show(ShowStartRequest);
         });
+
+        isPlaying = true;
     }
 
     void ShowStartRequest()
@@ -133,7 +136,6 @@ public class GameManager : MonoBehaviour
     void ConsumeCard(Card card)
     {
        Destroy(card.gameObject);
-       
     }
 
     void InitRequest(RequestBoard r)
@@ -188,14 +190,14 @@ public class GameManager : MonoBehaviour
         completeRequests.Add(requestBoard.RequestData);
         playerData.money += requestBoard.RequestData.menu.basePrice;
         moneyUI.UpdateText(playerData.money);
-        NextCustomer(requestBoard);
+        if(isPlaying) NextCustomer(requestBoard);
     }
 
     void FailRequest(RequestBoard requestBoard)
     {
         Debug.Log("[GameManager] FailRequest");
         failRequests.Add(requestBoard.RequestData);
-        NextCustomer(requestBoard);
+        if (isPlaying) NextCustomer(requestBoard);
     }
 
     public Card CreateCard(IngredientData data)
@@ -206,7 +208,6 @@ public class GameManager : MonoBehaviour
         card.onStartDrag += (c) => 
         { 
             currentDragCard = card; 
-
         };
 
         card.onEndDrag += (c) => 
@@ -231,9 +232,45 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void TryPlayCard(Card card ,DragOnSpot spot)
+    public bool TryDrawCard(out Card card)
+    {
+        if (deck.Count > 0)
+        {
+            card = CreateCard(deck[0]);
+            AddToHand(card);
+            deck.RemoveAt(0);
+            return true;
+        }
+        else
+        {
+            card = null;
+            Debug.LogError("No card");
+            return false;
+        }
+    }
+
+    public void TryPlayCard(Card card , DragOnSpot spot)
     {
         spot.Execute(card);
+
+        //Auto Draw card
+        if(hand.Amount< maxHand)
+        {
+            int amountToDraw = maxHand - hand.Amount;
+
+            for (int i = 0; i < amountToDraw; i++)
+            {
+                if (TryDrawCard(out var newCard))
+                {
+                    Debug.Log("Draw " + newCard.ingredientData.Name);
+                }
+                else
+                {
+                    Debug.Log("<color=red>OUT OF CARD</color>");
+                    break;
+                }
+            }
+        }
     }
 
     public void AddToHand(Card card)
@@ -266,7 +303,7 @@ public class GameManager : MonoBehaviour
         hand.Remove(card);
     }
 
-
+   
     #region Level
 
     public void AddRandomCustomer()
@@ -348,10 +385,17 @@ public class GameManager : MonoBehaviour
 
     void EndGame()
     {
-        for (int i = 0; i < requests.Count; i++)
+        isPlaying = false;
+        foreach (var r in requests)
         {
-            InitRequest(requests[i]);
-            requests[i].Hide();
+            if (!r.isComplete)
+            {
+                r.FailRequest();
+            }
+            else
+            {
+                r.Hide();
+            }
         }
 
         hand.Hide();

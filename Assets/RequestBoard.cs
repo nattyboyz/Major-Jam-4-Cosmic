@@ -13,6 +13,10 @@ public class RequestBoard : DragOnSpot
     [SerializeField] IngredientIcon baseIngredientIcon;
     [SerializeField] Image focusGraphic;
     [SerializeField] Image menuImage;
+
+    [SerializeField] Image name_img;
+    [SerializeField] TextMeshProUGUI name_txt;
+
     [SerializeField] Image price_img;
     [SerializeField] TextMeshProUGUI price_txt;
 
@@ -36,6 +40,10 @@ public class RequestBoard : DragOnSpot
     public Action<Card> onExecuteComplete;
     public Action<Card> onExecuteFail;
 
+    [SerializeField] Processbar processbar;
+    [SerializeField] bool isProcessing = false;
+    float time = 0;
+
     public RequestData RequestData { get => requestData; set => requestData = value; }
 
     private void Start()
@@ -43,10 +51,32 @@ public class RequestBoard : DragOnSpot
         UnFocus();
     }
 
+    private void Update()
+    {
+        if (isProcessing)
+        { 
+            time += Time.deltaTime;
+            if (time >= this.requestData.time)
+            {
+                TimeUp();
+                isProcessing = false;
+            }
+            else
+            {
+                processbar.Set(1 - (time / this.requestData.time));
+            }
+
+        }
+    }
+
     public void Init(RequestData requestData)
     {
         this.RequestData = requestData;
         isComplete = false;
+        isProcessing = false;
+        time = 0;
+
+        processbar.Set(1);
 
         foreach (var kvp in ingredientIcons)
         {
@@ -71,6 +101,12 @@ public class RequestBoard : DragOnSpot
 
 
         price_txt.text = "$" +requestData.menu.basePrice.ToString();
+        name_txt.text = requestData.menu.menuName;
+    }
+
+    void TimeUp()
+    {
+        FailRequest();
     }
 
     public override void Focus(Card card)
@@ -117,6 +153,8 @@ public class RequestBoard : DragOnSpot
     {
         //onCompleteRequest?.Invoke();
         isComplete = true;
+        isProcessing = false;
+        time = 0;
         Hide(onCompleteRequest);
     }
 
@@ -124,6 +162,8 @@ public class RequestBoard : DragOnSpot
     {
         //onFailRequest?.Invoke();
         isComplete = true;
+        isProcessing = false;
+        time = 0;
         Hide(onFailRequest);
     }
 
@@ -161,6 +201,7 @@ public class RequestBoard : DragOnSpot
         animator.SetTrigger("in");
         yield return new WaitForSeconds(in_clip.length);
         onComplete?.Invoke();
+        isProcessing = true;
     }
 
 

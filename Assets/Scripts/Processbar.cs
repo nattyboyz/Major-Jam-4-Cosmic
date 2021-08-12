@@ -7,5 +7,8 @@ public class Processbar : MonoBehaviour
 {
     public Image image;
 
-
+    public void Set(float value)
+    {
+        image.fillAmount = value;
+    }
 }

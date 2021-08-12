@@ -37,6 +37,8 @@ public class Hand : MonoBehaviour
 
     }
 
+    public int Amount { get { return cards.Count; } }
+
     public void Add(Card card)
     {
         card.transform.SetParent(parent);

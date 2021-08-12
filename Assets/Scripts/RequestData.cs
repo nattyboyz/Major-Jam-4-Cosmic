@@ -10,6 +10,8 @@ public class RequestData
 {
     public CustomerType customerType;
     public MenuData menu;
+    [Tooltip("in second")]
+    public float time = 20;
     public int penalty;
 
 }
