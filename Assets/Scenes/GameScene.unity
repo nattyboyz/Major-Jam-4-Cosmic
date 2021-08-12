@@ -278,6 +278,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dfa97d91a1081a42a912547a49a24b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &804519159 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1838532257, guid: 84b59c67607508c44a20e200e54ba751, type: 3}
+  m_PrefabInstance: {fileID: 7987156503788819653}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 050205d5ba5e91c46a3238c3b5d6d971, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &937368938
 GameObject:
   m_ObjectHideFlags: 0
@@ -533,7 +544,7 @@ MonoBehaviour:
   ratCard: {fileID: 1064722188}
   discardSpot: {fileID: 5308241684932803019}
   pan: {fileID: 480506642}
-  knife: {fileID: 0}
+  knife: {fileID: 804519159}
   shopOpenUI: {fileID: 673408480}
   resultUI: {fileID: 1776783244}
   moneyUI: {fileID: 672391738}
