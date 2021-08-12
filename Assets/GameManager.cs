@@ -199,9 +199,9 @@ public class GameManager : MonoBehaviour
             }
         };
 
-        r.onExecuteComplete += (card) =>
+        r.onExecuteComplete += (Card card) =>
         {
-            Debug.Log("<color=green>Use card</color> " + card.name + "on " + r.name);
+            Debug.Log("<color=green>Use card</color> " + card.name + " [ " + card.ingredientData.Name + "] on " + r.name);
             hand.Remove(card);
             ConsumeCard(card);
 
@@ -211,7 +211,7 @@ public class GameManager : MonoBehaviour
             }
         };
 
-        r.onExecuteFail += (card) =>
+        r.onExecuteFail += (Card card) =>
         {
             Debug.Log("<color=red>fail to use card</color> " + card.name + "on " + r.name);
         };
@@ -426,8 +426,21 @@ public class GameManager : MonoBehaviour
         EndGame();
     }
 
+    void CalculateResult()
+    {
+        if(playerData.money > levelData.goalMoney)
+        {
+            Debug.Log("<color=green>Win!!</color> : You got money " + playerData.money + " goal is " + levelData.goalMoney);
+        }
+        else
+        {
+            Debug.Log("<color=red>Lose!!</color> : You got money " + playerData.money + " goal is " + levelData.goalMoney);
+        }
+    }
+
     void EndGame()
     {
+        CalculateResult();
         isPlaying = false;
         foreach (var r in requests)
         {
@@ -448,6 +461,7 @@ public class GameManager : MonoBehaviour
 
     void ShowResultUI()
     {
+        resultUI.Show();
         Debug.Log("Show result");
 
     }
