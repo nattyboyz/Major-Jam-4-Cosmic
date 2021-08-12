@@ -9,7 +9,7 @@ public class DragOnSpot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 {
     public Action<DragOnSpot> onEnterDrag;
     public Action<DragOnSpot> onExitDrag;
-    public Action<Card> onExecute;
+    public Action<Dragable> onExecute;
     //public Action<Card> onExecuteComplete;
     //public Action<Card> onExecuteFail;
 
@@ -32,7 +32,7 @@ public class DragOnSpot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     }
 
 
-    public virtual void Focus(Card card)
+    public virtual void Focus(Dragable dragable)
     {
         Debug.Log("Focus");
     }
@@ -42,9 +42,9 @@ public class DragOnSpot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         Debug.Log("UnFocus");
     }
 
-    public virtual void Execute(Card card)
+    public virtual void Execute(Dragable dragable)
     {
-        onExecute?.Invoke(card);
+        onExecute?.Invoke(dragable);
         Debug.Log("Execute");
     }
 

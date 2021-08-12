@@ -17,9 +17,9 @@ public class Card : Dragable, IPointerEnterHandler, IPointerExitHandler
     [SerializeField] Hand hand;
     public int handIndex;
     public Vector2 handPosition;
-    public Vector3 deltaDragPos;
-    static Vector3 zero = new Vector3(0, 0, 0);
-    static Vector3 one = new Vector3(1 ,1, 1);
+    //public Vector3 deltaDragPos;
+    //static Vector3 zero = new Vector3(0, 0, 0);
+    //static Vector3 one = new Vector3(1 ,1, 1);
 
     //Cache data
     public IngredientData ingredientData;
@@ -31,16 +31,13 @@ public class Card : Dragable, IPointerEnterHandler, IPointerExitHandler
 
     public Action<Card> onEnter;
     public Action<Card> onExit;
-    public Action<Card> onStartDrag;
-    public Action<Card> onEndDrag;
-    public Action<GameObject> onDragRayUpdate;
-    public Action<GameObject> onDragRelease;
+    //public Action<GameObject> onDragRayUpdate;
+    //public Action<GameObject> onDragRelease;
 
 
     public Image headerImage;
     public Image iconImage;
     public TextMeshProUGUI cardName;
-
     public CanvasGroup canvasGroup;
 
 
@@ -52,41 +49,41 @@ public class Card : Dragable, IPointerEnterHandler, IPointerExitHandler
         else canvasGroup.alpha = 0;
     }
 
-    public override void OnBeginDrag(PointerEventData eventData)
-    {
-        this.transform.localScale *= 1.2f;
-        deltaDragPos = transform.position - Camera.main.ScreenToWorldPoint(eventData.position);
-        deltaDragPos.Set(deltaDragPos.x, deltaDragPos.y, this.transform.position.z);
-        onStartDrag?.Invoke(this);
-    }
+    //public override void OnBeginDrag(PointerEventData eventData)
+    //{
+    //    this.transform.localScale *= 1.2f;
+    //    deltaDragPos = transform.position - Camera.main.ScreenToWorldPoint(eventData.position);
+    //    deltaDragPos.Set(deltaDragPos.x, deltaDragPos.y, this.transform.position.z);
+    //    onStartDrag?.Invoke(this);
+    //}
 
-    public override void OnDrag(PointerEventData eventData)
-    {
-        var pos = Camera.main.ScreenToWorldPoint(eventData.position);
-        pos.Set(pos.x, pos.y, this.transform.position.z);
-       // Debug.Log(pos);
+    //public override void OnDrag(PointerEventData eventData)
+    //{
+    //    var pos = Camera.main.ScreenToWorldPoint(eventData.position);
+    //    pos.Set(pos.x, pos.y, this.transform.position.z);
+    //   // Debug.Log(pos);
 
-        this.gameObject.transform.position = pos + deltaDragPos;
-        var result = eventData.pointerCurrentRaycast;
-        if(result.gameObject != null && result.gameObject != gameObject)
-        {
-            onDragRayUpdate?.Invoke(result.gameObject);
-        }
-    }
+    //    this.gameObject.transform.position = pos + deltaDragPos;
+    //    var result = eventData.pointerCurrentRaycast;
+    //    if(result.gameObject != null && result.gameObject != gameObject)
+    //    {
+    //        onDragRayUpdate?.Invoke(result.gameObject);
+    //    }
+    //}
 
-    public override void OnEndDrag(PointerEventData eventData)
-    {
-        this.transform.localScale = new Vector3(1, 1, 1);
-        deltaDragPos = zero;
+    //public override void OnEndDrag(PointerEventData eventData)
+    //{
+    //    this.transform.localScale = new Vector3(1, 1, 1);
+    //    deltaDragPos = zero;
 
-        var result = eventData.pointerCurrentRaycast;
-        if (result.gameObject != null && result.gameObject != gameObject)
-        {
-            onDragRelease?.Invoke(result.gameObject);
-        }
+    //    var result = eventData.pointerCurrentRaycast;
+    //    if (result.gameObject != null && result.gameObject != gameObject)
+    //    {
+    //        onDragRelease?.Invoke(result.gameObject);
+    //    }
 
-        onEndDrag?.Invoke(this);
-    }
+    //    onEndDrag?.Invoke(this);
+    //}
 
     public virtual void OnPointerEnter(PointerEventData eventData)
     {

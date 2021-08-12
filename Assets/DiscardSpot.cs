@@ -13,10 +13,17 @@ public class DiscardSpot : DragOnSpot
         focusImage.gameObject.SetActive(false);
     }
 
-    public override void Focus(Card card)
+    public override void Focus(Dragable dragable)
     {
-        base.Focus(card);
-        focusImage.gameObject.SetActive(true);
+        base.Focus(dragable);
+        if (dragable is Card)
+        {
+            focusImage.gameObject.SetActive(true);
+        }
+        else
+        {
+            Debug.Log("Cannot drag this to discard ");
+        }
     }
 
     public override void UnFocus()

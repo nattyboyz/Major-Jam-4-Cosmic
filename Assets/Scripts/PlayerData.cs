@@ -5,7 +5,9 @@ using UnityEngine;
 public class PlayerData
 {
     public int money = 500;
+    public Dictionary<IngredientData, int> ingredients = new Dictionary<IngredientData, int>();
 
-   
+    public Dictionary<IngredientData, int> cheat = new Dictionary<IngredientData, int>();
+
 
 }

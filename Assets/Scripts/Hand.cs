@@ -143,15 +143,19 @@ public class Hand : MonoBehaviour
         card.transform.localPosition.Set(card.transform.localPosition.x, card.transform.localPosition.y - 3, card.transform.localPosition.z);
     }
     
-    public void StartDrag(Card card)
+    public void StartDrag(Dragable dragable)
     {
-        card.transform.SetAsLastSibling();
+        dragable.transform.SetAsLastSibling();
     }
 
-    public void EndDrag(Card card)
+    public void EndDrag(Dragable dragable)
     {
-        card.Rect.anchoredPosition = card.handPosition;
-        card.transform.SetSiblingIndex(card.handIndex);
+        if (dragable is Card)
+        {
+            Card card = dragable as Card;
+            card.Rect.anchoredPosition = card.handPosition;
+            card.transform.SetSiblingIndex(card.handIndex);
+        }
     }
 
     public void Show(Action onComplete = null)
