@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 539235e4ea8a31f4e874f22a13e9ea56, type: 3}
-  m_Name: Hotdog
+  m_Name: Burger
   m_EditorClassIdentifier: 
-  menuName: Hotdog
+  menuName: Burger
   ingredients:
   - {fileID: 11400000, guid: 1134af86f99b921439e36b1af7ea73c9, type: 2}
   - {fileID: 11400000, guid: 6de6880e0d7bb11439efe8e010827e23, type: 2}
   - {fileID: 11400000, guid: 683fcf4febe01a346b026d20906fc9a0, type: 2}
-  basePrice: 10
-  sprite: {fileID: 21300000, guid: 401bfa3c79541b343bdec06e41f98d81, type: 3}
+  - {fileID: 11400000, guid: 683fcf4febe01a346b026d20906fc9a0, type: 2}
+  basePrice: 15
+  sprite: {fileID: 21300000, guid: 10f936147961ddb4c967fe45a8169292, type: 3}

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerData
 {
-    public int money = 500;
+    public int money = 0;
 
    
 

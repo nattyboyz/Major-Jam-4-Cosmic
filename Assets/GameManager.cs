@@ -32,6 +32,8 @@ public class GameManager : MonoBehaviour
 
     [Header("Utensil")]
     [SerializeField] KitchenTool pan;
+    [SerializeField] KitchenTool pan2;
+    [SerializeField] KitchenTool pan3;
 
     [Header("UI")]
     [SerializeField] ShopOpenUI shopOpenUI;
@@ -49,6 +51,8 @@ public class GameManager : MonoBehaviour
         deck.Shuffle();
         CreateAllRequest();
         InitKitchenTool(pan);
+        InitKitchenTool(pan2);
+        InitKitchenTool(pan3);
         moneyUI.UpdateText(playerData.money);
 
         for (int i = 0; i < requests.Count; i++)

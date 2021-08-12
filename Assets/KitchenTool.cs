@@ -21,7 +21,7 @@ public class KitchenTool : DragOnSpot
 
     Card processingCard;
     bool processing = false;
-    float processTime = 2f;
+    [SerializeField] float processTime = 2f;
     float time = 0;
 
     private void Start()
