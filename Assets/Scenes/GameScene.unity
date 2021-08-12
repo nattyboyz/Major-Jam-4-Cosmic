@@ -497,6 +497,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 683fcf4febe01a346b026d20906fc9a0, type: 2}
   shrine: []
   maxHand: 5
+  currentDragable: {fileID: 0}
+  dragOnSpot: {fileID: 0}
   levelData: {fileID: 11400000, guid: 734757c816c53754296864e08843cc2a, type: 2}
   allRequests: []
   requests:
@@ -1193,5 +1195,9 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1518348003}
+    - target: {fileID: 7987156503312951255, guid: 84b59c67607508c44a20e200e54ba751, type: 3}
+      propertyPath: processMenu.m_keys.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 8a19c73b2ae5b634fa07536b528eda15, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 84b59c67607508c44a20e200e54ba751, type: 3}
