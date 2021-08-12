@@ -223,6 +223,8 @@ public class GameManager : MonoBehaviour
         {
             tool.UnFocus();
             card.Deduct();
+            card.ResetPosition();
+            card.Active(true);
             Debug.Log("Execute cheat card complete on TOOL");
         };
 
