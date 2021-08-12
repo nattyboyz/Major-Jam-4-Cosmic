@@ -14,9 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menus:
   - {fileID: 11400000, guid: 1bf36febcc91efe448a8041d080154f1, type: 2}
+  - {fileID: 11400000, guid: 1bf36febcc91efe448a8041d080154f1, type: 2}
+  - {fileID: 11400000, guid: 1bf36febcc91efe448a8041d080154f1, type: 2}
+  - {fileID: 11400000, guid: 8e33467633503764b8c6c8de5ca20669, type: 2}
+  - {fileID: 11400000, guid: 8e33467633503764b8c6c8de5ca20669, type: 2}
+  - {fileID: 11400000, guid: d7de569243ae05b41806bfb3a8093c1e, type: 2}
   - {fileID: 11400000, guid: e1bb0ad5628a00f44b30db9aca60288a, type: 2}
+  - {fileID: 11400000, guid: e1bb0ad5628a00f44b30db9aca60288a, type: 2}
+  - {fileID: 11400000, guid: e1bb0ad5628a00f44b30db9aca60288a, type: 2}
+  - {fileID: 11400000, guid: cf95893f1e5c9e848a001b1ad9afcde9, type: 2}
+  - {fileID: 11400000, guid: cf95893f1e5c9e848a001b1ad9afcde9, type: 2}
+  - {fileID: 11400000, guid: cf95893f1e5c9e848a001b1ad9afcde9, type: 2}
+  - {fileID: 11400000, guid: cf95893f1e5c9e848a001b1ad9afcde9, type: 2}
   - {fileID: 11400000, guid: cf95893f1e5c9e848a001b1ad9afcde9, type: 2}
   inspector_amount: 0
   meat_lover_amount: 0
-  max_wave: 6
-  goalMoney: 600
+  max_wave: 3
+  goalMoney: 100

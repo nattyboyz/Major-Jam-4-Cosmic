@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Utensil")]
     [SerializeField] KitchenTool pan;
+    [SerializeField] KitchenTool knife;
 
     [Header("UI")]
     [SerializeField] ShopOpenUI shopOpenUI;

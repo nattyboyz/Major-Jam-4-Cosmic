@@ -31,7 +31,7 @@ public class KitchenTool : DragOnSpot, IPointerClickHandler
 
     IngredientData processingIngredient;
     bool processing = false;
-    float processTime = 2f;
+    [SerializeField] float processTime = 2f;
     float time = 0;
 
     public bool IsResult { get { return resultCards.Count > 0; } }
