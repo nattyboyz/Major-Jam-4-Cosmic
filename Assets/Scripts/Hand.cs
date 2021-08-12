@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -151,13 +152,28 @@ public class Hand : MonoBehaviour
         card.transform.SetSiblingIndex(card.handIndex);
     }
 
-    public void Hide()
+    public void Show(Action onComplete = null)
     {
-        animator.SetTrigger("out");
+        StartCoroutine(ieShow(onComplete));
     }
 
-    public void Show()
+    public void Hide(Action onComplete = null)
+    {
+        StartCoroutine(ieHide(onComplete));
+    }
+
+    IEnumerator ieShow(Action onComplete = null)
     {
         animator.SetTrigger("in");
+        yield return new WaitForSeconds(in_clip.length);
+        onComplete?.Invoke();
+    }
+
+
+    IEnumerator ieHide(Action onComplete = null)
+    {
+        animator.SetTrigger("out");
+        yield return new WaitForSeconds(out_clip.length);
+        onComplete?.Invoke();
     }
 }

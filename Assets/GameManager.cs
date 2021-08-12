@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public static PlayerData playerData = new PlayerData();
+
     [Header("Card")]
 
     [SerializeField] Card baseCard;
@@ -33,8 +35,7 @@ public class GameManager : MonoBehaviour
     [Header("UI")]
     [SerializeField] ShopOpenUI shopOpenUI;
     [SerializeField] ResultUI resultUI;
-    //[SerializeField] Button openShopBtn;
-    //[SerializeField] Button closeShopBtn;
+    [SerializeField] MoneyUI moneyUI;
 
     private void Awake()
     {
@@ -42,14 +43,14 @@ public class GameManager : MonoBehaviour
         shopOpenUI.onClose += Close;
     }
 
-
     private void Start()
     {
         deck.Shuffle();
         CreateAllRequest();
         InitKitchenTool(pan);
+        moneyUI.UpdateText(playerData.money);
 
-        for(int i = 0; i < requests.Count; i++)
+        for (int i = 0; i < requests.Count; i++)
         {
             InitRequest(requests[i]);
             requests[i].Active(false);
@@ -63,21 +64,25 @@ public class GameManager : MonoBehaviour
     {
         shopOpenUI.ActiveOpenButton(false);
         shopOpenUI.ActiveCloseButton(true);
+        for (int i = 0; i < maxHand; i++)
+        {
+            DrawCard();
+        }
 
+        moneyUI.Show(()=> 
+        {
+            hand.Show(ShowStartRequest);
+        });
+    }
+
+    void ShowStartRequest()
+    {
         for (int i = 0; i < requests.Count; i++)
         {
             requests[i].Init(allRequests[0]);
             allRequests.RemoveAt(0);
             requests[i].Show();
         }
-
-        for (int i = 0; i < maxHand; i++)
-        {
-            DrawCard();
-        }
-
-        hand.Show();
-
     }
 
     void InitKitchenTool(KitchenTool tool)
@@ -181,8 +186,9 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("[GameManager] CompleteRequest");
         completeRequests.Add(requestBoard.RequestData);
+        playerData.money += requestBoard.RequestData.menu.basePrice;
+        moneyUI.UpdateText(playerData.money);
         NextCustomer(requestBoard);
-
     }
 
     void FailRequest(RequestBoard requestBoard)
@@ -191,12 +197,6 @@ public class GameManager : MonoBehaviour
         failRequests.Add(requestBoard.RequestData);
         NextCustomer(requestBoard);
     }
-
-    void InitPan()
-    {
-
-    }
-
 
     public Card CreateCard(IngredientData data)
     {
