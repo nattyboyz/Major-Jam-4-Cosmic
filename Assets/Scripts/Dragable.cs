@@ -19,7 +19,7 @@ public class Dragable : MonoBehaviour, IBeginDragHandler,IDragHandler,IEndDragHa
     {
         this.transform.localScale *= 1.2f;
         deltaDragPos = transform.position - Camera.main.ScreenToWorldPoint(eventData.position);
-        deltaDragPos.Set(deltaDragPos.x, deltaDragPos.y, this.transform.position.z);
+        deltaDragPos.Set(deltaDragPos.x, deltaDragPos.y, 0);
         onStartDrag?.Invoke(this);
     }
 
@@ -27,7 +27,7 @@ public class Dragable : MonoBehaviour, IBeginDragHandler,IDragHandler,IEndDragHa
     {
         var pos = Camera.main.ScreenToWorldPoint(eventData.position);
         pos.Set(pos.x, pos.y, this.transform.position.z);
-        // Debug.Log(pos);
+         Debug.Log(pos.z);
 
         this.gameObject.transform.position = pos + deltaDragPos;
         var result = eventData.pointerCurrentRaycast;
