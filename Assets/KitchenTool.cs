@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using UnityEngine.EventSystems;
 
 [Serializable]
 public class IngredientProcessDict : SerializableDictionary<IngredientData, Pack>{}
 
-public class KitchenTool : DragOnSpot
+public class KitchenTool : DragOnSpot, IPointerClickHandler
 {
     [SerializeField] Processbar processbar;
     public ProcessResourceIcon processIngredient;
@@ -18,11 +19,18 @@ public class KitchenTool : DragOnSpot
     public Action<Card> onExecuteComplete;
     public Action<Card> onExecuteFail;
     public Action<Pack> onProcessComplete;
+    public Action<CardData> onClickToRecieveCard;
+
+    List<CardData> resultCards = new List<CardData>();
 
     Card processingCard;
     bool processing = false;
     float processTime = 2f;
     float time = 0;
+
+    public bool IsResult { get { return resultCards.Count > 0; } }
+    public bool IsProcessing { get { return processing; } }
+    public bool IsOccupied { get { return processing || IsResult; } }
 
     private void Start()
     {
@@ -41,7 +49,7 @@ public class KitchenTool : DragOnSpot
 
     public override void UnFocus()
     {
-        processIngredient.gameObject.SetActive(false);
+        if(!IsOccupied) processIngredient.gameObject.SetActive(false);
         focus_img.gameObject.SetActive(false);
     }
 
@@ -82,6 +90,11 @@ public class KitchenTool : DragOnSpot
                 if (processMenu.TryGetValue(processingCard.ingredientData, out var pack))
                 {
                     onProcessComplete?.Invoke(pack);
+                    resultCards = new List<CardData>();
+                    for (int i = 0; i < pack.amount; i++)
+                    {
+                        resultCards.Add(new CardData(pack.data, pack.modifier));
+                    }
                 }
                 processingCard = null;
                 processing = false;
@@ -91,11 +104,20 @@ public class KitchenTool : DragOnSpot
         }
     }
 
-    public bool IsProcessing()
+    public void OnPointerClick(PointerEventData eventData)
     {
-        return processing;
-    }
+        if (resultCards.Count > 0)
+        {
+            var cardData = resultCards[0];
+            resultCards.RemoveAt(0);
 
+            Debug.Log("Get " + cardData.ingredient.Name );
+            processIngredient.Set(cardData.ingredient, resultCards.Count);
+            onClickToRecieveCard?.Invoke(cardData);
+            if (!IsOccupied) processIngredient.gameObject.SetActive(false);
+
+        }
+    }
 }
 
 [Serializable]

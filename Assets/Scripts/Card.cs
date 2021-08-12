@@ -153,3 +153,15 @@ public class Card : Dragable, IPointerEnterHandler, IPointerExitHandler
 
 
 }
+
+public class CardData
+{
+    public IngredientData ingredient;
+    public List<ModifierData> modifiers;
+
+    public CardData(IngredientData data,List<ModifierData> modifiers)
+    {
+        this.ingredient = data;
+        this.modifiers = modifiers;
+    }
+}

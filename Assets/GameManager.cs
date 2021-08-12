@@ -30,6 +30,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] int customerPerWave = 3;
     bool isStart = false;
 
+    [Header("Discard")]
+    [SerializeField] DiscardSpot discardSpot;
+
     [Header("Utensil")]
     [SerializeField] KitchenTool pan;
 
@@ -49,6 +52,7 @@ public class GameManager : MonoBehaviour
         deck.Shuffle();
         CreateAllRequest();
         InitKitchenTool(pan);
+        InitDiscardSpot();
         moneyUI.UpdateText(playerData.money);
 
         for (int i = 0; i < requests.Count; i++)
@@ -88,10 +92,41 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
+    void InitDiscardSpot()
+    {
+        discardSpot.onEnterDrag += (spot) => {
+            if (currentDragCard != null)
+            {
+                dragOnSpot = spot;
+                discardSpot.Focus(currentDragCard);
+                currentDragCard.Active(false);
+            }
+        };
+
+        discardSpot.onExitDrag += (spot) => {
+            if (currentDragCard != null)
+            {
+                dragOnSpot = null;
+                spot.UnFocus();
+                currentDragCard.Active(true);
+            }
+        };
+
+        discardSpot.onExecute += (Card card) =>
+        {
+            discardSpot.UnFocus();
+            hand.Remove(card);
+            ConsumeCard(card);
+            Debug.Log("Execute complete");
+        };
+
+    }
+
     void InitKitchenTool(KitchenTool tool)
     {
         tool.onEnterDrag += (spot) => {
-            if (!tool.IsProcessing() && currentDragCard != null)
+            if (!tool.IsOccupied && currentDragCard != null)
             {
                 dragOnSpot = spot;
                 if (tool.processMenu.TryGetValue(currentDragCard.ingredientData, out var pack))
@@ -123,12 +158,20 @@ public class GameManager : MonoBehaviour
 
         tool.onProcessComplete += (Pack pack) => 
         {
-            for (int i = 0; i < pack.amount; i++)
-            {
-                var newCard = CreateCard(pack.data);
-                newCard.SetType(CardType.Spoil);
-                AddToHand(newCard);
-            }
+            ////Add that amount of card to hand
+            //for (int i = 0; i < pack.amount; i++)
+            //{
+            //    var newCard = CreateCard(pack.data);
+            //    newCard.SetType(CardType.Spoil);
+            //    AddToHand(newCard);
+            //}
+        };
+
+        tool.onClickToRecieveCard += (CardData cardData) =>
+        {
+            var newCard = CreateCard(cardData.ingredient, cardData.modifiers);
+            newCard.SetType(CardType.Spoil);
+            AddToHand(newCard);
         };
 
     }
@@ -200,10 +243,10 @@ public class GameManager : MonoBehaviour
         if (isPlaying) NextCustomer(requestBoard);
     }
 
-    public Card CreateCard(IngredientData data)
+    public Card CreateCard(IngredientData data , List<ModifierData> modifiers = null)
     {
         Card card = Instantiate<Card>(baseCard);
-        card.Init(data);
+        card.Init(data, modifiers);
 
         card.onStartDrag += (c) => 
         { 

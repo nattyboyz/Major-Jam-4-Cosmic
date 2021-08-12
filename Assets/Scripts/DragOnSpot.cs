@@ -9,6 +9,7 @@ public class DragOnSpot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 {
     public Action<DragOnSpot> onEnterDrag;
     public Action<DragOnSpot> onExitDrag;
+    public Action<Card> onExecute;
     //public Action<Card> onExecuteComplete;
     //public Action<Card> onExecuteFail;
 
@@ -43,7 +44,7 @@ public class DragOnSpot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public virtual void Execute(Card card)
     {
-        //onExecute?.Invoke(card);
+        onExecute?.Invoke(card);
         Debug.Log("Execute");
     }
 

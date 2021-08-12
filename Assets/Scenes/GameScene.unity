@@ -495,6 +495,7 @@ MonoBehaviour:
   completeRequests: []
   failRequests: []
   customerPerWave: 3
+  discardSpot: {fileID: 5308241684932803019}
   pan: {fileID: 480506642}
   shopOpenUI: {fileID: 673408480}
   resultUI: {fileID: 1776783244}
@@ -958,6 +959,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9f9ad3283d7c6d4abc5e1311caaef25, type: 3}
+--- !u!114 &5308241684932803019 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1136875397650100338, guid: d9f9ad3283d7c6d4abc5e1311caaef25, type: 3}
+  m_PrefabInstance: {fileID: 5308241684932803018}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41fcd53576c98e44f89cb8ad077cc34e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7987156503788819653
 PrefabInstance:
   m_ObjectHideFlags: 0
