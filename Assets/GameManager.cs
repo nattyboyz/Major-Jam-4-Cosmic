@@ -57,6 +57,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         deck.Shuffle();
+        penaltyUI.SetStar(playerData.star);
         CreateAllRequest();
         InitKitchenTool(pan);
         InitKitchenTool(knife);
@@ -65,7 +66,7 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < requests.Count; i++)
         {
-            InitRequest(requests[i]);
+            InitRequestBoard(requests[i]);
             requests[i].Active(false);
         }
         //openShopBtn.gameObject.SetActive(true);
@@ -73,36 +74,7 @@ public class GameManager : MonoBehaviour
 
     }
 
-    void StartGame()
-    {
-        InitCheatCard(ratCard);
-        currentCustomerIndex = 0;
-        shopOpenUI.ActiveOpenButton(false);
-        shopOpenUI.ActiveCloseButton(true);
-        for (int i = 0; i < maxHand; i++)
-        {
-            DrawCard();
-        }
-
-        moneyUI.Show(()=> 
-        {
-            hand.Show(ShowStartRequest);
-        });
-
-        isPlaying = true;
-    }
-
-    void ShowStartRequest()
-    {
-        for (int i = 0; i < requests.Count; i++)
-        {
-            //requests[i].Init(allRequests[0]);
-            //allRequests.RemoveAt(0);
-            //requests[i].Show();
-            NextCustomer(requests[i]);
-        }
-    }
-
+   
     void InitDiscardSpot()
     {
         discardSpot.onEnterDrag += (spot) => {
@@ -150,18 +122,6 @@ public class GameManager : MonoBehaviour
         };
 
     }
-
-    //void ConsumeCheatCard(CheatCard card)
-    //{
-    //    card.onDragRelease += (g) =>
-    //    {
-    //        if (dragOnSpot != null)
-    //        {
-    //            dragOnSpot.Execute(card);
-    //        }
-
-    //    };
-    //}
 
     void InitKitchenTool(KitchenTool tool)
     {
@@ -251,12 +211,7 @@ public class GameManager : MonoBehaviour
 
     }
 
-    void ConsumeCard(Card card)
-    {
-       Destroy(card.gameObject);
-    }
-
-    void InitRequest(RequestBoard r)
+    void InitRequestBoard(RequestBoard r)
     {
         r.onEnterDrag += (spot) => {
             if (currentDragable != null)
@@ -273,7 +228,6 @@ public class GameManager : MonoBehaviour
                 spot.UnFocus();
             }
         };
-
 
         r.onExecuteComplete += (Dragable dragableObject) =>
         {
@@ -294,9 +248,9 @@ public class GameManager : MonoBehaviour
                         {
                             foreach (var modifier in setting.CardData.modifiers)
                             {
-                                if (hp + modifier.modifier < 0) hp = 0;
-                                else if (hp + modifier.modifier > 100) hp = 100;
-                                else hp += modifier.modifier;
+                                if (hp + modifier.QualityValue < 0) hp = 0;
+                                else if (hp + modifier.QualityValue > 100) hp = 100;
+                                else hp += modifier.QualityValue;
                             }
                         }
                     }
@@ -304,13 +258,28 @@ public class GameManager : MonoBehaviour
                     float n = Random.Range(0f, 100f);
                     if (n < hp)
                     {
-                        Debug.Log("Pass");
+                        Debug.Log("<color=green><b>Pass</b></color>");
                         r.CompleteRequest();
                     }
                     else
                     {
-                        Debug.Log("Fail");
+                        Debug.Log("<color=red><b>Fail</b></color>");
                         r.FailRequest();
+
+                        //Deduct star
+                        if (playerData.star - 1 < 0) 
+                        {
+                            playerData.star = 0;
+                            penaltyUI.SetStar(playerData.star);
+                            Gameover();
+                        }
+                        else
+                        {
+                            playerData.star--;
+                            penaltyUI.SetStar(playerData.star);
+                        }
+                        //
+
                     }
 
                     Debug.Log("This food have percent chance to pass = " + n + " from " + + hp);
@@ -341,15 +310,15 @@ public class GameManager : MonoBehaviour
         {
             FailRequest(r);         
         };
-
-
     }
+
+    #region Request Board
 
     void CompleteRequest(RequestBoard requestBoard)
     {
         Debug.Log("[GameManager] CompleteRequest");
         completeRequests.Add(requestBoard.RequestData);
-        playerData.money += requestBoard.RequestData.menu.basePrice;
+        playerData.money += requestBoard.RequestData.Menu.basePrice;
         moneyUI.UpdateText(playerData.money);
         if(isPlaying) NextCustomer(requestBoard);
     }
@@ -358,8 +327,14 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("[GameManager] FailRequest");
         failRequests.Add(requestBoard.RequestData);
+        
+
         if (isPlaying) NextCustomer(requestBoard);
     }
+
+    #endregion
+
+    #region CardPlay
 
     public Card CreateCard(IngredientData data , List<ModifierData> modifiers = null)
     {
@@ -461,15 +436,50 @@ public class GameManager : MonoBehaviour
         hand.Remove(card);
     }
 
-   
-    #region Level
+    void ConsumeCard(Card card)
+    {
+        Destroy(card.gameObject);
+    }
+
+    #endregion
+
+    #region Gameloop
+
+    void StartGame()
+    {
+        InitCheatCard(ratCard);
+        currentCustomerIndex = 0;
+        shopOpenUI.ActiveOpenButton(false);
+        shopOpenUI.ActiveCloseButton(true);
+        for (int i = 0; i < maxHand; i++)
+        {
+            DrawCard();
+        }
+
+        customerLeftUI.Show();
+        penaltyUI.Show();
+        moneyUI.Show(() =>
+        {
+            hand.Show(ShowStartRequest);
+        });
+
+        isPlaying = true;
+    }
+
+    void ShowStartRequest()
+    {
+        for (int i = 0; i < requests.Count; i++)
+        {
+            NextCustomer(requests[i]);
+        }
+    }
+
 
     public void AddRandomCustomer()
     {
-        var index = Random.Range(0, levelData.menus.Count - 1);
+        var index = Random.Range(0, levelData.Menus.Count - 1);
         RequestData requestData = new RequestData();
-        requestData.customerType = CustomerType.Normal;
-        requestData.menu = levelData.menus[index];
+        requestData.Menu = levelData.Menus[index];
 
 
         for (int i =0;i< 3; i++)
@@ -487,7 +497,7 @@ public class GameManager : MonoBehaviour
 
     bool IsLevelComplete()
     {
-        int maxWave = levelData.max_wave;
+        int maxWave = levelData.Max_wave;
         int total = maxWave * customerPerWave;
 
         if (completeRequests.Count + failRequests.Count >= total)
@@ -532,16 +542,15 @@ public class GameManager : MonoBehaviour
 
     public void CreateAllRequest()
     {
-        int maxWave = levelData.max_wave;
+        int maxWave = levelData.Max_wave;
         int total = maxWave * customerPerWave;
         customerLeftUI.SetStartCustomer(total);
 
         for (int i = 0; i < total; i++)
         {
-            var index = Random.Range(0, levelData.menus.Count - 1);
+            var index = Random.Range(0, levelData.Menus.Count - 1);
             RequestData requestData = new RequestData();
-            requestData.customerType = CustomerType.Normal;
-            requestData.menu = levelData.menus[index];
+            requestData.Menu = levelData.Menus[index];
 
             allRequests.Add(requestData);
         }
@@ -556,22 +565,22 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Close");
         shopOpenUI.ActiveCloseButton(false);
-        EndGame();
+        LevelEnd();
     }
 
     void CalculateResult()
     {
-        if(playerData.money > levelData.goalMoney)
+        if(playerData.money > levelData.GoalMoney)
         {
-            Debug.Log("<color=green>Win!!</color> : You got money " + playerData.money + " goal is " + levelData.goalMoney);
+            Debug.Log("<color=green>Win!!</color> : You got money " + playerData.money + " goal is " + levelData.GoalMoney);
         }
         else
         {
-            Debug.Log("<color=red>Lose!!</color> : You got money " + playerData.money + " goal is " + levelData.goalMoney);
+            Debug.Log("<color=red>Lose!!</color> : You got money " + playerData.money + " goal is " + levelData.GoalMoney);
         }
     }
 
-    void EndGame()
+    void LevelEnd()
     {
         CalculateResult();
         isPlaying = false;
@@ -587,16 +596,24 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        customerLeftUI.Hide();
+        penaltyUI.Hide();
         hand.Hide();
+        moneyUI.Hide();
 
-        ShowResultUI();
+        ShowResult();
     }
 
-    void ShowResultUI()
+    void ShowResult()
     {
         resultUI.Show();
         Debug.Log("Show result");
 
+    }
+
+    void Gameover()
+    {
+        Debug.Log("Game Over.");
     }
 
     #endregion

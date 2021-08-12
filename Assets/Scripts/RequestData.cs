@@ -3,15 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public enum CustomerType { Normal, MeatLover, Inspector}
-
 [Serializable]
 public class RequestData 
 {
-    public CustomerType customerType;
-    public MenuData menu;
+
+    [SerializeField] CustomerData customerData;
+    [SerializeField] MenuData menu;
     [Tooltip("in second")]
-    public float time = 60;
-    public int penalty;
+    [SerializeField] float time = 60;
+    [SerializeField] int penalty = 1;
+
+    public CustomerData CustomerData { get => customerData;}
+    public MenuData Menu { get => menu; set => menu = value; }
+    public float Time { get => time;}
+    public int Penalty { get => penalty;}
 
 }

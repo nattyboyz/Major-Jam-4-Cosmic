@@ -9,6 +9,6 @@ public class ModifierIcon : MonoBehaviour
 
     public void Init(ModifierData data)
     {
-        icon.sprite = data.sprite;
+        icon.sprite = data.Sprite;
     }
 }

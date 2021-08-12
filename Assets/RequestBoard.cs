@@ -48,7 +48,7 @@ public class RequestBoard : DragOnSpot
     [SerializeField] bool isProcessing = false;
     float time = 0;
 
-    public RequestData RequestData { get => requestData; set => requestData = value; }
+    public RequestData RequestData { get => requestData;}
     public List<IngredientSetting> Settings { get => settings;}
 
     private void Start()
@@ -61,22 +61,35 @@ public class RequestBoard : DragOnSpot
         if (isProcessing)
         { 
             time += Time.deltaTime;
-            if (time >= this.requestData.time)
+            if (time >= this.requestData.Time)
             {
-                TimeUp();
+                TimesUp();
                 isProcessing = false;
             }
             else
             {
-                processbar.Set(1 - (time / this.requestData.time));
+                processbar.Set(1 - (time / this.requestData.Time));
             }
-
         }
     }
 
+    #region Time
+
+    public void ChargeTime(float second)
+    {
+        time += second;
+    }
+
+    void TimesUp()
+    {
+        RequestTimeout();
+    }
+
+    #endregion
+
     public void Init(RequestData requestData)
     {
-        this.RequestData = requestData;
+        this.requestData = requestData;
         isComplete = false;
         isProcessing = false;
         time = 0;
@@ -91,7 +104,7 @@ public class RequestBoard : DragOnSpot
         ingredientIcons = new Dictionary<IngredientSetting, IngredientIcon>();
         settings = new List<IngredientSetting>();
 
-        foreach (var ingredient in requestData.menu.ingredients)
+        foreach (var ingredient in requestData.Menu.ingredients)
         {
             IngredientSetting setting = new IngredientSetting(ingredient, false);
             Settings.Add(setting);
@@ -100,18 +113,13 @@ public class RequestBoard : DragOnSpot
             icon.Set(setting.Ingredient);
             icon.transform.SetParent(ingredientParent);
             icon.transform.localScale = new Vector3(1, 1, 1);
-            menuImage.sprite = requestData.menu.sprite;
+            menuImage.sprite = requestData.Menu.sprite;
             ingredientIcons.Add(setting, icon);
         }
 
 
-        price_txt.text = "$" +requestData.menu.basePrice.ToString();
-        name_txt.text = requestData.menu.menuName;
-    }
-
-    void TimeUp()
-    {
-        RequestTimeout();
+        price_txt.text = "$" +requestData.Menu.basePrice.ToString();
+        name_txt.text = requestData.Menu.menuName;
     }
 
     public override void Focus(Dragable dragable)
@@ -143,12 +151,12 @@ public class RequestBoard : DragOnSpot
                     {
                         foreach (var m in card.cardData.modifiers)
                         {
-                            if (m.type == ModifierType.Curse)
+                            if (m.Type == ModifierType.Curse)
                             {
                                 _check = CheckType.Doubt;
                                 break;
                             }
-                            else if (m.type == ModifierType.Buff)
+                            else if (m.Type == ModifierType.Buff)
                             {
                                 _check = CheckType.Great;
                             }
@@ -161,6 +169,17 @@ public class RequestBoard : DragOnSpot
                 }
             }
             ExecuteFail(card);
+        }
+        else if (dragableObject is CheatCard)
+        {
+            CheatCard card = dragableObject as CheatCard;
+            UnFocus();
+            Debug.Log("RequestBoard:: try use CHEAT CARD ->" + card.ingredientData.Name);
+            if(card.ingredientData.Name == "Ratz")
+            {
+                //requestData.
+                ChargeTime(5);
+            }
         }
     }
 

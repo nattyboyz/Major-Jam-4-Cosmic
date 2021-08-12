@@ -10,10 +10,13 @@ public class IngredientData : ScriptableObject
     [SerializeField] Sprite icon;
     [SerializeField] string name;
     [SerializeField] string[] modifiers;
+    [Range(-100, 100)]
+    [SerializeField] float qualityValue = 0;
 
 
-    public Color Color { get => color; set => color = value; }
-    public Sprite Icon { get => icon; set => icon = value; }
-    public string Name { get => name; set => name = value; }
-    public string Key { get => key; set => key = value; }
+    public Color Color { get => color; }
+    public Sprite Icon { get => icon; }
+    public string Name { get => name;}
+    public string Key { get => key; }
+    public float QualityValue { get => qualityValue;}
 }

@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using System;
 
-public class CustomerLeftUI : MonoBehaviour
+public class CustomerLeftUI : BaseUI
 {
     [SerializeField] Image unit;
     [SerializeField] Transform parent;
     [SerializeField] List<Image> units = new List<Image>();
     [SerializeField] Color defaultColor;
     [SerializeField] int index = 0;
+
+
 
     public void SetStartCustomer(int number)
     {
@@ -37,5 +40,6 @@ public class CustomerLeftUI : MonoBehaviour
     {
         units[index].DOFade(0, 0.2f);
     }
+
 
 }

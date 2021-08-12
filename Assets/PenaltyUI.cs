@@ -3,18 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PenaltyUI : MonoBehaviour
+public class PenaltyUI : BaseUI
 {
-    [SerializeField] List<Image> stars;
-    [SerializeField] Color normalColor;
-    [SerializeField] Color penaltyColor;
+    [SerializeField] List<Image> stars;//Max = 5
 
-
-    public void AddPenalty(int index)
+    public void SetStar(int amount)
     {
-        if (index < stars.Count)
+        for(int i = 0; i < stars.Count; i++)
         {
-            stars[index].color = penaltyColor;
+            if (i < amount)
+            {
+                stars[i].gameObject.SetActive(true);
+            }
+            else
+            {
+                stars[i].gameObject.SetActive(false);
+            }
         }
+
     }
 }

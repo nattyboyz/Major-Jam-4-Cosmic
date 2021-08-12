@@ -31,3 +31,5 @@ MonoBehaviour:
   meat_lover_amount: 0
   max_wave: 3
   goalMoney: 100
+  possibleCustomers: []
+  fixedCustomer: []
