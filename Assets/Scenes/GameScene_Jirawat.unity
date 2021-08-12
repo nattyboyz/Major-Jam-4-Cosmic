@@ -5358,17 +5358,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dfa97d91a1081a42a912547a49a24b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1108091366 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1108091366, guid: 84b59c67607508c44a20e200e54ba751, type: 3}
-  m_PrefabInstance: {fileID: 7987156503788819653}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 050205d5ba5e91c46a3238c3b5d6d971, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1518348002
 GameObject:
   m_ObjectHideFlags: 0
@@ -5413,6 +5402,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 492b9b41153eeaa4c8d99cdec60a6c5d, type: 2}
   shrine: []
   maxHand: 5
+  currentDragable: {fileID: 0}
+  dragOnSpot: {fileID: 0}
   levelData: {fileID: 11400000, guid: 734757c816c53754296864e08843cc2a, type: 2}
   allRequests: []
   requests:
@@ -5422,9 +5413,9 @@ MonoBehaviour:
   completeRequests: []
   failRequests: []
   customerPerWave: 3
+  ratCard: {fileID: 0}
+  discardSpot: {fileID: 0}
   pan: {fileID: 480506642}
-  pan2: {fileID: 1838532257}
-  pan3: {fileID: 1108091366}
   shopOpenUI: {fileID: 673408480}
   resultUI: {fileID: 1776783244}
   moneyUI: {fileID: 672391738}
@@ -5462,17 +5453,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d412569d1dffa5645823024ec04c4f5e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1838532257 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1838532257, guid: 84b59c67607508c44a20e200e54ba751, type: 3}
-  m_PrefabInstance: {fileID: 7987156503788819653}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 050205d5ba5e91c46a3238c3b5d6d971, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1922567469 stripped
@@ -5635,6 +5615,10 @@ PrefabInstance:
     - target: {fileID: 1247051795336667795, guid: ae5d3b153a38f9f4facd222121c37a2c, type: 3}
       propertyPath: m_Name
       value: ResultCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 1247051795336667795, guid: ae5d3b153a38f9f4facd222121c37a2c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1247051795336667806, guid: ae5d3b153a38f9f4facd222121c37a2c, type: 3}
       propertyPath: m_Camera
