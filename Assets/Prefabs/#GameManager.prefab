@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5049586600938890538
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5049586600938890540}
+  - component: {fileID: 5049586600938890539}
+  m_Layer: 0
+  m_Name: '#GameManager'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5049586600938890540
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5049586600938890538}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5049586600938890539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5049586600938890538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3391ac789687de5419f964c514e1f9d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseCard: {fileID: 2437222501836713281, guid: f28062228418b004082ce29eea260a8d, type: 3}
+  hand: {fileID: 0}
+  deck:
+  - {fileID: 11400000, guid: f510d65d656f19d4eb45b4ed85ad9d10, type: 2}
+  - {fileID: 11400000, guid: f510d65d656f19d4eb45b4ed85ad9d10, type: 2}
+  - {fileID: 11400000, guid: 6de6880e0d7bb11439efe8e010827e23, type: 2}
+  - {fileID: 11400000, guid: 6de6880e0d7bb11439efe8e010827e23, type: 2}
+  - {fileID: 11400000, guid: 6de6880e0d7bb11439efe8e010827e23, type: 2}
+  - {fileID: 11400000, guid: 683fcf4febe01a346b026d20906fc9a0, type: 2}
+  - {fileID: 11400000, guid: 683fcf4febe01a346b026d20906fc9a0, type: 2}
+  - {fileID: 11400000, guid: 683fcf4febe01a346b026d20906fc9a0, type: 2}
+  - {fileID: 11400000, guid: 683fcf4febe01a346b026d20906fc9a0, type: 2}
+  shrine: []
+  maxHand: 5
+  currentDragable: {fileID: 0}
+  dragOnSpot: {fileID: 0}
+  levelData: {fileID: 11400000, guid: 734757c816c53754296864e08843cc2a, type: 2}
+  allRequests: []
+  requests:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  completeRequests: []
+  failRequests: []
+  customerPerWave: 3
+  ratCard: {fileID: 0}
+  discardSpot: {fileID: 0}
+  pan: {fileID: 0}
+  knife: {fileID: 0}
+  shopOpenUI: {fileID: 0}
+  resultUI: {fileID: 0}
+  moneyUI: {fileID: 0}
