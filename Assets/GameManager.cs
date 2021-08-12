@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour
         deck.Shuffle();
         CreateAllRequest();
         InitKitchenTool(pan);
+        InitKitchenTool(knife);
         InitDiscardSpot();
         moneyUI.UpdateText(playerData.money);
 
