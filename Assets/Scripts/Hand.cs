@@ -131,7 +131,8 @@ public class Hand : MonoBehaviour
             rect.sizeDelta = new Vector2(rect.sizeDelta.x -(currentSpace), rect.sizeDelta.y);
         }
         card.transform.localScale = new Vector3(1.1f, 1.1f, 1);
-        card.transform.localPosition.Set(card.transform.localPosition.x, card.transform.localPosition.y + 3, card.transform.localPosition.z);
+        //card.transform.localPosition.Set(card.transform.localPosition.x, card.transform.localPosition.y + 20, card.transform.localPosition.z);
+        card.Rect.anchoredPosition = new Vector2(card.Rect.anchoredPosition.x, card.Rect.anchoredPosition.y + 50);
 
     }
 
@@ -140,12 +141,20 @@ public class Hand : MonoBehaviour
         RectTransform rect = card.GetComponent<RectTransform>();
         rect.sizeDelta = new Vector2(170f, rect.sizeDelta.y);
         card.transform.localScale = VectorOne;
-        card.transform.localPosition.Set(card.transform.localPosition.x, card.transform.localPosition.y - 3, card.transform.localPosition.z);
+        //card.transform.localPosition.Set(card.transform.localPosition.x, card.transform.localPosition.y - 20, card.transform.localPosition.z);
+        card.Rect.anchoredPosition = card.handPosition;
+        if (focus == card) focus = null;
+        else Debug.LogError("WRONG");
     }
     
     public void StartDrag(Dragable dragable)
     {
-        dragable.transform.SetAsLastSibling();
+        if (dragable is Card)
+        {
+            Card card = dragable as Card;
+            card.transform.SetAsLastSibling();
+            //card.onExit -= UnFocus;
+        }
     }
 
     public void EndDrag(Dragable dragable)
@@ -155,6 +164,7 @@ public class Hand : MonoBehaviour
             Card card = dragable as Card;
             card.Rect.anchoredPosition = card.handPosition;
             card.transform.SetSiblingIndex(card.handIndex);
+            //card.onExit += UnFocus;
         }
     }
 

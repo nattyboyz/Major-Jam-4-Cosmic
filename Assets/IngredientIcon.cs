@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum CheckType { None, Pass}
+public enum CheckType { None, Pass, Doubt, Great}
 public class IngredientIcon : MonoBehaviour
 {
     [SerializeField] Image icon;
     [SerializeField] Image bg;
 
     [SerializeField] Image check;
+
     [SerializeField] Sprite passIcon;
+    [SerializeField] Sprite doubtIcon;
+    [SerializeField] Sprite greatIcon;
 
     private void Awake()
     {
@@ -34,6 +37,19 @@ public class IngredientIcon : MonoBehaviour
             check.gameObject.SetActive(true);
             check.sprite = passIcon;
         }
+        else if (checkType == CheckType.Doubt)
+        {
+            check.gameObject.SetActive(true);
+            check.sprite = doubtIcon;
+        }
+        else if (checkType == CheckType.Great)
+        {
+            check.gameObject.SetActive(true);
+            check.sprite = greatIcon;
+        }
     }
+
+
+
 
 }

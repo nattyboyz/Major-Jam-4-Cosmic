@@ -22,8 +22,10 @@ public class Card : Dragable, IPointerEnterHandler, IPointerExitHandler
     //static Vector3 one = new Vector3(1 ,1, 1);
 
     //Cache data
-    public IngredientData ingredientData;
-    public List<ModifierData> modifiers = new List<ModifierData>();
+    //public IngredientData ingredientData;
+    //public List<ModifierData> modifiers = new List<ModifierData>();
+
+    public CardData cardData;
 
     public Transform modifierIconParent;
     public Dictionary<ModifierData, ModifierIcon> modifierIconDict = new Dictionary<ModifierData, ModifierIcon>();
@@ -97,14 +99,25 @@ public class Card : Dragable, IPointerEnterHandler, IPointerExitHandler
 
     #region Setup
 
+
+    public virtual void Init(CardData cardData)
+    {
+        this.cardData = cardData;
+        Set(cardData.ingredient, cardData.modifiers);
+    }
+
+
     public virtual void Init(IngredientData data, List<ModifierData> modifiers = null)
     {
-        ingredientData = data;
+        cardData = new CardData(data, modifiers);
+        Set(cardData.ingredient, cardData.modifiers);
+    }
 
+    void Set(IngredientData data, List<ModifierData> modifiers = null)
+    {
         if (modifiers != null)
         {
-            this.modifiers = modifiers;
-            foreach(ModifierData m_data in modifiers)
+            foreach (ModifierData m_data in modifiers)
             {
                 var icon = Instantiate(baseModifierIcon);
                 icon.transform.SetParent(modifierIconParent);
@@ -113,12 +126,9 @@ public class Card : Dragable, IPointerEnterHandler, IPointerExitHandler
                 modifierIconDict.Add(m_data, icon);
             }
         }
-
         SetColor(data.Color);
         SetName(data.Name);
         SetImage(data.Icon);
-
-
     }
 
     public virtual void SetColor(Color color)
@@ -151,10 +161,11 @@ public class Card : Dragable, IPointerEnterHandler, IPointerExitHandler
 
 }
 
+[Serializable]
 public class CardData
 {
     public IngredientData ingredient;
-    public List<ModifierData> modifiers;
+    public List<ModifierData> modifiers = new List<ModifierData>();
 
     public CardData(IngredientData data,List<ModifierData> modifiers)
     {

@@ -6,6 +6,8 @@ using System;
 using UnityEngine.EventSystems;
 using TMPro;
 
+public enum CustomerReaction { Normal, Enjoy, Mad, Exciting}
+
 public class RequestBoard : DragOnSpot
 {
     [Header("UI")]
@@ -33,6 +35,8 @@ public class RequestBoard : DragOnSpot
     [SerializeField] AnimationClip fail_clip;
     [SerializeField] AnimationClip complete_clip;
 
+    public bool allowInteract = false;
+
     [Header("Event")]
     public bool isComplete = false;
     public Action onCompleteRequest;
@@ -45,6 +49,7 @@ public class RequestBoard : DragOnSpot
     float time = 0;
 
     public RequestData RequestData { get => requestData; set => requestData = value; }
+    public List<IngredientSetting> Settings { get => settings;}
 
     private void Start()
     {
@@ -89,10 +94,10 @@ public class RequestBoard : DragOnSpot
         foreach (var ingredient in requestData.menu.ingredients)
         {
             IngredientSetting setting = new IngredientSetting(ingredient, false);
-            settings.Add(setting);
+            Settings.Add(setting);
 
             var icon = Instantiate<IngredientIcon>(baseIngredientIcon);
-            icon.Set(setting.ingredient);
+            icon.Set(setting.Ingredient);
             icon.transform.SetParent(ingredientParent);
             icon.transform.localScale = new Vector3(1, 1, 1);
             menuImage.sprite = requestData.menu.sprite;
@@ -106,7 +111,7 @@ public class RequestBoard : DragOnSpot
 
     void TimeUp()
     {
-        FailRequest();
+        RequestTimeout();
     }
 
     public override void Focus(Dragable dragable)
@@ -126,12 +131,31 @@ public class RequestBoard : DragOnSpot
             Card card = dragableObject as Card;
             UnFocus();
 
-            foreach (var setting in settings)
+            foreach (var setting in Settings)
             {
-                if (card.ingredientData.Key == setting.ingredient.Key && !setting.complete)
+                if (card.cardData.ingredient.Key == setting.Ingredient.Key && !setting.Complete)
                 {
-                    setting.complete = true;
-                    ingredientIcons[setting].SetCheck(CheckType.Pass);
+                    setting.Complete = true;
+                    setting.CardData = card.cardData;
+                    CheckType _check = CheckType.Pass;
+
+                    if (card.cardData.modifiers != null)
+                    {
+                        foreach (var m in card.cardData.modifiers)
+                        {
+                            if (m.type == ModifierType.Curse)
+                            {
+                                _check = CheckType.Doubt;
+                                break;
+                            }
+                            else if (m.type == ModifierType.Buff)
+                            {
+                                _check = CheckType.Great;
+                            }
+                        }
+                    }
+
+                    ingredientIcons[setting].SetCheck(_check);
                     ExecuteComplete(card);
                     return;
                 }
@@ -142,9 +166,9 @@ public class RequestBoard : DragOnSpot
 
     public bool IsComplete()
     {
-        foreach (var setting in settings)
+        foreach (var setting in Settings)
         {
-            if (setting.complete== false)
+            if (setting.Complete== false)
             {
                 return false;
             }
@@ -152,22 +176,37 @@ public class RequestBoard : DragOnSpot
         return true;
     }
 
-    public void CompleteRequest()
+    #region Complete request
+
+    public void CompleteRequest(string reason = "")
     {
-        //onCompleteRequest?.Invoke();
         isComplete = true;
         isProcessing = false;
         time = 0;
         Hide(onCompleteRequest);
     }
 
-    public void FailRequest()
+    public void FailRequest(string reason = "")
     {
-        //onFailRequest?.Invoke();
         isComplete = true;
         isProcessing = false;
         time = 0;
         Hide(onFailRequest);
+    }
+
+    public void RequestTimeout()
+    {
+        isComplete = true;
+        isProcessing = false;
+        time = 0;
+        Hide(onFailRequest);
+    }
+
+    #endregion
+
+    public void SetCustomerReaction(CustomerReaction reaction, Action onComplete = null)
+    {
+
     }
 
     public virtual void ExecuteFail(Card card)
@@ -177,6 +216,7 @@ public class RequestBoard : DragOnSpot
 
     public virtual void ExecuteComplete(Card card)
     {
+        animator.SetTrigger("add");
         onExecuteComplete?.Invoke(card);
     }
 
@@ -205,17 +245,17 @@ public class RequestBoard : DragOnSpot
         yield return new WaitForSeconds(in_clip.length);
         onComplete?.Invoke();
         isProcessing = true;
+        allowInteract = true;
     }
-
 
     IEnumerator ieHide(Action onComplete = null)
     {
+        allowInteract = false;
         animator.SetTrigger("out");
         yield return new WaitForSeconds(out_clip.length);
         canvasGroup.alpha = 0;
         onComplete?.Invoke();
     }
-
 
     #endregion
 }
@@ -223,12 +263,17 @@ public class RequestBoard : DragOnSpot
 [System.Serializable]
 public class IngredientSetting
 {
-    public IngredientData ingredient;
-    public bool complete = false;
-    
+    [SerializeField] IngredientData ingredient;
+    [SerializeField] bool complete = false;
+    [SerializeField] CardData cardData;
+
     public IngredientSetting(IngredientData ingredient, bool complete)
     {
-        this.ingredient = ingredient;
-        this.complete = complete;
+        this.Ingredient = ingredient;
+        this.Complete = complete;
     }
+
+    public CardData CardData { get => cardData; set => cardData = value; }
+    public bool Complete { get => complete; set => complete = value; }
+    public IngredientData Ingredient { get => ingredient; set => ingredient = value; }
 }

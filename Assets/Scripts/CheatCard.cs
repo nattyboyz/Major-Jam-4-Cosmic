@@ -47,10 +47,10 @@ public class CheatCard : Dragable
         rectTransform.anchoredPosition = originalPosition;
     }
 
-    //public override void OnEndDrag(PointerEventData eventData)
-    //{
-    //    base.OnEndDrag(eventData);
-    //    transform.position = originalPosition.position;
-    //}
+    public override void OnEndDrag(PointerEventData eventData)
+    {
+        base.OnEndDrag(eventData);
+        ResetPosition();
+    }
 
 }

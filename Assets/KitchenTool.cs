@@ -50,7 +50,7 @@ public class KitchenTool : DragOnSpot, IPointerClickHandler
         if (dragable is Card)
         {
             var card = dragable as Card;
-            if (processMenu.TryGetValue(card.ingredientData, out var pack))
+            if (processMenu.TryGetValue(card.cardData.ingredient, out var pack))
             {
                 focus_img.gameObject.SetActive(true);
             }
@@ -69,9 +69,9 @@ public class KitchenTool : DragOnSpot, IPointerClickHandler
         {
             Debug.Log("Execute processing normal card");
             Card card = dragableObject as Card;
-            if (processMenu.TryGetValue(card.ingredientData, out var pack))
+            if (processMenu.TryGetValue(card.cardData.ingredient, out var pack))
             {
-                processingIngredient = card.ingredientData;
+                processingIngredient = card.cardData.ingredient;
                 processing = true;
                 processbar.gameObject.SetActive(true);
                 onExecuteComplete?.Invoke(card);

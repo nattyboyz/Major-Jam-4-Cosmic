@@ -244,7 +244,9 @@ MonoBehaviour:
   icon: {fileID: 949882280382366377}
   bg: {fileID: 949882280034483612}
   check: {fileID: 3800834353199838637}
-  passIcon: {fileID: 21300000, guid: bba68266f06cc89499a4ba2edd1f68cf, type: 3}
+  passIcon: {fileID: 21300000, guid: e313014c11958a24bbc54a289689a34c, type: 3}
+  doubtIcon: {fileID: 21300000, guid: 49adb233e9dbadc4dbe54fa35793a3f4, type: 3}
+  greatIcon: {fileID: 21300000, guid: 46c0355074ee3b644baf75bace1d6215, type: 3}
 --- !u!1 &1403968172714074758
 GameObject:
   m_ObjectHideFlags: 0
@@ -310,9 +312,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: bba68266f06cc89499a4ba2edd1f68cf, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e313014c11958a24bbc54a289689a34c, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1

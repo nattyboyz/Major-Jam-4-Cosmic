@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] int customerPerWave = 3;
     bool isStart = false;
+    int currentCustomerIndex = 0;
 
     [Header("Cheat cards")]
     [SerializeField] CheatCard ratCard;
@@ -44,6 +45,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] ShopOpenUI shopOpenUI;
     [SerializeField] ResultUI resultUI;
     [SerializeField] MoneyUI moneyUI;
+    [SerializeField] PenaltyUI penaltyUI;
+    [SerializeField] CustomerLeftUI customerLeftUI;
 
     private void Awake()
     {
@@ -72,7 +75,7 @@ public class GameManager : MonoBehaviour
     void StartGame()
     {
         InitCheatCard(ratCard);
-
+        currentCustomerIndex = 0;
         shopOpenUI.ActiveOpenButton(false);
         shopOpenUI.ActiveCloseButton(true);
         for (int i = 0; i < maxHand; i++)
@@ -92,9 +95,10 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < requests.Count; i++)
         {
-            requests[i].Init(allRequests[0]);
-            allRequests.RemoveAt(0);
-            requests[i].Show();
+            //requests[i].Init(allRequests[0]);
+            //allRequests.RemoveAt(0);
+            //requests[i].Show();
+            NextCustomer(requests[i]);
         }
     }
 
@@ -158,7 +162,6 @@ public class GameManager : MonoBehaviour
     //    };
     //}
 
-
     void InitKitchenTool(KitchenTool tool)
     {
         tool.onEnterDrag += (spot) => {
@@ -168,7 +171,7 @@ public class GameManager : MonoBehaviour
                 if (currentDragable is Card)
                 {
                     var card = currentDragable as Card;
-                    if (tool.processMenu.TryGetValue(card.ingredientData, out var pack))
+                    if (tool.processMenu.TryGetValue(card.cardData.ingredient, out var pack))
                     {
                         tool.processIngredient.Set(pack.data, pack.amount);
                         tool.processIngredient.gameObject.SetActive(true);
@@ -276,13 +279,40 @@ public class GameManager : MonoBehaviour
             if (dragableObject is Card)
             {
                 Card card = dragableObject as Card;
-                Debug.Log("<color=green>Use card</color> " + card.name + " [ " + card.ingredientData.Name + "] on " + r.name);
+                Debug.Log("<color=green>Use card</color> " + card.name + " [ " + card.cardData.ingredient.Name + "] on " + r.name);
                 hand.Remove(card);
                 ConsumeCard(card);
 
                 if (r.IsComplete())
                 {
-                    r.CompleteRequest();
+                    float hp = 100;
+                    foreach(var setting in r.Settings)
+                    {
+                        if (setting.CardData == null) Debug.LogError("Card data is NULL");
+                        if (setting.CardData.modifiers != null)
+                        {
+                            foreach (var modifier in setting.CardData.modifiers)
+                            {
+                                if (hp + modifier.modifier < 0) hp = 0;
+                                else if (hp + modifier.modifier > 100) hp = 100;
+                                else hp += modifier.modifier;
+                            }
+                        }
+                    }
+
+                    float n = Random.Range(0f, 100f);
+                    if (n < hp)
+                    {
+                        Debug.Log("Pass");
+                        r.CompleteRequest();
+                    }
+                    else
+                    {
+                        Debug.Log("Fail");
+                        r.FailRequest();
+                    }
+
+                    Debug.Log("This food have percent chance to pass = " + n + " from " + + hp);
                 }
             }
             //else if (dragableObject is CheatCard)
@@ -310,6 +340,8 @@ public class GameManager : MonoBehaviour
         {
             FailRequest(r);         
         };
+
+
     }
 
     void CompleteRequest(RequestBoard requestBoard)
@@ -390,7 +422,7 @@ public class GameManager : MonoBehaviour
             {
                 if (TryDrawCard(out var newCard))
                 {
-                    Debug.Log("Draw " + newCard.ingredientData.Name);
+                    Debug.Log("Draw " + newCard.cardData.ingredient.Name);
                 }
                 else
                 {
@@ -403,7 +435,6 @@ public class GameManager : MonoBehaviour
 
     public void AddToHand(Card card)
     {
-
         //card.onDragRayUpdate += (g) =>
         //{
         //    if(g.TryGetComponent< DragOnSpot >(out var spot))
@@ -420,9 +451,7 @@ public class GameManager : MonoBehaviour
             {
                 TryPlayCard(card, dragOnSpot);
             }
-
         };
-
         hand.Add(card);
     }
 
@@ -470,25 +499,43 @@ public class GameManager : MonoBehaviour
 
     void NextCustomer(RequestBoard requestBoard)
     {
-        Debug.Log("Call Next Customer");
+       // Debug.Log("Call Next Customer");
 
         if (allRequests.Count == 0)
         {
             if (IsLevelComplete()) CompleteLevel();
             return;
         }
+        //customerLeftUI.Fade(currentCustomerIndex);
+        //currentCustomerIndex++;
+        //requestBoard.Init(allRequests[0]);
+        //requestBoard.Show();
+        //allRequests.RemoveAt(0);
 
+        StartCoroutine(NextCustomer(requestBoard, Random.Range(1, 5)));
+    }
+
+    IEnumerator NextCustomer(RequestBoard requestBoard, float delay)
+    {
         requestBoard.Init(allRequests[0]);
-        requestBoard.Show();
         allRequests.RemoveAt(0);
+
+        yield return new WaitForSeconds(delay);
+
+        Debug.Log("Call Next Customer");
+        customerLeftUI.Fade(currentCustomerIndex);
+        currentCustomerIndex++;
+        requestBoard.Show();
+
     }
 
     public void CreateAllRequest()
     {
         int maxWave = levelData.max_wave;
         int total = maxWave * customerPerWave;
+        customerLeftUI.SetStartCustomer(total);
 
-        for(int i = 0; i < total; i++)
+        for (int i = 0; i < total; i++)
         {
             var index = Random.Range(0, levelData.menus.Count - 1);
             RequestData requestData = new RequestData();

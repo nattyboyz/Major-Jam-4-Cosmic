@@ -27,7 +27,6 @@ public class Dragable : MonoBehaviour, IBeginDragHandler,IDragHandler,IEndDragHa
     {
         var pos = Camera.main.ScreenToWorldPoint(eventData.position);
         pos.Set(pos.x, pos.y, this.transform.position.z);
-         Debug.Log(pos.z);
 
         this.gameObject.transform.position = pos + deltaDragPos;
         var result = eventData.pointerCurrentRaycast;
