@@ -25,7 +25,7 @@ public class CheatCardCarbinetUI : BaseUI
 
     public void Btn_Open()
     {
-        if (isShow) Hide();
+        if (IsShow) Hide();
         else Show();
     }
 

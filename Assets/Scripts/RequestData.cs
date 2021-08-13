@@ -14,6 +14,7 @@ public class RequestData
     [SerializeField] int penalty = 1;
     [SerializeField] int price = 0;
     [SerializeField] List<IngredientData> extra_ingredients = new List<IngredientData>();
+    [SerializeField] bool showCustomerType;
 
     public CustomerData CustomerData { get => customerData; set => customerData = value; }
     public MenuData Menu { get => menu; set => menu = value; }
@@ -21,4 +22,5 @@ public class RequestData
     public int Penalty { get => penalty; set => penalty = value; }
     public int Price { get => price; set => price = value; }
     public List<IngredientData> Extra_ingredients { get => extra_ingredients; set => extra_ingredients = value; }
+    public bool ShowCustomerType { get => showCustomerType; set => showCustomerType = value; }
 }

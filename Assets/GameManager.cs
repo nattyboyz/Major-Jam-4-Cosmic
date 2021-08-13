@@ -404,6 +404,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void ExposeIdentity(RequestBoard requestBoard)
+    {
+        requestBoard.ExposeIdentity();
+    }
+
     #endregion
 
     #region CardPlay

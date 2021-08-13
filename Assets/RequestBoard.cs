@@ -118,7 +118,14 @@ public class RequestBoard : DragOnSpot
             Settings.Add(CreateIngredientSetting(ingredient));
         }
 
-        customerPotrait.SetCharacter(requestData.CustomerData.Sprite);
+        customerPotrait.SetCharacter(requestData.CustomerData);
+        customerPotrait.onClick = () => {
+            if (requestData.ShowCustomerType) customerPotrait.ShowType(requestData.CustomerData);
+            else customerPotrait.ShowNone();
+        };
+        customerPotrait.onExit = () => {
+            customerPotrait.HideType();
+        };
 
         price_txt.text = "$" +requestData.Price.ToString();
         name_txt.text = requestData.Menu.menuName;
@@ -294,6 +301,15 @@ public class RequestBoard : DragOnSpot
         yield return new WaitForSeconds(1);
         //onComplete?.Invoke();
         yield return customerPotrait.ieOut(onComplete);
+    }
+
+    #endregion
+
+    #region Customer
+
+    public void ExposeIdentity()
+    {
+        RequestData.ShowCustomerType = true; 
     }
 
     #endregion

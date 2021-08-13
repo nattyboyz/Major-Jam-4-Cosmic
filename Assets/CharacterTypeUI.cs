@@ -1,20 +1,40 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+using System;
 
-public class BaseUI : MonoBehaviour
+public class CharacterTypeUI : MonoBehaviour
 {
-    [SerializeField] protected Canvas mainCanvas;
     [Header("Animation")]
     [SerializeField] protected Animator animator;
     [SerializeField] protected AnimationClip in_clip;
     [SerializeField] protected AnimationClip out_clip;
-    protected bool inProcess = false;
-    protected bool isShow = false;
 
-    public bool IsShow { get => isShow;}
-    public bool InProcess { get => inProcess;}
+    [SerializeField] Image icon;
+    [SerializeField] Image lineImg;
+    [SerializeField] TextMeshProUGUI characterTxt;
+
+    public void Show(string name)
+    {
+        icon.gameObject.SetActive(false);
+        icon.sprite = null;
+        lineImg.color = Color.white;
+        characterTxt.color = Color.white;
+        characterTxt.text = name;
+        Show();
+    }
+
+    public void Show(CustomerType customerType)
+    {
+        icon.gameObject.SetActive(true);
+        icon.sprite = customerType.Icon;
+        lineImg.color = customerType.Color;
+        characterTxt.color = customerType.Color;
+        characterTxt.text = customerType.Name;
+        Show();
+    }
 
     public virtual void Show(Action onComplete = null)
     {
@@ -28,38 +48,26 @@ public class BaseUI : MonoBehaviour
 
     public virtual IEnumerator ieShow(Action onComplete = null)
     {
-        if (!InProcess)
-        {
-            inProcess = true;
-            if (mainCanvas) mainCanvas.enabled = true;
             if (animator && in_clip)
             {
                 animator.SetTrigger("in");
                 yield return new WaitForSeconds(in_clip.length);
             }
             else yield return null;
-            onComplete?.Invoke();
-            isShow = true;
-            inProcess = false;
-        }
+            onComplete?.Invoke();   
     }
 
     public virtual IEnumerator ieHide(Action onComplete = null)
     {
-        if (!InProcess)
-        {
-            inProcess = true;
             if (animator && out_clip)
             {
                 animator.SetTrigger("out");
                 yield return new WaitForSeconds(out_clip.length);
             }
             else yield return null;
-            if (mainCanvas) mainCanvas.enabled = false;
+
             onComplete?.Invoke();
-            isShow = false;
-            inProcess = false;
-        }
     }
+
 
 }
