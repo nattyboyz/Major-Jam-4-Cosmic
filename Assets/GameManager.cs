@@ -5,16 +5,22 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+
     public static PlayerData playerData = new PlayerData();
+    [SerializeField] PlayerDataScriptableObject playerDataScriptableObject;
     bool isPlaying = false;
 
     [Header("Card")]
-
     [SerializeField] Card baseCard;
     [SerializeField] Hand hand;
-    [SerializeField] List<IngredientData> deck;
-    [SerializeField] List<IngredientData> shrine;
+    [SerializeField] List<CardData> deck;
+    //[SerializeField] List<IngredientData> shrine;
     [SerializeField] int maxHand = 5;
+
+    [Header("Cheat Card")]
+    [SerializeField] CheatCard baseCheatCard;
+    [SerializeField] CheatCardCarbinetUI cheatCardCabinet;
+    [SerializeField] List<CheatCard> cheatCards;
 
     [ReadOnly] [SerializeField] Dragable currentDragable;
     [ReadOnly] [SerializeField] DragOnSpot dragOnSpot;
@@ -50,13 +56,15 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        if (playerDataScriptableObject != null) playerData = new PlayerData(playerDataScriptableObject);
         shopOpenUI.onOpen += StartGame;
         shopOpenUI.onClose += Close;
     }
 
     private void Start()
     {
-        deck.Shuffle();
+        InitCheatCards();
+        InitDeck();
         penaltyUI.SetStar(playerData.star);
         CreateAllRequest();
         InitKitchenTool(pan);
@@ -74,7 +82,59 @@ public class GameManager : MonoBehaviour
 
     }
 
-   
+    void InitDeck()
+    {
+        deck = new List<CardData>();
+
+        foreach(KeyValuePair<IngredientData,int> kvp in playerData.ingredients)
+        {
+            for(int i = 0; i < kvp.Value; i++)
+            {
+                CardData cardData = new CardData(kvp.Key, kvp.Key.Modifiers);
+                deck.Add(cardData);
+            }
+        }
+
+        deck.Shuffle();
+    }
+
+    void InitCheatCards()
+    {
+        foreach(var kvp in playerData.cheats)
+        {
+            CheatCard cheatCard = Instantiate(baseCheatCard);
+            if (cheatCardCabinet.TryAddCheatCard(cheatCard))
+            {
+                CardData cardData = new CardData(kvp.Key, kvp.Key.Modifiers);
+                cheatCard.Init(cardData);
+                cheatCard.onStartDrag += (c) =>
+                {
+                    currentDragable = cheatCard;
+                };
+
+                cheatCard.onEndDrag += (c) =>
+                {
+                    if (currentDragable == cheatCard) currentDragable = null;
+                };
+
+                cheatCard.onDragRelease += (g) =>
+                {
+                    if (dragOnSpot != null)
+                    {
+                    //Debug.Log("Execute drag release");
+                    dragOnSpot.Execute(cheatCard);
+                    }
+                };
+                cheatCards.Add(cheatCard);
+            }
+            else
+            {
+                Destroy(cheatCard.gameObject);
+            }
+        }
+
+    }
+
     void InitDiscardSpot()
     {
         discardSpot.onEnterDrag += (spot) => {
@@ -282,7 +342,7 @@ public class GameManager : MonoBehaviour
 
                     }
 
-                    Debug.Log("This food have percent chance to pass = " + n + " from " + + hp);
+                    Debug.Log("This food have percent chance to pass = " + hp + " you roll-> " + n);
                 }
             }
             //else if (dragableObject is CheatCard)
@@ -349,6 +409,24 @@ public class GameManager : MonoBehaviour
         card.onEndDrag += (c) => 
         {
             if (currentDragable == card) currentDragable = null; 
+        };
+
+        return card;
+    }
+
+    public Card CreateCard(CardData cardData)
+    {
+        Card card = Instantiate<Card>(baseCard);
+        card.Init(cardData);
+
+        card.onStartDrag += (c) =>
+        {
+            currentDragable = card;
+        };
+
+        card.onEndDrag += (c) =>
+        {
+            if (currentDragable == card) currentDragable = null;
         };
 
         return card;
@@ -447,7 +525,7 @@ public class GameManager : MonoBehaviour
 
     void StartGame()
     {
-        InitCheatCard(ratCard);
+        //InitCheatCard(ratCard);
         currentCustomerIndex = 0;
         shopOpenUI.ActiveOpenButton(false);
         shopOpenUI.ActiveCloseButton(true);
@@ -626,28 +704,6 @@ public class GameManager : MonoBehaviour
     #endregion
 
 
-    public void InitCheatCard(CheatCard cheatCard)
-    {
-        cheatCard.Init();
-        cheatCard.onStartDrag += (c) =>
-        {
-            currentDragable = cheatCard;
-        };
-
-        cheatCard.onEndDrag += (c) =>
-        {
-            if (currentDragable == cheatCard) currentDragable = null;
-        };
-
-        cheatCard.onDragRelease += (g) =>
-        {
-            if (dragOnSpot != null)
-            {
-                Debug.Log("Execute drag release");
-                dragOnSpot.Execute(cheatCard);
-            }
-
-        };
-    }
+   
 
 }

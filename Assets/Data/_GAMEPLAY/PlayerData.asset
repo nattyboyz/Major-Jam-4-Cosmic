@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfe67cef67630324db71c80d940803c0, type: 3}
+  m_Name: PlayerData
+  m_EditorClassIdentifier: 
+  money: 200
+  star: 3
+  maxStar: 5
+  ingredients:
+    m_keys:
+    - {fileID: 11400000, guid: 683fcf4febe01a346b026d20906fc9a0, type: 2}
+    - {fileID: 11400000, guid: f510d65d656f19d4eb45b4ed85ad9d10, type: 2}
+    - {fileID: 11400000, guid: 6de6880e0d7bb11439efe8e010827e23, type: 2}
+    m_values: 050000000500000005000000
+  cheats:
+    m_keys:
+    - {fileID: 11400000, guid: 5c9e2e2d77ba88e4680c4f760998cc50, type: 2}
+    - {fileID: 11400000, guid: 8a19c73b2ae5b634fa07536b528eda15, type: 2}
+    m_values: 0300000002000000

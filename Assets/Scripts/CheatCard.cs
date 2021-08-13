@@ -15,6 +15,7 @@ public class CheatCard : Dragable
     public Image headerImage;
     public Image iconImage;
     public TextMeshProUGUI cardName;
+    string key;
 
     private void Start()
     {
@@ -26,13 +27,14 @@ public class CheatCard : Dragable
 
     }
 
-    public void Init()
+    public void Init(CardData cardData)
     {
-        if (ingredientData != null)
+        if (cardData != null)
         {
-            headerImage.color = ingredientData.Color;
-            iconImage.sprite = ingredientData.Icon;
-            cardName.text = ingredientData.Name;
+            ingredientData = cardData.ingredient;
+            headerImage.color = cardData.ingredient.Color;
+            iconImage.sprite = cardData.ingredient.Icon;
+            cardName.text = cardData.ingredient.Name;
         }
     }
 
@@ -45,6 +47,11 @@ public class CheatCard : Dragable
     public void ResetPosition()
     {
         rectTransform.anchoredPosition = originalPosition;
+    }
+
+    public void CacheOriginalPosition()
+    {
+        originalPosition = rectTransform.anchoredPosition;
     }
 
     public override void OnEndDrag(PointerEventData eventData)

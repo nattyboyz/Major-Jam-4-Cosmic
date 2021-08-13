@@ -34,3 +34,10 @@ public class AnimationListDrawer : SerializableDictionaryPropertyDrawer
 { 
    // [SerializeField]
 }
+
+
+[CustomPropertyDrawer(typeof(StringCheatDataDict))]
+public class StringCheatDataDictDrawer : SerializableDictionaryPropertyDrawer{}
+[CustomPropertyDrawer(typeof(IngredientDataAmountDict))]
+public class IngredientDataAmountDictDrawer : SerializableDictionaryPropertyDrawer { }
+

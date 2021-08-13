@@ -11,6 +11,7 @@ public class IngredientData : ScriptableObject
     [SerializeField] string name;
     [Range(-100, 100)]
     [SerializeField] float qualityValue = 0;
+    [SerializeField] List<ModifierData> modifiers;
 
 
     public Color Color { get => color; }
@@ -18,4 +19,5 @@ public class IngredientData : ScriptableObject
     public string Name { get => name;}
     public string Key { get => key; }
     public float QualityValue { get => qualityValue;}
+    public List<ModifierData> Modifiers { get => modifiers;}
 }

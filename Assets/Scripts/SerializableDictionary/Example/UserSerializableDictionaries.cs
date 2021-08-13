@@ -24,3 +24,4 @@ public class MyClass
 
 [Serializable]
 public class QuaternionMyClassDictionary : SerializableDictionary<Quaternion, MyClass> {}
+
