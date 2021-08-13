@@ -34,7 +34,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] List<RequestData> failRequests;
 
     [SerializeField] int customerPerWave = 3;
-    bool isStart = false;
     int currentCustomerIndex = 0;
 
     [Header("Cheat cards")]
@@ -57,28 +56,13 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         if (playerDataScriptableObject != null) playerData = new PlayerData(playerDataScriptableObject);
-        shopOpenUI.onOpen += StartGame;
+        shopOpenUI.onOpen += Open;
         shopOpenUI.onClose += Close;
     }
 
     private void Start()
     {
-        InitCheatCards();
-        InitDeck();
-        penaltyUI.SetStar(playerData.star);
-        CreateAllRequest();
-        InitKitchenTool(pan);
-        InitKitchenTool(knife);
-        InitDiscardSpot();
-        moneyUI.UpdateText(playerData.money);
-
-        for (int i = 0; i < requests.Count; i++)
-        {
-            InitRequestBoard(requests[i]);
-            requests[i].Active(false);
-        }
-        //openShopBtn.gameObject.SetActive(true);
-        shopOpenUI.ActiveOpenButton(true);
+        LoadLevel();
 
     }
 
@@ -319,11 +303,17 @@ public class GameManager : MonoBehaviour
                     if (n < hp)
                     {
                         Debug.Log("<color=green><b>Pass</b></color>");
+                        playerData.money += r.RequestData.Menu.basePrice;
+                        moneyUI.UpdateText(playerData.money);
+                        completeRequests.Add(r.RequestData);
                         r.CompleteRequest();
                     }
                     else
                     {
                         Debug.Log("<color=red><b>Fail</b></color>");
+                        playerData.money += r.RequestData.Menu.basePrice;
+                        moneyUI.UpdateText(playerData.money);
+                        failRequests.Add(r.RequestData);
                         r.FailRequest();
 
                         //Deduct star
@@ -341,7 +331,6 @@ public class GameManager : MonoBehaviour
                         //
 
                     }
-
                     Debug.Log("This food have percent chance to pass = " + hp + " you roll-> " + n);
                 }
             }
@@ -354,11 +343,26 @@ public class GameManager : MonoBehaviour
 
         r.onExecuteFail += (Dragable dragableObject) =>
         {
+            Debug.Log("<color=red><b>Fail</b></color>");
+            playerData.money += r.RequestData.Menu.basePrice;
+            moneyUI.UpdateText(playerData.money);
+            failRequests.Add(r.RequestData);
+            r.FailRequest();
+
             if (dragableObject is Card)
             {
                 Card card = dragableObject as Card;
                 Debug.Log("<color=red>fail to use card</color> " + card.name + " on " + r.name);
             }
+        };
+
+        r.onTimeout += () => 
+        {
+            Debug.Log("<color=red><b>Timout</b></color>");
+            playerData.money += r.RequestData.Menu.basePrice;
+            moneyUI.UpdateText(playerData.money);
+            failRequests.Add(r.RequestData);
+            r.FailRequest();
         };
 
         r.onCompleteRequest += () => 
@@ -377,19 +381,27 @@ public class GameManager : MonoBehaviour
     void CompleteRequest(RequestBoard requestBoard)
     {
         Debug.Log("[GameManager] CompleteRequest");
-        completeRequests.Add(requestBoard.RequestData);
-        playerData.money += requestBoard.RequestData.Menu.basePrice;
-        moneyUI.UpdateText(playerData.money);
-        if(isPlaying) NextCustomer(requestBoard);
+        if (IsLevelComplete())
+        {
+            Close();
+        }
+        else
+        {
+            NextCustomer(requestBoard);
+        }
     }
 
     void FailRequest(RequestBoard requestBoard)
     {
         Debug.Log("[GameManager] FailRequest");
-        failRequests.Add(requestBoard.RequestData);
-        
-
-        if (isPlaying) NextCustomer(requestBoard);
+        if (IsLevelComplete())
+        {
+            Close();
+        }
+        else
+        {
+            NextCustomer(requestBoard);
+        }
     }
 
     #endregion
@@ -458,7 +470,7 @@ public class GameManager : MonoBehaviour
         else
         {
             card = null;
-            Debug.LogError("No card");
+            //Debug.LogError("No card");
             return false;
         }
     }
@@ -476,11 +488,11 @@ public class GameManager : MonoBehaviour
             {
                 if (TryDrawCard(out var newCard))
                 {
-                    Debug.Log("Draw " + newCard.cardData.ingredient.Name);
+                    //Debug.Log("[GMng][hand] Draw " + newCard.cardData.ingredient.Name);
                 }
                 else
                 {
-                    Debug.Log("<color=red>OUT OF CARD</color>");
+                    //Debug.Log("[GMng][hand] <color=red>OUT OF CARD</color>");
                     break;
                 }
             }
@@ -523,16 +535,32 @@ public class GameManager : MonoBehaviour
 
     #region Gameloop
 
+    void LoadLevel()
+    {
+        CreateAllRequest();
+        InitCheatCards();
+        InitDeck();
+        InitKitchenTool(pan);
+        InitKitchenTool(knife);
+        InitDiscardSpot();
+
+        for (int i = 0; i < requests.Count; i++)
+        {
+            InitRequestBoard(requests[i]);
+            requests[i].Active(false);
+        }
+
+        penaltyUI.SetStar(playerData.star);
+        moneyUI.UpdateText(playerData.money);
+        shopOpenUI.ActiveOpenButton(true);
+    }
+
     void StartGame()
     {
-        //InitCheatCard(ratCard);
         currentCustomerIndex = 0;
         shopOpenUI.ActiveOpenButton(false);
         shopOpenUI.ActiveCloseButton(true);
-        for (int i = 0; i < maxHand; i++)
-        {
-            DrawCard();
-        }
+        for (int i = 0; i < maxHand; i++){DrawCard();}
 
         customerLeftUI.Show();
         penaltyUI.Show();
@@ -574,37 +602,32 @@ public class GameManager : MonoBehaviour
 
     bool IsLevelComplete()
     {
-        int maxWave = levelData.Customer;
-        int total = maxWave * customerPerWave;
-
+        int total = levelData.Customer;
         if (completeRequests.Count + failRequests.Count >= total)
         {
             return true;
         }
-
        return false;
     }
 
     void NextCustomer(RequestBoard requestBoard)
     {
-        if (allRequests.Count == 0)
+        if (allRequests.Count > 0)
         {
-            if (IsLevelComplete()) CompleteLevel();
-            return;
+            StartCoroutine(NextCustomer(requestBoard, currentCustomerIndex, Random.Range(1, 5)));
+            currentCustomerIndex++;
         }
-        StartCoroutine(NextCustomer(requestBoard, Random.Range(1, 5)));
     }
 
-    IEnumerator NextCustomer(RequestBoard requestBoard, float delay)
+    IEnumerator NextCustomer(RequestBoard requestBoard,int index, float delay)
     {
         requestBoard.Init(allRequests[0]);
         allRequests.RemoveAt(0);
 
         yield return new WaitForSeconds(delay);
 
-        Debug.Log("Call Next Customer");
-        customerLeftUI.Fade(currentCustomerIndex);
-        currentCustomerIndex++;
+        Debug.Log("Call Next Customer " + index);       
+        customerLeftUI.Fade(index);
         requestBoard.Show();
 
     }
@@ -623,7 +646,7 @@ public class GameManager : MonoBehaviour
             allRequests.Add(levelData.FixedRequests[i]);
         }
 
-        for (int i = 0; i < total; i++)
+        for (int i = 0; i < customerLeft; i++)
         {
             //Random menu
             var menuIndex = Random.Range(0, levelData.Menus.Count);
@@ -641,17 +664,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void CompleteLevel()
-    {
-        Debug.Log("<color=green><b>CompleteLevel</b></color>");
-    }
-
     void Close()
     {
         Debug.Log("Close");
         shopOpenUI.ActiveCloseButton(false);
         LevelEnd();
     }
+
+    void Open()
+    {
+        StartGame();
+    }
+
 
     void CalculateResult()
     {

@@ -45,6 +45,7 @@ public class RequestBoard : DragOnSpot
     public Action onFailRequest;
     public Action<Dragable> onExecuteComplete;
     public Action<Dragable> onExecuteFail;
+    public Action onTimeout;
 
     [SerializeField] Processbar processbar;
     [SerializeField] bool isProcessing = false;
@@ -84,6 +85,7 @@ public class RequestBoard : DragOnSpot
 
     void TimesUp()
     {
+        onTimeout?.Invoke();
         RequestTimeout();
     }
 
