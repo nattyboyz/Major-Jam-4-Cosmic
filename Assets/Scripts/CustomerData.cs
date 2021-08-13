@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public enum CustomerType { Normal, MeatLover,Vegan,Rusher,Bypasser,DeliveryGuy,Gentry,Inspector }
+public enum CustomerType { Normal, MeatLover,Vegan,Rusher,Bypasser,DeliveryGuy,Celebrity,Inspector }
 
 [CreateAssetMenu(fileName = "CustomerData", menuName = "ScriptableObjects/CustomerData", order = 1)]
 public class CustomerData: ScriptableObject

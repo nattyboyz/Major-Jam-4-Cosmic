@@ -643,7 +643,7 @@ public class GameManager : MonoBehaviour
 
     void CompleteLevel()
     {
-        Debug.Log("CompleteLevel");
+        Debug.Log("<color=green><b>CompleteLevel</b></color>");
     }
 
     void Close()
