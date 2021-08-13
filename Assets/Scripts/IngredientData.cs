@@ -9,7 +9,6 @@ public class IngredientData : ScriptableObject
     [SerializeField] Color color;
     [SerializeField] Sprite icon;
     [SerializeField] string name;
-    [SerializeField] string[] modifiers;
     [Range(-100, 100)]
     [SerializeField] float qualityValue = 0;
 

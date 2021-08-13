@@ -486,10 +486,12 @@ MonoBehaviour:
   price_img: {fileID: 1247066914312260444}
   price_txt: {fileID: 308612574368140314}
   requestData:
-    customerType: 0
+    customerData: {fileID: 0}
     menu: {fileID: 11400000, guid: 1bf36febcc91efe448a8041d080154f1, type: 2}
     time: 20
     penalty: 0
+    price: 0
+    extra_ingredients: []
   settings: []
   ingredientParent: {fileID: 4584978527689147321}
   animator: {fileID: 4923680689854047084}

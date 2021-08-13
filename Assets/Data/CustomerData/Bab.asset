@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4ca922cc6a0ecd54688adea796a11f38, type: 3}
-  m_Name: Bob
+  m_Name: Bab
   m_EditorClassIdentifier: 
   customerType: 0
-  name: Bob
-  description: Bob is normal guy around this area
-  color: {r: 0.9098039, g: 0.654902, b: 0.043137256, a: 1}
-  sprite: {fileID: 21300000, guid: adcedecf57ece674a9789e7350c5a554, type: 3}
+  name: Bab
+  description: Bab BabBabBabBabBab
+  color: {r: 0.745283, g: 0.13710396, b: 0.4378489, a: 1}
+  sprite: {fileID: 21300000, guid: 9c11b5c7e5b35e04d8030a72018e8fbc, type: 3}
   timeModifier:
     min: 5
     max: 10

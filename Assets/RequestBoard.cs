@@ -10,6 +10,8 @@ public enum CustomerReaction { Normal, Enjoy, Mad, Exciting}
 
 public class RequestBoard : DragOnSpot
 {
+    [SerializeField] CustomerPortrait customerPotrait;
+
     [Header("UI")]
     [SerializeField] CanvasGroup canvasGroup;
     [SerializeField] IngredientIcon baseIngredientIcon;
@@ -106,20 +108,32 @@ public class RequestBoard : DragOnSpot
 
         foreach (var ingredient in requestData.Menu.ingredients)
         {
-            IngredientSetting setting = new IngredientSetting(ingredient, false);
-            Settings.Add(setting);
-
-            var icon = Instantiate<IngredientIcon>(baseIngredientIcon);
-            icon.Set(setting.Ingredient);
-            icon.transform.SetParent(ingredientParent);
-            icon.transform.localScale = new Vector3(1, 1, 1);
-            menuImage.sprite = requestData.Menu.sprite;
-            ingredientIcons.Add(setting, icon);
+            Settings.Add(CreateIngredientSetting(ingredient));
         }
 
+        foreach(var ingredient in requestData.Extra_ingredients)
+        {
+            Settings.Add(CreateIngredientSetting(ingredient));
+        }
 
-        price_txt.text = "$" +requestData.Menu.basePrice.ToString();
+        customerPotrait.SetCharacter(requestData.CustomerData.Sprite);
+
+        price_txt.text = "$" +requestData.Price.ToString();
         name_txt.text = requestData.Menu.menuName;
+    }
+
+    IngredientSetting CreateIngredientSetting(IngredientData ingredient)
+    {
+        IngredientSetting setting = new IngredientSetting(ingredient, false);
+        Settings.Add(setting);
+
+        var icon = Instantiate<IngredientIcon>(baseIngredientIcon);
+        icon.Set(setting.Ingredient);
+        icon.transform.SetParent(ingredientParent);
+        icon.transform.localScale = new Vector3(1, 1, 1);
+        menuImage.sprite = requestData.Menu.sprite;
+        ingredientIcons.Add(setting, icon);
+        return setting;
     }
 
     public override void Focus(Dragable dragable)
@@ -259,6 +273,8 @@ public class RequestBoard : DragOnSpot
 
     IEnumerator ieShow(Action onComplete = null)
     {
+        yield return customerPotrait.ieIn();
+        yield return new WaitForSeconds(1);
         canvasGroup.alpha = 1;
         animator.SetTrigger("in");
         yield return new WaitForSeconds(in_clip.length);
@@ -273,7 +289,9 @@ public class RequestBoard : DragOnSpot
         animator.SetTrigger("out");
         yield return new WaitForSeconds(out_clip.length);
         canvasGroup.alpha = 0;
-        onComplete?.Invoke();
+        yield return new WaitForSeconds(1);
+        //onComplete?.Invoke();
+        yield return customerPotrait.ieOut(onComplete);
     }
 
     #endregion

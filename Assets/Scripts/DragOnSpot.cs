@@ -17,7 +17,7 @@ public class DragOnSpot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     {
         if (eventData.dragging)
         {
-            Debug.Log(gameObject.name + " Enter while dragging ");
+           // Debug.Log(gameObject.name + " Enter while dragging ");
             onEnterDrag?.Invoke(this);
         }
     }
@@ -26,7 +26,7 @@ public class DragOnSpot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     {
         if (eventData.dragging)
         {
-            Debug.Log(gameObject.name + " Exit while dragging ");
+           // Debug.Log(gameObject.name + " Exit while dragging ");
             onExitDrag?.Invoke(this);
         }
     }
@@ -34,18 +34,18 @@ public class DragOnSpot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public virtual void Focus(Dragable dragable)
     {
-        Debug.Log("Focus");
+       // Debug.Log("Focus");
     }
 
     public virtual void UnFocus()
     {
-        Debug.Log("UnFocus");
+       // Debug.Log("UnFocus");
     }
 
     public virtual void Execute(Dragable dragable)
     {
         onExecute?.Invoke(dragable);
-        Debug.Log("Execute");
+       // Debug.Log("Execute");
     }
 
     //public virtual void ExecuteFail(Card card)

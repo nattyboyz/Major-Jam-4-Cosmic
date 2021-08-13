@@ -29,7 +29,17 @@ MonoBehaviour:
   - {fileID: 11400000, guid: cf95893f1e5c9e848a001b1ad9afcde9, type: 2}
   inspector_amount: 0
   meat_lover_amount: 0
-  max_wave: 3
+  customer: 6
   goalMoney: 100
-  possibleCustomers: []
-  fixedCustomer: []
+  possibleCustomers:
+  - {fileID: 11400000, guid: 533bbf31a767c1c4eb428bf5b8977c8c, type: 2}
+  - {fileID: 11400000, guid: 7e7eafdc25cd25543b6c7d760ade58d0, type: 2}
+  - {fileID: 11400000, guid: 8b05a4ec51cdfe240ab6f1d4abb9bebe, type: 2}
+  fixedRequests:
+  - customerData: {fileID: 11400000, guid: 7e7eafdc25cd25543b6c7d760ade58d0, type: 2}
+    menu: {fileID: 11400000, guid: d7de569243ae05b41806bfb3a8093c1e, type: 2}
+    time: 20
+    penalty: 0
+    price: 1000
+    extra_ingredients:
+    - {fileID: 11400000, guid: 1134af86f99b921439e36b1af7ea73c9, type: 2}

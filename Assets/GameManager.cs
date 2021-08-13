@@ -297,7 +297,7 @@ public class GameManager : MonoBehaviour
             if (dragableObject is Card)
             {
                 Card card = dragableObject as Card;
-                Debug.Log("<color=red>fail to use card</color> " + card.name + "on " + r.name);
+                Debug.Log("<color=red>fail to use card</color> " + card.name + " on " + r.name);
             }
         };
 
@@ -474,10 +474,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
     public void AddRandomCustomer()
     {
-        var index = Random.Range(0, levelData.Menus.Count - 1);
+        var index = Random.Range(0, levelData.Menus.Count);
         RequestData requestData = new RequestData();
         requestData.Menu = levelData.Menus[index];
 
@@ -497,7 +496,7 @@ public class GameManager : MonoBehaviour
 
     bool IsLevelComplete()
     {
-        int maxWave = levelData.Max_wave;
+        int maxWave = levelData.Customer;
         int total = maxWave * customerPerWave;
 
         if (completeRequests.Count + failRequests.Count >= total)
@@ -510,19 +509,11 @@ public class GameManager : MonoBehaviour
 
     void NextCustomer(RequestBoard requestBoard)
     {
-       // Debug.Log("Call Next Customer");
-
         if (allRequests.Count == 0)
         {
             if (IsLevelComplete()) CompleteLevel();
             return;
         }
-        //customerLeftUI.Fade(currentCustomerIndex);
-        //currentCustomerIndex++;
-        //requestBoard.Init(allRequests[0]);
-        //requestBoard.Show();
-        //allRequests.RemoveAt(0);
-
         StartCoroutine(NextCustomer(requestBoard, Random.Range(1, 5)));
     }
 
@@ -542,15 +533,31 @@ public class GameManager : MonoBehaviour
 
     public void CreateAllRequest()
     {
-        int maxWave = levelData.Max_wave;
-        int total = maxWave * customerPerWave;
+        int total = levelData.Customer;
+        int fixedCustomerAmount = levelData.FixedRequests.Count;
+        if (fixedCustomerAmount > total) fixedCustomerAmount = total;
+        int customerLeft = total - fixedCustomerAmount;
+
         customerLeftUI.SetStartCustomer(total);
+
+        for (int i = 0; i < fixedCustomerAmount;i++)
+        {
+            allRequests.Add(levelData.FixedRequests[i]);
+        }
 
         for (int i = 0; i < total; i++)
         {
-            var index = Random.Range(0, levelData.Menus.Count - 1);
+            //Random menu
+            var menuIndex = Random.Range(0, levelData.Menus.Count);
+            var customerIndex = Random.Range(0, levelData.PossibleCustomers.Count);
+            var menu = levelData.Menus[menuIndex];
+            var customer = levelData.PossibleCustomers[customerIndex];
+            //Create request data
             RequestData requestData = new RequestData();
-            requestData.Menu = levelData.Menus[index];
+            requestData.CustomerData = customer;
+            requestData.Menu = menu;
+            requestData.Time = menu.baseTime + customer.TimeModifier.GetRandomTime();
+            requestData.Price = menu.basePrice;
 
             allRequests.Add(requestData);
         }
