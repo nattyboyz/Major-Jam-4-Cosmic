@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3841510683999968515}
   - component: {fileID: 8757983296549553529}
   m_Layer: 5
-  m_Name: Image (2)
+  m_Name: bg_goal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -187,7 +187,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -139.1, y: -78.2}
+  m_AnchoredPosition: {x: -139.1, y: -78.20001}
   m_SizeDelta: {x: 262.5, y: 140.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &500449978710653415
@@ -202,7 +202,7 @@ GameObject:
   - component: {fileID: 500449978710653412}
   - component: {fileID: 500449978710653413}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: text_money
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -224,7 +224,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 15.2400055, y: 18.4}
+  m_AnchoredPosition: {x: 15.2400055, y: 18.400002}
   m_SizeDelta: {x: -30.49, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &500449978710653412
@@ -336,7 +336,7 @@ GameObject:
   - component: {fileID: 500449978872623089}
   - component: {fileID: 500449978872623090}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: bg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -382,7 +382,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3517711, g: 0.51484424, b: 0.8773585, a: 1}
+  m_Color: {r: 0.18823531, g: 0.18823531, b: 0.18823531, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -514,10 +514,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCanvas: {fileID: 500449979916782838}
-  moneyTxt: {fileID: 500449978710653413}
   animator: {fileID: 500449979916782836}
   in_clip: {fileID: 7400000, guid: 79c2475825fa9854eab724af5e7636f3, type: 2}
   out_clip: {fileID: 7400000, guid: 7c13faed3f2fc5344aeb3a95e3fbd49f, type: 2}
+  moneyTxt: {fileID: 500449978710653413}
 --- !u!95 &500449979916782836
 Animator:
   serializedVersion: 3
@@ -549,7 +549,7 @@ GameObject:
   - component: {fileID: 1051402679610903276}
   - component: {fileID: 3080445247632420503}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: text_goal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -571,7 +571,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 21.9, y: 23.3}
+  m_AnchoredPosition: {x: 24.1, y: 23.3}
   m_SizeDelta: {x: 279.51, y: 53.17}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1051402679610903276
@@ -629,8 +629,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 38
-  m_fontSizeBase: 38
+  m_fontSize: 32
+  m_fontSizeBase: 32
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
