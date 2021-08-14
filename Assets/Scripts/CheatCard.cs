@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System;
 
 public class CheatCard : Dragable
 {
@@ -15,16 +16,13 @@ public class CheatCard : Dragable
     public Image headerImage;
     public Image iconImage;
     public TextMeshProUGUI cardName;
-    string key;
+    public int amountLeft = 0;
+    public Action<int> onSetAmount;
+   
 
     private void Start()
     {
         originalPosition = rectTransform.anchoredPosition;
-    }
-
-    public void Deduct()
-    {
-
     }
 
     public void Init(CardData cardData)
@@ -60,4 +58,8 @@ public class CheatCard : Dragable
         ResetPosition();
     }
 
+    public void SetAmount(int amount)
+    {
+        onSetAmount?.Invoke(amount);
+    }
 }

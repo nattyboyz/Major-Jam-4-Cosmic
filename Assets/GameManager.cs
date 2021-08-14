@@ -15,7 +15,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] Card baseCard;
     [SerializeField] Hand hand;
     [SerializeField] List<CardData> deck;
-    //[SerializeField] List<IngredientData> shrine;
     [SerializeField] int maxHand = 5;
 
 
@@ -94,6 +93,7 @@ public class GameManager : MonoBehaviour
         InitDiscardSpot();
         InitKitchenTool(pan);
         InitKitchenTool(knife);
+
     }
 
     void BuyIngredient(CardBuySlotUI cardBuySlot)
@@ -198,8 +198,21 @@ public class GameManager : MonoBehaviour
                 {
                     if (dragOnSpot != null)
                     {
-                    //Debug.Log("Execute drag release");
-                    dragOnSpot.Execute(cheatCard);
+                        if (playerData.cheats.TryGetValue(cheatCard.ingredientData, out var amount) && amount>0)
+                        {
+                            playerData.cheats[cheatCard.ingredientData] -= 1;
+                            cheatCard.SetAmount(playerData.cheats[cheatCard.ingredientData]);
+                            dragOnSpot.Execute(cheatCard);
+                            cheatCard.ResetPosition();
+                            cheatCard.Active(true);
+                        }
+                        else
+                        {
+                            dragOnSpot.UnFocus();
+                            cheatCard.ResetPosition();
+                            cheatCard.Active(true);
+                            Debug.LogError("Not enough cheat item or not equip");
+                        }
                     }
                 };
                 cheatCards.Add(cheatCard);
@@ -315,10 +328,9 @@ public class GameManager : MonoBehaviour
         tool.onExecuteCheatComplete += (CheatCard card) =>
         {
             tool.UnFocus();
-            card.Deduct();
-            card.ResetPosition();
-            card.Active(true);
-           // Debug.Log("Execute cheat card complete on TOOL");
+            //card.ResetPosition();
+            //card.Active(true);
+            // Debug.Log("Execute cheat card complete on TOOL");
         };
 
         tool.onProcessComplete += (Pack pack) => 
@@ -461,6 +473,7 @@ public class GameManager : MonoBehaviour
         //    //FailRequest(r);         
         //};
     }
+
 
     #region Request Board
 
@@ -846,8 +859,5 @@ public class GameManager : MonoBehaviour
     }
 
     #endregion
-
-
-   
 
 }
