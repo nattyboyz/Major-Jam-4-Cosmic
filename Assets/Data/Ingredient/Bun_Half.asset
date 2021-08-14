@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3fc826adb2f4524dae358d757e09d9f, type: 3}
   m_Name: Bun_Half
   m_EditorClassIdentifier: 
-  key: bun_half
+  key: bun
   color: {r: 0.8509804, g: 0.5596526, b: 0.2941177, a: 1}
   icon: {fileID: 21300000, guid: 64a9a3afd2bcf8147a8e237d6f9a30c5, type: 3}
   name: 1/2 Bun
