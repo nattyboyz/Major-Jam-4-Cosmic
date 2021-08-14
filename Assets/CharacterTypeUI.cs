@@ -15,9 +15,11 @@ public class CharacterTypeUI : MonoBehaviour
     [SerializeField] Image icon;
     [SerializeField] Image lineImg;
     [SerializeField] TextMeshProUGUI characterTxt;
+    public bool isShow = false;
 
     public void Show(string name)
     {
+     
         icon.gameObject.SetActive(false);
         icon.sprite = null;
         lineImg.color = Color.white;
@@ -48,7 +50,8 @@ public class CharacterTypeUI : MonoBehaviour
 
     public virtual IEnumerator ieShow(Action onComplete = null)
     {
-            if (animator && in_clip)
+        isShow = true;
+        if (animator && in_clip)
             {
                 animator.SetTrigger("in");
                 yield return new WaitForSeconds(in_clip.length);
@@ -59,7 +62,8 @@ public class CharacterTypeUI : MonoBehaviour
 
     public virtual IEnumerator ieHide(Action onComplete = null)
     {
-            if (animator && out_clip)
+        isShow = false;
+        if (animator && out_clip)
             {
                 animator.SetTrigger("out");
                 yield return new WaitForSeconds(out_clip.length);
@@ -68,6 +72,8 @@ public class CharacterTypeUI : MonoBehaviour
 
             onComplete?.Invoke();
     }
+
+    
 
 
 }

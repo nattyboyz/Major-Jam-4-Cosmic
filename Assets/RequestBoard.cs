@@ -54,6 +54,11 @@ public class RequestBoard : DragOnSpot
     public RequestData RequestData { get => requestData;}
     public List<IngredientSetting> Settings { get => settings;}
 
+    [Header("Money Float")]
+    [SerializeField] float moneyFloatTime = 2;
+    [SerializeField] float moneyFloatSpeed = 4;
+
+
     private void Start()
     {
         UnFocus();
@@ -119,7 +124,7 @@ public class RequestBoard : DragOnSpot
         }
 
         customerPotrait.SetCharacter(requestData.CustomerData);
-        customerPotrait.onClick = () => {
+        customerPotrait.onEnter = () => {
             if (requestData.ShowCustomerType) customerPotrait.ShowType(requestData.CustomerData);
             else customerPotrait.ShowNone();
         };
@@ -312,7 +317,14 @@ public class RequestBoard : DragOnSpot
         RequestData.ShowCustomerType = true; 
     }
 
+    public void ShowMoney(int amount)
+    {
+        customerPotrait.SetMoneyFloat(amount, moneyFloatSpeed, moneyFloatTime);
+    }
+
     #endregion
+
+
 }
 
 [System.Serializable]
