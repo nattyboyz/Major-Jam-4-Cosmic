@@ -41,8 +41,8 @@ public class RequestBoard : DragOnSpot
 
     [Header("Event")]
     public bool isComplete = false;
-    public Action onCompleteRequest;
-    public Action onFailRequest;
+    //public Action onCompleteRequest;
+    //public Action onFailRequest;
     public Action<Dragable> onExecuteComplete;
     public Action<Dragable> onExecuteFail;
     public Action onTimeout;
@@ -91,7 +91,6 @@ public class RequestBoard : DragOnSpot
     void TimesUp()
     {
         onTimeout?.Invoke();
-        RequestTimeout();
     }
 
     #endregion
@@ -225,28 +224,28 @@ public class RequestBoard : DragOnSpot
 
     #region Complete request
 
-    public void CompleteRequest(string reason = "")
+    public void Success(string reason = "", Action onComplete = null)
     {
         isComplete = true;
         isProcessing = false;
         time = 0;
-        Hide(onCompleteRequest);
+        Hide(onComplete);
     }
 
-    public void FailRequest(string reason = "")
+    public void Fail(string reason = "", Action onComplete = null)
     {
         isComplete = true;
         isProcessing = false;
         time = 0;
-        Hide(onFailRequest);
+        Hide(onComplete);
     }
 
-    public void RequestTimeout()
+    public void Timeout( Action onComplete = null)
     {
         isComplete = true;
         isProcessing = false;
         time = 0;
-        Hide(onFailRequest);
+        Hide(onComplete);
     }
 
     #endregion

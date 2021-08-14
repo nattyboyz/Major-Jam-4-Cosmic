@@ -132,7 +132,7 @@ public class KitchenTool : DragOnSpot, IPointerClickHandler
             var cardData = resultCards[0];
             resultCards.RemoveAt(0);
 
-            Debug.Log("Get " + cardData.ingredient.Name );
+            // Debug.Log("Get " + cardData.ingredient.Name );
             processIngredient.Set(cardData.ingredient, resultCards.Count);
             onClickToRecieveCard?.Invoke(cardData);
             if (!IsOccupied) processIngredient.gameObject.SetActive(false);

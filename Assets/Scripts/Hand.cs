@@ -175,6 +175,7 @@ public class Hand : MonoBehaviour
 
     public void Hide(Action onComplete = null)
     {
+        Debug.Log("Hand hide");
         StartCoroutine(ieHide(onComplete));
     }
 
@@ -185,11 +186,20 @@ public class Hand : MonoBehaviour
         onComplete?.Invoke();
     }
 
-
     IEnumerator ieHide(Action onComplete = null)
     {
         animator.SetTrigger("out");
         yield return new WaitForSeconds(out_clip.length);
         onComplete?.Invoke();
+    }
+
+    public void DestroyAll()
+    {
+        foreach(var card in cards)
+        {
+            Destroy(card.gameObject);
+        }
+
+        cards = new List<Card>();
     }
 }
