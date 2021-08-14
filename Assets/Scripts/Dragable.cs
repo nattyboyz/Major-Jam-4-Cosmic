@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 
 public class Dragable : MonoBehaviour, IBeginDragHandler,IDragHandler,IEndDragHandler
 {
+    public bool allowDrag = true;
     public Vector3 deltaDragPos;
     public Action<Dragable> onStartDrag;
     public Action<Dragable> onEndDrag;
@@ -17,6 +18,8 @@ public class Dragable : MonoBehaviour, IBeginDragHandler,IDragHandler,IEndDragHa
 
     public virtual void OnBeginDrag(PointerEventData eventData)
     {
+        if (!allowDrag) return;
+
         this.transform.localScale *= 1.2f;
         deltaDragPos = transform.position - Camera.main.ScreenToWorldPoint(eventData.position);
         deltaDragPos.Set(deltaDragPos.x, deltaDragPos.y, 0);
@@ -25,6 +28,8 @@ public class Dragable : MonoBehaviour, IBeginDragHandler,IDragHandler,IEndDragHa
 
     public virtual void OnDrag(PointerEventData eventData)
     {
+        if (!allowDrag) return;
+
         var pos = Camera.main.ScreenToWorldPoint(eventData.position);
         pos.Set(pos.x, pos.y, this.transform.position.z);
 
@@ -38,6 +43,8 @@ public class Dragable : MonoBehaviour, IBeginDragHandler,IDragHandler,IEndDragHa
 
     public virtual void OnEndDrag(PointerEventData eventData)
     {
+        if (!allowDrag) return;
+
         this.transform.localScale = new Vector3(1, 1, 1);
         deltaDragPos = zero;
 

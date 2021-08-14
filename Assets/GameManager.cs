@@ -52,18 +52,18 @@ public class GameManager : MonoBehaviour
     [SerializeField] MoneyUI moneyUI;
     [SerializeField] PenaltyUI penaltyUI;
     [SerializeField] CustomerLeftUI customerLeftUI;
+    [SerializeField] CloseShopUI shopCloseUI;
 
     private void Awake()
     {
         if (playerDataScriptableObject != null) playerData = new PlayerData(playerDataScriptableObject);
         shopOpenUI.onOpen += Open;
-        shopOpenUI.onClose += Close;
+        shopCloseUI.onClose += Close;
     }
 
     private void Start()
     {
         LoadLevel();
-
     }
 
     void InitDeck()
@@ -569,14 +569,13 @@ public class GameManager : MonoBehaviour
 
         penaltyUI.SetStar(playerData.star);
         moneyUI.UpdateText(playerData.money);
-        shopOpenUI.ActiveOpenButton(true);
+        shopOpenUI.Show();
     }
 
     void StartGame()
     {
         currentCustomerIndex = 0;
-        shopOpenUI.ActiveOpenButton(false);
-        shopOpenUI.ActiveCloseButton(true);
+        shopCloseUI.Show();
         for (int i = 0; i < maxHand; i++){DrawCard();}
 
         customerLeftUI.Show();
@@ -684,7 +683,7 @@ public class GameManager : MonoBehaviour
     void Close()
     {
         Debug.Log("Close");
-        shopOpenUI.ActiveCloseButton(false);
+        shopOpenUI.Show();
         LevelEnd();
     }
 
