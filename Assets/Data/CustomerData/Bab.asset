@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ca922cc6a0ecd54688adea796a11f38, type: 3}
   m_Name: Bab
   m_EditorClassIdentifier: 
-  customerType: 0
+  customerType: {fileID: 11400000, guid: 669efb037d874ef41ab657ee7a0bd61c, type: 2}
   name: Bab
   description: Bab BabBabBabBabBab
-  color: {r: 0.745283, g: 0.13710396, b: 0.4378489, a: 1}
+  color: {r: 0.9339623, g: 0.21498753, b: 0.61890584, a: 1}
   sprite: {fileID: 21300000, guid: 9c11b5c7e5b35e04d8030a72018e8fbc, type: 3}
   timeModifier:
     min: -5

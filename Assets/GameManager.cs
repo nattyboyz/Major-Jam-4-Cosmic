@@ -392,6 +392,11 @@ public class GameManager : MonoBehaviour
         if (isPlaying) NextCustomer(requestBoard);
     }
 
+    void ExposeIdentity(RequestBoard requestBoard)
+    {
+        requestBoard.ExposeIdentity();
+    }
+
     #endregion
 
     #region CardPlay
