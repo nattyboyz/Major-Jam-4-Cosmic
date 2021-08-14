@@ -17,6 +17,7 @@ public class CustomerPortrait : MonoBehaviour, IPointerEnterHandler, IPointerExi
     [SerializeField]  bool show = false;
     [SerializeField]  bool active = false;
     [SerializeField] CustomerData customerData;
+    [SerializeField] Image specialIcon;
 
     public Action onClick;
     public Action onEnter;
@@ -84,7 +85,12 @@ public class CustomerPortrait : MonoBehaviour, IPointerEnterHandler, IPointerExi
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (active) onClick?.Invoke();
+        if (active)
+        {
+            clickEvent?.Invoke();
+            onClick?.Invoke();
+            animator.SetTrigger("click");
+        }
     }
 
     public void SetMoneyFloat(int amount,float speed, float duration )
@@ -103,4 +109,28 @@ public class CustomerPortrait : MonoBehaviour, IPointerEnterHandler, IPointerExi
         seq.Play();
 
     }
+
+    //public void SetSpecialIcon(Sprite sprite)
+    //{
+    //    specialIcon.sprite = sprite;
+    //}
+
+    Action clickEvent;
+    public void SetClickEvent(Sprite icon, Action clickEvent)
+    {
+        specialIcon.sprite = icon;
+        specialIcon.gameObject.SetActive(true);
+        this.clickEvent = clickEvent;
+    }
+
+    public void RemoveClickEvent()
+    {
+        specialIcon.gameObject.SetActive(false);
+        clickEvent = null;
+    }
+
+    //public void ShowSpecialIcon(bool value)
+    //{
+    //    specialIcon.gameObject.SetActive(value);
+    //}
 }

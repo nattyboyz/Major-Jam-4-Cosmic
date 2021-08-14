@@ -456,8 +456,6 @@ public class GameManager : MonoBehaviour
         r.onTimeout += () => 
         {
             Debug.Log("<color=red><b>Timout</b></color>");
-            playerData.money += r.RequestData.Menu.basePrice;
-            moneyUI.UpdateText(playerData.money);
             failRequests.Add(r.RequestData);
             FailRequest(r);
             r.Timeout();
@@ -507,11 +505,6 @@ public class GameManager : MonoBehaviour
         {
             NextCustomer(requestBoard);
         }
-    }
-
-    void ExposeIdentity(RequestBoard requestBoard)
-    {
-        requestBoard.ExposeIdentity();
     }
 
     #endregion
@@ -665,7 +658,6 @@ public class GameManager : MonoBehaviour
 
     void LoadLevel()
     {
-
         hand.DestroyAll();
         currentLevelData = levelDatas[currentLevel];
         CreateAllRequest();
@@ -673,26 +665,32 @@ public class GameManager : MonoBehaviour
         moneyUI.UpdateText(playerData.money);
 
         shopOpenUI.ActiveButton(true);
-
-        buyUI.Show();
+        buyUI.Show(()=> { });
     }
 
     void StartGame()
     {
         InitDeck();
 
-        currentCustomerIndex = 0;
-        shopCloseUI.Show();
-        for (int i = 0; i < maxHand; i++){DrawCard();}
-
-        customerLeftUI.Show();
-        penaltyUI.Show();
-        moneyUI.Show(() =>
+        currentCustomerIndex = 0; 
+        for (int i = 0; i < maxHand; i++)
         {
-            hand.Show(ShowStartRequest);
-        });
+            DrawCard();
+        }
 
-        isPlaying = true;
+        shopCloseUI.Show(() => {
+                customerLeftUI.Show(() => {
+                    hand.Show(()=> {
+                        isPlaying = true;
+                        ShowStartRequest();
+                        }
+                    ); 
+                });
+            }
+        );
+        //penaltyUI.Show();
+        //moneyUI.Show();
+   
     }
 
     void ShowStartRequest()
@@ -843,9 +841,9 @@ public class GameManager : MonoBehaviour
         }
 
         customerLeftUI.Hide();
-        penaltyUI.Hide();
+        //penaltyUI.Hide();
         hand.Hide();
-        moneyUI.Hide();
+        //moneyUI.Hide();
 
         shopCloseUI.Hide();
         shopOpenUI.Show(ShowResult);
@@ -864,6 +862,47 @@ public class GameManager : MonoBehaviour
         gameOverUI.Show();
         Debug.Log("Game Over.");
     }
+
+    #endregion
+
+
+    #region Special Item
+
+    [SerializeField] Sprite spyIcon;
+    [SerializeField] Animator scanlineAnimator;
+    [SerializeField] AnimationClip scanLineIn;
+
+    public void Btn_Spy()
+    {
+        StartCoroutine(ieSpy());
+      
+    }
+
+    IEnumerator ieSpy()
+    {
+        scanlineAnimator.SetTrigger("in");
+        yield return new WaitForSeconds(scanLineIn.length);
+        foreach (var req in requests)
+        {
+            if (req.isShow && !req.isComplete && !req.RequestData.ShowCustomerType)
+            {
+                req.ExposeIdentity();
+            }
+            //req.CustomerPotrait.SetClickEvent(null,
+            //    () => {
+            //        req.ExposeIdentity();
+            //        foreach (var req in requests)
+            //        {
+            //            req.CustomerPotrait.RemoveClickEvent();
+            //        }
+            //    }
+            //);
+
+
+        }
+    }
+
+
 
     #endregion
 

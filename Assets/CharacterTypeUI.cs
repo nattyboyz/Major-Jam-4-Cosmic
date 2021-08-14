@@ -4,8 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using UnityEngine.EventSystems;
 
-public class CharacterTypeUI : MonoBehaviour
+public class CharacterTypeUI : MonoBehaviour, IPointerExitHandler,IPointerEnterHandler
 {
     [Header("Animation")]
     [SerializeField] protected Animator animator;
@@ -15,6 +16,7 @@ public class CharacterTypeUI : MonoBehaviour
     [SerializeField] Image icon;
     [SerializeField] Image lineImg;
     [SerializeField] TextMeshProUGUI characterTxt;
+    [SerializeField] TextMeshProUGUI descriptionTxt;
     public bool isShow = false;
 
     public void Show(string name)
@@ -73,7 +75,15 @@ public class CharacterTypeUI : MonoBehaviour
             onComplete?.Invoke();
     }
 
-    
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        Debug.Log("Exit");
+        descriptionTxt.gameObject.SetActive(false);
+    }
 
-
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        Debug.Log("Enter");
+        descriptionTxt.gameObject.SetActive(true);
+    }
 }

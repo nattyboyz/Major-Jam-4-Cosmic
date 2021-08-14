@@ -12,54 +12,57 @@ public class BaseUI : MonoBehaviour
     [SerializeField] protected AnimationClip out_clip;
     protected bool inProcess = false;
     protected bool isShow = false;
+    Coroutine showHideRoutine;
 
     public bool IsShow { get => isShow;}
     public bool InProcess { get => inProcess;}
 
     public virtual void Show(Action onComplete = null)
     {
-        StartCoroutine(ieShow(onComplete));
+        if (showHideRoutine != null) StopCoroutine(showHideRoutine);
+        showHideRoutine = StartCoroutine(ieShow(onComplete));
     }
 
     public virtual void Hide(Action onComplete = null)
     {
-        StartCoroutine(ieHide(onComplete));
+        if (showHideRoutine != null) StopCoroutine(showHideRoutine);
+        showHideRoutine = StartCoroutine(ieHide(onComplete));
     }
 
     public virtual IEnumerator ieShow(Action onComplete = null)
     {
-        if (!InProcess)
+        //if (!InProcess)
+        //{
+        inProcess = true;
+        isShow = true;
+        if (mainCanvas) mainCanvas.enabled = true;
+        if (animator && in_clip)
         {
-            inProcess = true;
-            if (mainCanvas) mainCanvas.enabled = true;
-            if (animator && in_clip)
-            {
-                animator.SetTrigger("in");
-                yield return new WaitForSeconds(in_clip.length);
-            }
-            else yield return null;
-            onComplete?.Invoke();
-            isShow = true;
-            inProcess = false;
+            animator.SetTrigger("in");
+            yield return new WaitForSeconds(in_clip.length);
         }
+        else yield return null;
+        onComplete?.Invoke();
+        inProcess = false;
+        // }
     }
 
     public virtual IEnumerator ieHide(Action onComplete = null)
     {
-        if (!InProcess)
+        //if (!InProcess)
+        //{
+        inProcess = true;
+        isShow = false;
+        if (animator && out_clip)
         {
-            inProcess = true;
-            if (animator && out_clip)
-            {
-                animator.SetTrigger("out");
-                yield return new WaitForSeconds(out_clip.length);
-            }
-            else yield return null;
-            if (mainCanvas) mainCanvas.enabled = false;
-            onComplete?.Invoke();
-            isShow = false;
-            inProcess = false;
+            animator.SetTrigger("out");
+            yield return new WaitForSeconds(out_clip.length);
         }
-    }
+        else yield return null;
+        if (mainCanvas) mainCanvas.enabled = false;
+        onComplete?.Invoke();
 
+        inProcess = false;
+        //}
+    }
 }

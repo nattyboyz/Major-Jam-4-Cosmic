@@ -18,43 +18,49 @@ public class Dragable : MonoBehaviour, IBeginDragHandler,IDragHandler,IEndDragHa
 
     public virtual void OnBeginDrag(PointerEventData eventData)
     {
-        if (!allowDrag) return;
+       
+        if (allowDrag)
+        {
 
-        this.transform.localScale *= 1.2f;
-        deltaDragPos = transform.position - Camera.main.ScreenToWorldPoint(eventData.position);
-        deltaDragPos.Set(deltaDragPos.x, deltaDragPos.y, 0);
-        onStartDrag?.Invoke(this);
+            this.transform.localScale *= 1.2f;
+            deltaDragPos = transform.position - Camera.main.ScreenToWorldPoint(eventData.position);
+            deltaDragPos.Set(deltaDragPos.x, deltaDragPos.y, 0);
+            onStartDrag?.Invoke(this);
+        }
     }
 
     public virtual void OnDrag(PointerEventData eventData)
     {
-        if (!allowDrag) return;
-
-        var pos = Camera.main.ScreenToWorldPoint(eventData.position);
-        pos.Set(pos.x, pos.y, this.transform.position.z);
-
-        this.gameObject.transform.position = pos + deltaDragPos;
-        var result = eventData.pointerCurrentRaycast;
-        if (result.gameObject != null && result.gameObject != gameObject)
+        if (allowDrag)
         {
-            onDragRayUpdate?.Invoke(result.gameObject);
+            var pos = Camera.main.ScreenToWorldPoint(eventData.position);
+            pos.Set(pos.x, pos.y, this.transform.position.z);
+
+            this.gameObject.transform.position = pos + deltaDragPos;
+            var result = eventData.pointerCurrentRaycast;
+            if (result.gameObject != null && result.gameObject != gameObject)
+            {
+                onDragRayUpdate?.Invoke(result.gameObject);
+            }
         }
     }
 
     public virtual void OnEndDrag(PointerEventData eventData)
     {
-        if (!allowDrag) return;
-
-        this.transform.localScale = new Vector3(1, 1, 1);
-        deltaDragPos = zero;
-
-        var result = eventData.pointerCurrentRaycast;
-        if (result.gameObject != null && result.gameObject != gameObject)
+        if (allowDrag)
         {
-            onDragRelease?.Invoke(result.gameObject);
-        }
 
-        onEndDrag?.Invoke(this);
+            this.transform.localScale = new Vector3(1, 1, 1);
+            deltaDragPos = zero;
+
+            var result = eventData.pointerCurrentRaycast;
+            if (result.gameObject != null && result.gameObject != gameObject)
+            {
+                onDragRelease?.Invoke(result.gameObject);
+            }
+
+            onEndDrag?.Invoke(this);
+        }
     }
 
 }

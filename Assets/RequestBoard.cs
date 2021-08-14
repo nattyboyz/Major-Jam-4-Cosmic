@@ -37,7 +37,7 @@ public class RequestBoard : DragOnSpot
     [SerializeField] AnimationClip fail_clip;
     [SerializeField] AnimationClip complete_clip;
 
-    public bool allowInteract = false;
+    public bool isShow = false;
 
     [Header("Event")]
     public bool isComplete = false;
@@ -53,11 +53,14 @@ public class RequestBoard : DragOnSpot
 
     public RequestData RequestData { get => requestData;}
     public List<IngredientSetting> Settings { get => settings;}
+    public CustomerPortrait CustomerPotrait { get => customerPotrait;}
+
 
     [Header("Money Float")]
     [SerializeField] float moneyFloatTime = 2;
     [SerializeField] float moneyFloatSpeed = 4;
 
+    Coroutine coroutine;
 
     private void Start()
     {
@@ -122,14 +125,15 @@ public class RequestBoard : DragOnSpot
             Settings.Add(CreateIngredientSetting(ingredient));
         }
 
-        customerPotrait.SetCharacter(requestData.CustomerData);
-        customerPotrait.onEnter = () => {
-            if (requestData.ShowCustomerType) customerPotrait.ShowType(requestData.CustomerData);
-            else customerPotrait.ShowNone();
-        };
-        customerPotrait.onExit = () => {
-            customerPotrait.HideType();
-        };
+        CustomerPotrait.SetCharacter(requestData.CustomerData);
+
+        //CustomerPotrait.onEnter = () => {
+        //    if (requestData.ShowCustomerType) CustomerPotrait.ShowType(requestData.CustomerData);
+        //    else CustomerPotrait.ShowNone();
+        //};
+        //CustomerPotrait.onExit = () => {
+        //    CustomerPotrait.HideType();
+        //};
 
         price_txt.text = "$" +requestData.Price.ToString();
         name_txt.text = requestData.Menu.menuName;
@@ -276,35 +280,47 @@ public class RequestBoard : DragOnSpot
 
     public void Show(Action onComplete = null)
     {
-        StartCoroutine(ieShow(onComplete));
+        if (coroutine != null) StopCoroutine(coroutine);
+        coroutine = StartCoroutine(ieShow(onComplete));
     }
 
     public void Hide(Action onComplete = null)
     {
-        StartCoroutine(ieHide(onComplete));
+        if (coroutine != null) StopCoroutine(coroutine);
+        coroutine = StartCoroutine(ieHide(onComplete));
     }
 
     IEnumerator ieShow(Action onComplete = null)
     {
-        yield return customerPotrait.ieIn();
+        isShow = true;
+        yield return CustomerPotrait.ieIn();
+    
+        if (requestData.ShowCustomerType)
+            CustomerPotrait.ShowType(requestData.CustomerData);
+        else
+            CustomerPotrait.ShowNone();
+
         yield return new WaitForSeconds(1);
         canvasGroup.alpha = 1;
         animator.SetTrigger("in");
         yield return new WaitForSeconds(in_clip.length);
+
+
         onComplete?.Invoke();
         isProcessing = true;
-        allowInteract = true;
+
     }
 
     IEnumerator ieHide(Action onComplete = null)
     {
-        allowInteract = false;
+        isShow = false;
         animator.SetTrigger("out");
         yield return new WaitForSeconds(out_clip.length);
         canvasGroup.alpha = 0;
         yield return new WaitForSeconds(1);
+        CustomerPotrait.HideType();
         //onComplete?.Invoke();
-        yield return customerPotrait.ieOut(onComplete);
+        yield return CustomerPotrait.ieOut(onComplete);
     }
 
     #endregion
@@ -313,12 +329,14 @@ public class RequestBoard : DragOnSpot
 
     public void ExposeIdentity()
     {
-        RequestData.ShowCustomerType = true; 
+        RequestData.ShowCustomerType = true;
+        if (requestData.ShowCustomerType) 
+            CustomerPotrait.ShowType(requestData.CustomerData);
     }
 
     public void ShowMoney(int amount)
     {
-        customerPotrait.SetMoneyFloat(amount, moneyFloatSpeed, moneyFloatTime);
+        CustomerPotrait.SetMoneyFloat(amount, moneyFloatSpeed, moneyFloatTime);
     }
 
     #endregion

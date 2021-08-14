@@ -2,13 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-
+using UnityEngine.UI;
 
 public class BuyUI : BaseUI
 {
     [SerializeField] List<CardBuySlotUI> cardSlots;
+    [SerializeField] List<CardBuySlotUI> cheatCardSlot;
     public Action<CardBuySlotUI> onBuy;
     public Action<CardBuySlotUI> onSell;
+
+
+    public Button ingredientBtn;
+    public Button blackMarketBtn;
+    public GameObject ingredientScroll;
+    public GameObject blackMarketScroll;
+
+    private void Start()
+    {
+        Btn_Ingredient();
+    }
 
     public void Init(PlayerData playerData)
     {
@@ -20,11 +32,36 @@ public class BuyUI : BaseUI
                 slot.onSell += onSell;
             }
         }
+
+        foreach (var slot in cheatCardSlot)
+        {
+            if (slot != null && slot.TryInit(playerData))
+            {
+                slot.onBuy += onBuy;
+                slot.onSell += onSell;
+            }
+        }
     }
 
     public void Btn_Done()
     {
         Hide();
+    }
+
+    public void Btn_Ingredient()
+    {
+        ingredientScroll.SetActive(true);
+        blackMarketScroll.SetActive(false);
+        ingredientBtn.interactable = false;
+        blackMarketBtn.interactable = true;
+    }
+
+    public void Btn_BlackMarket()
+    {
+        ingredientScroll.SetActive(false);
+        blackMarketScroll.SetActive(true);
+        ingredientBtn.interactable = true;
+        blackMarketBtn.interactable = false;
     }
 
 }
