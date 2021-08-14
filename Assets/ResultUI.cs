@@ -6,11 +6,6 @@ using System;
 
 public class ResultUI : BaseUI
 {
-    public Action onClickNext;
-    public Action onClickRetry;
-    public Action onClickHome;
-
-    //Event
     public Action onNext;
     public Action onRetry;
     public Action onHome;
@@ -20,24 +15,19 @@ public class ResultUI : BaseUI
         mainCanvas.enabled = false;
     }
 
-    public void Init()
-    {
-
-    }
-
     public void Btn_Next()
     {
-        onNext?.Invoke();
+        Hide(onNext);
     }
 
     public void Btn_Retry()
     {
-        onRetry?.Invoke();
+       // Hide(onRetry);
     }
 
     public void Btn_Home()
     {
-        onHome?.Invoke();
+        Hide(onHome);
     }
 
 }

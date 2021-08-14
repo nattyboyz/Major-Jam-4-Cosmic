@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     //[SerializeField] List<IngredientData> shrine;
     [SerializeField] int maxHand = 5;
 
+
     [Header("Cheat Card")]
     [SerializeField] CheatCard baseCheatCard;
     [SerializeField] CheatCardCarbinetUI cheatCardCabinet;
@@ -28,7 +29,12 @@ public class GameManager : MonoBehaviour
 
     [Header("Level")]
 
-    [SerializeField] LevelData levelData;
+    [ReadOnly] [SerializeField] int currentLevel = 0;
+    [SerializeField] List<LevelData> levelDatas;
+    [SerializeField] LevelData currentLevelData;
+    [SerializeField] CustomerData fallbackCustomer;
+
+    [Header("Request")]
     [SerializeField] List<RequestData> allRequests;
     [SerializeField] List<RequestBoard> requests;
     [SerializeField] List<RequestData> completeRequests;
@@ -63,7 +69,7 @@ public class GameManager : MonoBehaviour
     {
         if (playerDataScriptableObject != null) playerData = new PlayerData(playerDataScriptableObject);
         shopOpenUI.onOpen += Open;
-        shopCloseUI.onClose += Close;
+        shopCloseUI.onClose += LevelEnd;
 
 
         buyUI.onBuy += BuyIngredient;
@@ -74,6 +80,20 @@ public class GameManager : MonoBehaviour
         gameOverUI.onClickOverBtn += () => {
             SceneManager.LoadScene("GameScene");
         };
+
+        for (int i = 0; i < requests.Count; i++)
+        {
+            InitRequestBoard(requests[i]);
+            requests[i].Active(false);
+        }
+
+        resultUI.onNext += NextLevel;
+        resultUI.onHome += ToTitle;
+
+        InitCheatCards();
+        InitDiscardSpot();
+        InitKitchenTool(pan);
+        InitKitchenTool(knife);
     }
 
     void BuyIngredient(CardBuySlotUI cardBuySlot)
@@ -228,14 +248,7 @@ public class GameManager : MonoBehaviour
                 discardSpot.UnFocus();
                 hand.Remove(card);
                 ConsumeCard(card);
-                Debug.Log("Execute complete");
             }
-            //else if (dragableObject is CheatCard)
-            //{
-            //    CheatCard card = dragableObject as CheatCard;
-            //    discardSpot.UnFocus();
-            //    ConsumeCheatCard(card);
-            //}
         };
 
     }
@@ -296,7 +309,7 @@ public class GameManager : MonoBehaviour
             tool.UnFocus();
             hand.Remove(card);
             ConsumeCard(card);
-            Debug.Log("Execute card complete on TOOL");
+            //Debug.Log("Execute card complete on TOOL");
         };
 
         tool.onExecuteCheatComplete += (CheatCard card) =>
@@ -305,7 +318,7 @@ public class GameManager : MonoBehaviour
             card.Deduct();
             card.ResetPosition();
             card.Active(true);
-            Debug.Log("Execute cheat card complete on TOOL");
+           // Debug.Log("Execute cheat card complete on TOOL");
         };
 
         tool.onProcessComplete += (Pack pack) => 
@@ -351,7 +364,7 @@ public class GameManager : MonoBehaviour
             if (dragableObject is Card)
             {
                 Card card = dragableObject as Card;
-                Debug.Log("<color=green>Use card</color> " + card.name + " [ " + card.cardData.ingredient.Name + "] on " + r.name);
+               // Debug.Log("<color=green>Use card</color> " + card.name + " [ " + card.cardData.ingredient.Name + "] on " + r.name);
                 hand.Remove(card);
                 ConsumeCard(card);
 
@@ -381,7 +394,8 @@ public class GameManager : MonoBehaviour
                         r.ShowMoney(price);
                         moneyUI.UpdateText(playerData.money);
                         completeRequests.Add(r.RequestData);
-                        r.CompleteRequest();
+                        r.Success("", ()=> { CompleteRequest(r); });
+                      
                     }
                     else
                     {
@@ -390,8 +404,8 @@ public class GameManager : MonoBehaviour
                         //ModifyMoney(price);
                         //r.ShowMoney(price);
                         failRequests.Add(r.RequestData);
-                        r.FailRequest();
-
+                        r.Fail("", () => { FailRequest(r); });
+                        //FailRequest(r);
                         //Deduct star
                         if (playerData.star - 1 <= 0) 
                         {
@@ -419,12 +433,7 @@ public class GameManager : MonoBehaviour
 
         r.onExecuteFail += (Dragable dragableObject) =>
         {
-            Debug.Log("<color=red><b>Fail</b></color>");
-            //playerData.money += r.RequestData.Menu.basePrice;
-            //moneyUI.UpdateText(playerData.money);
-            //failRequests.Add(r.RequestData);
-            //r.FailRequest();
-
+            //Debug.Log("<color=red><b>Fail</b></color>");
             if (dragableObject is Card)
             {
                 Card card = dragableObject as Card;
@@ -438,18 +447,19 @@ public class GameManager : MonoBehaviour
             playerData.money += r.RequestData.Menu.basePrice;
             moneyUI.UpdateText(playerData.money);
             failRequests.Add(r.RequestData);
-            r.FailRequest();
+            FailRequest(r);
+            r.Timeout();
         };
 
-        r.onCompleteRequest += () => 
-        {
-            CompleteRequest(r);
-        };
+        //r.onCompleteRequest += () => 
+        //{
+        //   // CompleteRequest(r);
+        //};
 
-        r.onFailRequest += () =>
-        {
-            FailRequest(r);         
-        };
+        //r.onFailRequest += () =>
+        //{
+        //    //FailRequest(r);         
+        //};
     }
 
     #region Request Board
@@ -463,12 +473,9 @@ public class GameManager : MonoBehaviour
 
     void CompleteRequest(RequestBoard requestBoard)
     {
-        Debug.Log("[GameManager] CompleteRequest");
-
-
-        if (IsLevelComplete())
+        if (isPlaying && IsLevelComplete())
         {
-            Close();
+            LevelEnd();
         }
         else
         {
@@ -479,9 +486,9 @@ public class GameManager : MonoBehaviour
     void FailRequest(RequestBoard requestBoard)
     {
         Debug.Log("[GameManager] FailRequest");
-        if (IsLevelComplete())
+        if (isPlaying && IsLevelComplete())
         {
-            Close();
+            LevelEnd();
         }
         else
         {
@@ -625,30 +632,41 @@ public class GameManager : MonoBehaviour
 
     #region Gameloop
 
+    void ToTitle()
+    {
+        SceneManager.LoadScene("TitleScene");
+    }
+
+    void NextLevel()
+    {
+        if(currentLevel+1>= levelDatas.Count)
+        {
+            Debug.LogError("No level");
+        }
+        else
+        {
+            currentLevel++;
+            LoadLevel();
+        }
+    }
+
     void LoadLevel()
     {
+
+        hand.DestroyAll();
+        currentLevelData = levelDatas[currentLevel];
         CreateAllRequest();
-        InitDiscardSpot();
-
-        for (int i = 0; i < requests.Count; i++)
-        {
-            InitRequestBoard(requests[i]);
-            requests[i].Active(false);
-        }
-
         penaltyUI.SetStar(playerData.star);
         moneyUI.UpdateText(playerData.money);
 
-        shopOpenUI.Show();
+        shopOpenUI.ActiveButton(true);
+
         buyUI.Show();
     }
 
     void StartGame()
     {
-        InitCheatCards();
         InitDeck();
-        InitKitchenTool(pan);
-        InitKitchenTool(knife);
 
         currentCustomerIndex = 0;
         shopCloseUI.Show();
@@ -674,9 +692,9 @@ public class GameManager : MonoBehaviour
 
     public void AddRandomCustomer()
     {
-        var index = Random.Range(0, levelData.Menus.Count);
+        var index = Random.Range(0, currentLevelData.Menus.Count);
         RequestData requestData = new RequestData();
-        requestData.Menu = levelData.Menus[index];
+        requestData.Menu = currentLevelData.Menus[index];
 
 
         for (int i =0;i< 3; i++)
@@ -694,7 +712,7 @@ public class GameManager : MonoBehaviour
 
     bool IsLevelComplete()
     {
-        int total = levelData.Customer;
+        int total = currentLevelData.Customer;
         if (completeRequests.Count + failRequests.Count >= total)
         {
             return true;
@@ -726,8 +744,12 @@ public class GameManager : MonoBehaviour
 
     public void CreateAllRequest()
     {
-        int total = levelData.Customer;
-        int fixedCustomerAmount = levelData.FixedRequests.Count;
+        allRequests = new List<RequestData>();
+        failRequests = new List<RequestData>();
+        completeRequests = new List<RequestData>();
+
+        int total = currentLevelData.Customer;
+        int fixedCustomerAmount = currentLevelData.FixedRequests.Count;
         if (fixedCustomerAmount > total) fixedCustomerAmount = total;
         int customerLeft = total - fixedCustomerAmount;
 
@@ -735,16 +757,17 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < fixedCustomerAmount;i++)
         {
-            allRequests.Add(levelData.FixedRequests[i]);
+            allRequests.Add(currentLevelData.FixedRequests[i]);
         }
 
         for (int i = 0; i < customerLeft; i++)
         {
             //Random menu
-            var menuIndex = Random.Range(0, levelData.Menus.Count);
-            var customerIndex = Random.Range(0, levelData.PossibleCustomers.Count);
-            var menu = levelData.Menus[menuIndex];
-            var customer = levelData.PossibleCustomers[customerIndex];
+            var menuIndex = Random.Range(0, currentLevelData.Menus.Count);
+            var customerIndex = Random.Range(0, currentLevelData.PossibleCustomers.Count);
+            var menu = currentLevelData.Menus[menuIndex];
+            var customer = fallbackCustomer;
+            if(currentLevelData.PossibleCustomers.Count>0) customer = currentLevelData.PossibleCustomers[customerIndex];
             //Create request data
             RequestData requestData = new RequestData();
             requestData.CustomerData = customer;
@@ -756,48 +779,37 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
-    void Close()
-    {
-        Debug.Log("Close");
-        foreach (var kvp in customerCoroutine)
-        {
-            StopCoroutine(kvp.Value);
-        }
-
-        shopOpenUI.Show();
-        shopCloseUI.Hide();
-
-        LevelEnd();
-    }
-
     void Open()
     {
-        StartGame();
+        shopOpenUI.ActiveButton(false);
+        shopOpenUI.Hide(StartGame);
     }
-
 
     void CalculateResult()
     {
-        if(playerData.money > levelData.GoalMoney)
+        if(playerData.money > currentLevelData.GoalMoney)
         {
-            Debug.Log("<color=green>Win!!</color> : You got money " + playerData.money + " goal is " + levelData.GoalMoney);
+            Debug.Log("<color=green>Win!!</color> : You got money " + playerData.money + " goal is " + currentLevelData.GoalMoney);
         }
         else
         {
-            Debug.Log("<color=red>Lose!!</color> : You got money " + playerData.money + " goal is " + levelData.GoalMoney);
+            Debug.Log("<color=red>Lose!!</color> : You got money " + playerData.money + " goal is " + currentLevelData.GoalMoney);
         }
     }
 
     void LevelEnd()
     {
-        CalculateResult();
+        Debug.Log("Close");
         isPlaying = false;
+
+        CalculateResult();
+
         foreach (var r in requests)
         {
             if (!r.isComplete)
             {
-                r.FailRequest();
+                failRequests.Add(r.RequestData);
+                r.Fail();
             }
             else
             {
@@ -805,12 +817,19 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        foreach (var kvp in customerCoroutine)
+        {
+            StopCoroutine(kvp.Value);
+        }
+
         customerLeftUI.Hide();
         penaltyUI.Hide();
         hand.Hide();
         moneyUI.Hide();
 
-        ShowResult();
+        shopCloseUI.Hide();
+        shopOpenUI.Show(ShowResult);
+
     }
 
     void ShowResult()

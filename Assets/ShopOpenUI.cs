@@ -9,7 +9,14 @@ public class ShopOpenUI : BaseUI
 {
     [SerializeField] BuyUI buyUi;
     [SerializeField] Button open_btn;
+    [SerializeField] Button buy_btn;
     public Action onOpen;
+
+    private void Awake()
+    {
+        mainCanvas.enabled = true;
+        ActiveButton(true);
+    }
 
     public void Btn_Buy()
     {
@@ -18,12 +25,12 @@ public class ShopOpenUI : BaseUI
 
     public void Btn_Open()
     {
-        StartCoroutine(ieOpen());
+        onOpen?.Invoke();
     }
 
-    IEnumerator ieOpen()
+    public void ActiveButton(bool value)
     {
-        yield return ieHide();
-        onOpen?.Invoke();
+        open_btn.gameObject.SetActive(value);
+        buy_btn.gameObject.SetActive(value);
     }
 }
