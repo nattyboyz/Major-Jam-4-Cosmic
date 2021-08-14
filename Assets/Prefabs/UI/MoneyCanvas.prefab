@@ -187,7 +187,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -139.1, y: -78.20001}
+  m_AnchoredPosition: {x: -139.10004, y: -78.20001}
   m_SizeDelta: {x: 262.5, y: 140.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &500449978710653415
@@ -412,7 +412,6 @@ GameObject:
   - component: {fileID: 500449979916782839}
   - component: {fileID: 500449979916782832}
   - component: {fileID: 500449979916782833}
-  - component: {fileID: 500449979916782836}
   m_Layer: 5
   m_Name: MoneyCanvas
   m_TagString: Untagged
@@ -514,29 +513,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCanvas: {fileID: 500449979916782838}
-  animator: {fileID: 500449979916782836}
-  in_clip: {fileID: 7400000, guid: 79c2475825fa9854eab724af5e7636f3, type: 2}
-  out_clip: {fileID: 7400000, guid: 7c13faed3f2fc5344aeb3a95e3fbd49f, type: 2}
+  animator: {fileID: 0}
+  in_clip: {fileID: 0}
+  out_clip: {fileID: 0}
   moneyTxt: {fileID: 500449978710653413}
---- !u!95 &500449979916782836
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 500449979916782834}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 53ae1cb28a3da7f4eb530a61afa35386, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3409820642183100411
 GameObject:
   m_ObjectHideFlags: 0
