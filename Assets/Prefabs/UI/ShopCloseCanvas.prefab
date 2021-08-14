@@ -258,8 +258,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ShopOpenUI, Assembly-CSharp
+      - m_Target: {fileID: 7804599621203553843}
+        m_TargetAssemblyTypeName: CloseShopUI, Assembly-CSharp
         m_MethodName: Btn_Close
         m_Mode: 1
         m_Arguments:

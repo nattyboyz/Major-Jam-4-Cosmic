@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -54,6 +55,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] CustomerLeftUI customerLeftUI;
     [SerializeField] CloseShopUI shopCloseUI;
     [SerializeField] BuyUI buyUI;
+    [SerializeField] GameOverUI gameOverUI;
+
+    Dictionary<RequestBoard,Coroutine> customerCoroutine = new Dictionary<RequestBoard, Coroutine>();
 
     private void Awake()
     {
@@ -65,6 +69,11 @@ public class GameManager : MonoBehaviour
         buyUI.onBuy += BuyIngredient;
         buyUI.onSell += SellIngredient;
         buyUI.Init(playerData);
+
+
+        gameOverUI.onClickOverBtn += () => {
+            SceneManager.LoadScene("GameScene");
+        };
     }
 
     void BuyIngredient(CardBuySlotUI cardBuySlot)
@@ -384,7 +393,7 @@ public class GameManager : MonoBehaviour
                         r.FailRequest();
 
                         //Deduct star
-                        if (playerData.star - 1 < 0) 
+                        if (playerData.star - 1 <= 0) 
                         {
                             playerData.star = 0;
                             penaltyUI.SetStar(playerData.star);
@@ -697,7 +706,7 @@ public class GameManager : MonoBehaviour
     {
         if (allRequests.Count > 0)
         {
-            StartCoroutine(NextCustomer(requestBoard, currentCustomerIndex, Random.Range(1, 5)));
+            customerCoroutine[requestBoard] = StartCoroutine(NextCustomer(requestBoard, currentCustomerIndex, Random.Range(1, 5)));
             currentCustomerIndex++;
         }
     }
@@ -747,10 +756,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
     void Close()
     {
         Debug.Log("Close");
+        foreach (var kvp in customerCoroutine)
+        {
+            StopCoroutine(kvp.Value);
+        }
+
         shopOpenUI.Show();
+        shopCloseUI.Hide();
+
         LevelEnd();
     }
 
@@ -805,6 +822,7 @@ public class GameManager : MonoBehaviour
 
     void Gameover()
     {
+        gameOverUI.Show();
         Debug.Log("Game Over.");
     }
 

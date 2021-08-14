@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: 
   money: 200
-  star: 3
+  star: 1
   maxStar: 3
   ingredients:
     m_keys:
