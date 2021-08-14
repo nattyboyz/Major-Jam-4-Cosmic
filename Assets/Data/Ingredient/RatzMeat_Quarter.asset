@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3fc826adb2f4524dae358d757e09d9f, type: 3}
   m_Name: RatzMeat_Quarter
   m_EditorClassIdentifier: 
-  key: ratmeat_quarter
+  key: ratmeat
   color: {r: 0.6132076, g: 0.18222678, b: 0.18222678, a: 1}
   icon: {fileID: 21300000, guid: 11a3258c98fd1784ca33e503f63780e1, type: 3}
   name: 1/4 Rat Meat
