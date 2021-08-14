@@ -301,7 +301,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 16777215
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -392,6 +392,7 @@ RectTransform:
   m_Children:
   - {fileID: 7287953811775780975}
   - {fileID: 5974053578921473417}
+  - {fileID: 2327277560943563836}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -412,9 +413,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efb82f68ab471fe41b80e10a0154c969, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseFloatingText: {fileID: 6752450415628854933, guid: cde9d876d48959f459fdd0400d73d53d, type: 3}
+  floatTextParent: {fileID: 2327277560943563836}
   animator: {fileID: 1496168688606390541}
   sprite: {fileID: 3284575772176415516}
   characterTypeUI: {fileID: 8290967906838825262}
+  show: 0
+  active: 0
+  customerData: {fileID: 0}
 --- !u!95 &1496168688606390541
 Animator:
   serializedVersion: 3
@@ -484,13 +490,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fb058a03f06bd449b6fce42be3dfd1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCanvas: {fileID: 0}
   animator: {fileID: 6007438239380797390}
   in_clip: {fileID: 7400000, guid: 32e3fe404f39cb54ebe485c8f974789e, type: 2}
   out_clip: {fileID: 7400000, guid: d7be7564073aefd43b12b7ef486d46b7, type: 2}
   icon: {fileID: 4978668372529777056}
   lineImg: {fileID: 842612659161229027}
   characterTxt: {fileID: 848671312247112537}
+  isShow: 0
 --- !u!95 &6007438239380797390
 Animator:
   serializedVersion: 3
@@ -510,6 +516,41 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &7183779265594301100
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2327277560943563836}
+  m_Layer: 5
+  m_Name: FloatTextParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2327277560943563836
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7183779265594301100}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2518957523448358549}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 233.4}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8878020083898911367
 GameObject:
   m_ObjectHideFlags: 0

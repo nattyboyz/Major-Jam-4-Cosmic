@@ -43,3 +43,4 @@ MonoBehaviour:
     price: 1000
     extra_ingredients:
     - {fileID: 11400000, guid: 1134af86f99b921439e36b1af7ea73c9, type: 2}
+    showCustomerType: 0

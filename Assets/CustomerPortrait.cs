@@ -8,6 +8,9 @@ using UnityEngine.EventSystems;
 
 public class CustomerPortrait : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
+    [SerializeField] FloatingTextUI baseFloatingText;
+    [SerializeField] Transform floatTextParent;
+
     [SerializeField] Animator animator;
     [SerializeField] Image sprite;
     [SerializeField] CharacterTypeUI characterTypeUI;
@@ -37,7 +40,7 @@ public class CustomerPortrait : MonoBehaviour, IPointerEnterHandler, IPointerExi
     public IEnumerator ieOut(Action onComplete = null)
     {
         active = false;
-        HideType();
+       if(characterTypeUI.isShow) HideType();
         sprite.DOFade(0, 0.3f);
         yield return new WaitForSeconds(0.3f);
         onComplete?.Invoke();
@@ -61,7 +64,7 @@ public class CustomerPortrait : MonoBehaviour, IPointerEnterHandler, IPointerExi
 
     public void ShowNone()
     {
-        characterTypeUI.Show("???");
+       characterTypeUI.Show("???");
     }
 
     public void HideType()
@@ -82,5 +85,22 @@ public class CustomerPortrait : MonoBehaviour, IPointerEnterHandler, IPointerExi
     public void OnPointerClick(PointerEventData eventData)
     {
         if (active) onClick?.Invoke();
+    }
+
+    public void SetMoneyFloat(int amount,float speed, float duration )
+    {
+        var floatText = Instantiate(baseFloatingText);
+        string sign = "+";
+        if (amount < 0) sign = "-";
+        floatText.SetText(sign+" $" + amount);
+        floatText.transform.SetParent(floatTextParent);
+        floatText.transform.localScale = new Vector3(1, 1, 1);
+        floatText.transform.localPosition = new Vector3(0, 0, 0);
+
+        Sequence seq = DOTween.Sequence();
+        seq.Append(floatText.RectTransform.DOAnchorPosY(speed, duration).SetSpeedBased());
+        seq.Join( floatText.Text.DOFade(0, duration).OnComplete(()=>{ Destroy(floatText.gameObject); }));
+        seq.Play();
+
     }
 }

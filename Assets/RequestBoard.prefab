@@ -477,6 +477,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dfa97d91a1081a42a912547a49a24b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  customerPotrait: {fileID: 0}
   canvasGroup: {fileID: 4117719738428362120}
   baseIngredientIcon: {fileID: 949882280841233835, guid: 1f7795c1a83d32e469ef4a46c9c5cc8f, type: 3}
   focusGraphic: {fileID: 7585742016919993163}
@@ -492,6 +493,7 @@ MonoBehaviour:
     penalty: 0
     price: 0
     extra_ingredients: []
+    showCustomerType: 0
   settings: []
   ingredientParent: {fileID: 4584978527689147321}
   animator: {fileID: 4923680689854047084}
@@ -503,6 +505,8 @@ MonoBehaviour:
   isComplete: 0
   processbar: {fileID: 3266145210518792162}
   isProcessing: 0
+  moneyFloatTime: 2
+  moneyFloatSpeed: 20
 --- !u!114 &1082643144
 MonoBehaviour:
   m_ObjectHideFlags: 0

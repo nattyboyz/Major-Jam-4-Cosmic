@@ -303,16 +303,19 @@ public class GameManager : MonoBehaviour
                     if (n < hp)
                     {
                         Debug.Log("<color=green><b>Pass</b></color>");
-                        playerData.money += r.RequestData.Menu.basePrice;
+                        var price = r.RequestData.Menu.basePrice;
+                        ModifyMoney(price);
+                        r.ShowMoney(price);
                         moneyUI.UpdateText(playerData.money);
                         completeRequests.Add(r.RequestData);
                         r.CompleteRequest();
                     }
                     else
                     {
-                        Debug.Log("<color=red><b>Fail</b></color>");
-                        playerData.money += r.RequestData.Menu.basePrice;
-                        moneyUI.UpdateText(playerData.money);
+                        Debug.Log("<color=red><b>Caught</b></color>");
+                        //var price = r.RequestData.Menu.basePrice;
+                        //ModifyMoney(price);
+                        //r.ShowMoney(price);
                         failRequests.Add(r.RequestData);
                         r.FailRequest();
 
@@ -344,10 +347,10 @@ public class GameManager : MonoBehaviour
         r.onExecuteFail += (Dragable dragableObject) =>
         {
             Debug.Log("<color=red><b>Fail</b></color>");
-            playerData.money += r.RequestData.Menu.basePrice;
-            moneyUI.UpdateText(playerData.money);
-            failRequests.Add(r.RequestData);
-            r.FailRequest();
+            //playerData.money += r.RequestData.Menu.basePrice;
+            //moneyUI.UpdateText(playerData.money);
+            //failRequests.Add(r.RequestData);
+            //r.FailRequest();
 
             if (dragableObject is Card)
             {
@@ -378,9 +381,18 @@ public class GameManager : MonoBehaviour
 
     #region Request Board
 
+    void ModifyMoney(int amount)
+    {
+       playerData.money += amount;
+        moneyUI.UpdateText(playerData.money);
+    }
+
+
     void CompleteRequest(RequestBoard requestBoard)
     {
         Debug.Log("[GameManager] CompleteRequest");
+
+
         if (IsLevelComplete())
         {
             Close();
