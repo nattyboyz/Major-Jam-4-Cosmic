@@ -15,8 +15,7 @@ MonoBehaviour:
   menuName: Hotdog
   ingredients:
   - {fileID: 11400000, guid: 1134af86f99b921439e36b1af7ea73c9, type: 2}
-  - {fileID: 11400000, guid: 6de6880e0d7bb11439efe8e010827e23, type: 2}
   - {fileID: 11400000, guid: 683fcf4febe01a346b026d20906fc9a0, type: 2}
   basePrice: 10
-  baseTime: 60
+  baseTime: 40
   sprite: {fileID: 21300000, guid: 401bfa3c79541b343bdec06e41f98d81, type: 3}

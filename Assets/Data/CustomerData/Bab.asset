@@ -18,6 +18,6 @@ MonoBehaviour:
   color: {r: 0.745283, g: 0.13710396, b: 0.4378489, a: 1}
   sprite: {fileID: 21300000, guid: 9c11b5c7e5b35e04d8030a72018e8fbc, type: 3}
   timeModifier:
-    min: 5
-    max: 10
+    min: -5
+    max: 20
     waitForeaver: 0
