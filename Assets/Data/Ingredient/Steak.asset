@@ -18,3 +18,5 @@ MonoBehaviour:
   name: Stake
   qualityValue: 0
   modifiers: []
+  buyPrice: 5
+  sellPrice: 0

@@ -17,3 +17,6 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: a31996548ae708c4aaa625fd37d409f0, type: 3}
   name: Kick
   qualityValue: 0
+  modifiers: []
+  buyPrice: 2
+  sellPrice: 0

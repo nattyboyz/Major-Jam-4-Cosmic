@@ -6,6 +6,7 @@ using UnityEngine;
 [Serializable]
 public class IngredientDataAmountDict : SerializableDictionary<IngredientData, int> { }
 
+[Serializable]
 public class PlayerData
 {
     public int money = 0;
@@ -24,8 +25,15 @@ public class PlayerData
         money = dataObject.money;
         star = dataObject.star;
         maxStar = dataObject.maxStar;
-        ingredients = dataObject.ingredients;
-        cheats = dataObject.cheats;
+
+        foreach(var kvp in dataObject.ingredients)
+        {
+            ingredients.Add(kvp.Key, kvp.Value);
+        }
+        foreach (var kvp in dataObject.cheats)
+        {
+            cheats.Add(kvp.Key, kvp.Value);
+        }
     }
 
 }

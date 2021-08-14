@@ -18,3 +18,5 @@ MonoBehaviour:
   name: Raw Meat
   qualityValue: 0
   modifiers: []
+  buyPrice: 3
+  sellPrice: 0

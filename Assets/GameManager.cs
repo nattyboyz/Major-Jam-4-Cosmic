@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
 
-    public static PlayerData playerData = new PlayerData();
+    [SerializeField] PlayerData playerData = new PlayerData();
     [SerializeField] PlayerDataScriptableObject playerDataScriptableObject;
     bool isPlaying = false;
 
@@ -53,12 +53,76 @@ public class GameManager : MonoBehaviour
     [SerializeField] PenaltyUI penaltyUI;
     [SerializeField] CustomerLeftUI customerLeftUI;
     [SerializeField] CloseShopUI shopCloseUI;
+    [SerializeField] BuyUI buyUI;
 
     private void Awake()
     {
         if (playerDataScriptableObject != null) playerData = new PlayerData(playerDataScriptableObject);
         shopOpenUI.onOpen += Open;
         shopCloseUI.onClose += Close;
+
+
+        buyUI.onBuy += BuyIngredient;
+        buyUI.onSell += SellIngredient;
+        buyUI.Init(playerData);
+    }
+
+    void BuyIngredient(CardBuySlotUI cardBuySlot)
+    {
+        if(playerData.money>= cardBuySlot.IngredientData.BuyPrice)
+        {
+            int amount = 0;
+            ModifyMoney(-cardBuySlot.IngredientData.BuyPrice);
+
+            if (playerData.cheats.ContainsKey(cardBuySlot.IngredientData))
+            {
+                amount =  playerData.cheats[cardBuySlot.IngredientData] += 1;
+                Debug.Log("Success buying cheats" + cardBuySlot.IngredientData.Name + " " + amount);
+
+            }
+            else if (playerData.ingredients.ContainsKey(cardBuySlot.IngredientData))
+            {
+                amount = playerData.ingredients[cardBuySlot.IngredientData] += 1;
+
+                Debug.Log("Success buying ingredient " + cardBuySlot.IngredientData.Name + " " + amount);
+            }
+            else
+            {
+                //First item in inventory
+                amount = playerData.ingredients[cardBuySlot.IngredientData] = 1;
+            }
+            cardBuySlot.UpdateAmount(amount);
+        }
+        else
+        {
+            Debug.Log("Fail buying " + cardBuySlot.IngredientData.Name + "No enough money");
+        }
+    }
+
+    void SellIngredient(CardBuySlotUI cardBuySlot)
+    {
+        IngredientData target= cardBuySlot.IngredientData;
+        int amount = 0;
+        int sellPrice = 0;
+
+
+        if (playerData.cheats.ContainsKey(target) && playerData.cheats[target] > 0)
+        {
+            amount = playerData.cheats[target] -= 1;
+            sellPrice = cardBuySlot.IngredientData.SellPrice;
+            Debug.Log("Success selling cheats" + target.Name + " " + amount);
+
+        }
+        else if (playerData.ingredients.ContainsKey(target) && playerData.ingredients[target]>0)
+        {
+            amount = playerData.ingredients[target] -= 1;
+            sellPrice = cardBuySlot.IngredientData.SellPrice;
+            Debug.Log("Success selling ingredient " + target.Name + " " + amount);
+        }
+
+        ModifyMoney(+sellPrice);
+        cardBuySlot.UpdateAmount(amount);
+
     }
 
     private void Start()
@@ -384,7 +448,7 @@ public class GameManager : MonoBehaviour
     void ModifyMoney(int amount)
     {
        playerData.money += amount;
-        moneyUI.UpdateText(playerData.money);
+       moneyUI.UpdateText(playerData.money);
     }
 
 
@@ -555,10 +619,6 @@ public class GameManager : MonoBehaviour
     void LoadLevel()
     {
         CreateAllRequest();
-        InitCheatCards();
-        InitDeck();
-        InitKitchenTool(pan);
-        InitKitchenTool(knife);
         InitDiscardSpot();
 
         for (int i = 0; i < requests.Count; i++)
@@ -569,11 +629,18 @@ public class GameManager : MonoBehaviour
 
         penaltyUI.SetStar(playerData.star);
         moneyUI.UpdateText(playerData.money);
+
         shopOpenUI.Show();
+        buyUI.Show();
     }
 
     void StartGame()
     {
+        InitCheatCards();
+        InitDeck();
+        InitKitchenTool(pan);
+        InitKitchenTool(knife);
+
         currentCustomerIndex = 0;
         shopCloseUI.Show();
         for (int i = 0; i < maxHand; i++){DrawCard();}

@@ -19,3 +19,5 @@ MonoBehaviour:
   qualityValue: 0
   modifiers:
   - {fileID: 11400000, guid: 1b377cea892007446a84dd4baf7b3b9a, type: 2}
+  buyPrice: 1
+  sellPrice: 0

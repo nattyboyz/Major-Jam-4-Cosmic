@@ -16,4 +16,7 @@ MonoBehaviour:
   color: {r: 0.52029836, g: 0.35955858, b: 0.754717, a: 1}
   icon: {fileID: 21300000, guid: 08ad02e84870b71418c7004cadfe1676, type: 3}
   name: Ratz
+  qualityValue: 0
   modifiers: []
+  buyPrice: 1
+  sellPrice: 0
