@@ -795,7 +795,14 @@ public class GameManager : MonoBehaviour
     void Open()
     {
         shopOpenUI.ActiveButton(false);
-        shopOpenUI.Hide(StartGame);
+        if (buyUI.IsShow)
+        {
+            buyUI.Hide(()=> { shopOpenUI.Hide(StartGame); });
+        }
+        else
+        {
+            shopOpenUI.Hide(StartGame);
+        }
     }
 
     void CalculateResult()
