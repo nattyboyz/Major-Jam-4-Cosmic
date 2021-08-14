@@ -29,15 +29,18 @@ MonoBehaviour:
     penalty: 0
     price: 6
     extra_ingredients: []
+    showCustomerType: 1
   - customerData: {fileID: 11400000, guid: 533bbf31a767c1c4eb428bf5b8977c8c, type: 2}
     menu: {fileID: 11400000, guid: 1bf36febcc91efe448a8041d080154f1, type: 2}
     time: 60
     penalty: 0
     price: 10
     extra_ingredients: []
+    showCustomerType: 0
   - customerData: {fileID: 11400000, guid: 7e7eafdc25cd25543b6c7d760ade58d0, type: 2}
     menu: {fileID: 11400000, guid: e1bb0ad5628a00f44b30db9aca60288a, type: 2}
     time: 80
     penalty: 0
     price: 15
     extra_ingredients: []
+    showCustomerType: 0
