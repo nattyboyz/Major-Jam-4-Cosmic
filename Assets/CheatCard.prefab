@@ -641,6 +641,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bf79421a2258e4448c8d95d57203083, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allowDrag: 1
   deltaDragPos: {x: 0, y: 0, z: 0}
   rectTransform: {fileID: 6812461811739501866}
   originalPosition: {x: 0, y: 0, z: 0}
@@ -649,3 +650,4 @@ MonoBehaviour:
   headerImage: {fileID: 1530282692883652794}
   iconImage: {fileID: 7853420765086692808}
   cardName: {fileID: 2092878592741642381}
+  amount_txt: {fileID: 0}
