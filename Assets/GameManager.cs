@@ -722,14 +722,22 @@ public class GameManager : MonoBehaviour
 
     void ConsumeCard(Card card)
     {
-        if(!card.cardData.isSpoil && playerData.ingredients.TryGetValue(card.cardData.ingredient, out var amount))
+        if (!card.cardData.isSpoil)
         {
-            playerData.ingredients[card.cardData.ingredient] -= 1;
+            if (playerData.ingredients.TryGetValue(card.cardData.ingredient, out var amount))
+            {
+                playerData.ingredients[card.cardData.ingredient] -= 1;
+            }
+            else
+            {
+                Debug.LogError("No ingredient left!!!!!!!!!!!!!!!!!!!");
+            }
         }
         else
         {
-            Debug.LogError("No ingredient left!!!!!!!!!!!!!!!!!!!");
+            Debug.Log("Consume spoil card");
         }
+
         Destroy(card.gameObject);
     }
 
@@ -1036,15 +1044,17 @@ public class GameManager : MonoBehaviour
 
     public void Btn_Spy()
     {
-        if (TryModifyMoney(-spyCost))
+        if (isPlaying)
         {
-            StartCoroutine(ieSpy());
+            if (TryModifyMoney(-spyCost))
+            {
+                StartCoroutine(ieSpy());
+            }
+            else
+            {
+                Debug.Log("No Money");
+            }
         }
-        else
-        {
-            Debug.Log("Nomoney");
-        }
-      
     }
 
     IEnumerator ieSpy()

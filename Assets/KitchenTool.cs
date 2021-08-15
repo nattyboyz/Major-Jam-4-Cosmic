@@ -118,7 +118,14 @@ public class KitchenTool : DragOnSpot, IPointerClickHandler
                         List<ModifierData> mod = new List<ModifierData>(processingCard.modifiers);
                         foreach(var modif in pack.modifier)
                         {
-                            mod.Add(modif);
+                            if (!mod.Contains(modif))
+                            {
+                                mod.Add(modif);
+                            }
+                            else
+                            {
+                                Debug.Log("Skip add modifier " + modif.ModifierName );
+                            }
                         }
                         resultCards.Add(new CardData(pack.data, mod));
                     }

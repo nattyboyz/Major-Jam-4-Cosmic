@@ -123,7 +123,15 @@ public class Card : Dragable, IPointerEnterHandler, IPointerExitHandler
                 icon.transform.SetParent(modifierIconParent);
                 icon.transform.localScale = one;
                 icon.Init(m_data);
-                modifierIconDict.Add(m_data, icon);
+
+                if (!modifierIconDict.ContainsKey(m_data))
+                {
+                    modifierIconDict.Add(m_data, icon);
+                }
+                else
+                {
+                    Debug.Log("<color=red>Cannot add same modifier</color>. Already have " + m_data + " key");
+                }
             }
         }
         SetColor(data.Color);
@@ -158,7 +166,6 @@ public class Card : Dragable, IPointerEnterHandler, IPointerExitHandler
 
     }
 
-
 }
 
 [Serializable]
@@ -168,7 +175,7 @@ public class CardData
     public bool isSpoil = false;
     public List<ModifierData> modifiers = new List<ModifierData>();
 
-    public CardData(IngredientData data,List<ModifierData> modifiers,bool isSpoil= false)
+    public CardData(IngredientData data, List<ModifierData> modifiers, bool isSpoil= false)
     {
         this.ingredient = data;
         this.modifiers = modifiers;
