@@ -164,30 +164,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050205d5ba5e91c46a3238c3b5d6d971, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &558874793 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 500449979916782834, guid: 257e7918127d6cb40b8b8d1fae20412a, type: 3}
-  m_PrefabInstance: {fileID: 500449979515104971}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &558874794
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 558874793}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 53ae1cb28a3da7f4eb530a61afa35386, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &602046035
 GameObject:
   m_ObjectHideFlags: 0
@@ -779,7 +755,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 500449979916782833, guid: 257e7918127d6cb40b8b8d1fae20412a, type: 3}
   m_PrefabInstance: {fileID: 500449979515104971}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 558874793}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b5ab1f83536dfad4e96fac045d7094c9, type: 3}
@@ -1412,11 +1388,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e676e4b84ffe43f4ea6bad8b8613dc35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1984927619 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1984927619, guid: 84b59c67607508c44a20e200e54ba751, type: 3}
-  m_PrefabInstance: {fileID: 7987156503788819653}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &500449979515104971
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1426,28 +1397,8 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 500449978503509838, guid: 257e7918127d6cb40b8b8d1fae20412a, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -139.1
+      value: -139.10004
       objectReference: {fileID: 0}
-    - target: {fileID: 500449978503509838, guid: 257e7918127d6cb40b8b8d1fae20412a, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -78.20001
-      objectReference: {fileID: 0}
-    - target: {fileID: 500449978872623090, guid: 257e7918127d6cb40b8b8d1fae20412a, type: 3}
-      propertyPath: m_Color.b
-      value: 0.1882353
-      objectReference: {fileID: 0}
-    - target: {fileID: 500449978872623090, guid: 257e7918127d6cb40b8b8d1fae20412a, type: 3}
-      propertyPath: m_Color.g
-      value: 0.1882353
-      objectReference: {fileID: 0}
-    - target: {fileID: 500449978872623090, guid: 257e7918127d6cb40b8b8d1fae20412a, type: 3}
-      propertyPath: m_Color.r
-      value: 0.1882353
-      objectReference: {fileID: 0}
-    - target: {fileID: 500449979916782833, guid: 257e7918127d6cb40b8b8d1fae20412a, type: 3}
-      propertyPath: animator
-      value: 
-      objectReference: {fileID: 558874794}
     - target: {fileID: 500449979916782834, guid: 257e7918127d6cb40b8b8d1fae20412a, type: 3}
       propertyPath: m_Name
       value: MoneyCanvas
@@ -1560,10 +1511,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1247051794801123950, guid: ae5d3b153a38f9f4facd222121c37a2c, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1247051795336667795, guid: ae5d3b153a38f9f4facd222121c37a2c, type: 3}
       propertyPath: m_Name
       value: ResultCanvas
@@ -1572,10 +1519,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 628344181}
-    - target: {fileID: 1247051795336667806, guid: ae5d3b153a38f9f4facd222121c37a2c, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1247051795336667807, guid: ae5d3b153a38f9f4facd222121c37a2c, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1658,34 +1601,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1247051795336667807, guid: ae5d3b153a38f9f4facd222121c37a2c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1247051795409578707, guid: ae5d3b153a38f9f4facd222121c37a2c, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1247051795409578707, guid: ae5d3b153a38f9f4facd222121c37a2c, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1247051795409578707, guid: ae5d3b153a38f9f4facd222121c37a2c, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1247051795409578707, guid: ae5d3b153a38f9f4facd222121c37a2c, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1247051795409578707, guid: ae5d3b153a38f9f4facd222121c37a2c, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1247051795409578707, guid: ae5d3b153a38f9f4facd222121c37a2c, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1247051795409578707, guid: ae5d3b153a38f9f4facd222121c37a2c, type: 3}
-      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -2535,10 +2450,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: HandCanvas
       objectReference: {fileID: 0}
-    - target: {fileID: 5308241685779526893, guid: d9f9ad3283d7c6d4abc5e1311caaef25, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6330162773311508641, guid: d9f9ad3283d7c6d4abc5e1311caaef25, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2801,18 +2712,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 84812664, guid: 84b59c67607508c44a20e200e54ba751, type: 3}
-      propertyPath: toolTipGameobject
-      value: 
-      objectReference: {fileID: 1984927619}
     - target: {fileID: 1416684966, guid: 84b59c67607508c44a20e200e54ba751, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1518348003}
-    - target: {fileID: 1984927619, guid: 84b59c67607508c44a20e200e54ba751, type: 3}
-      propertyPath: m_Name
-      value: Tooltip
-      objectReference: {fileID: 0}
     - target: {fileID: 5202462662538839693, guid: 84b59c67607508c44a20e200e54ba751, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0

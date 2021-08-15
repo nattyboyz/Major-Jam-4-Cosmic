@@ -15,3 +15,4 @@ MonoBehaviour:
   name: Inspector
   color: {r: 0.88957214, g: 0.28138122, b: 0.9811321, a: 1}
   icon: {fileID: 21300000, guid: a31996548ae708c4aaa625fd37d409f0, type: 3}
+  description: hate bad food

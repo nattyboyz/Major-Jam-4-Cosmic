@@ -15,3 +15,4 @@ MonoBehaviour:
   name: Delivery guy
   color: {r: 0.20971872, g: 0.8113208, b: 0.59474427, a: 1}
   icon: {fileID: 21300000, guid: a31996548ae708c4aaa625fd37d409f0, type: 3}
+  description: don't care

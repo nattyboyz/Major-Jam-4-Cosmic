@@ -15,3 +15,4 @@ MonoBehaviour:
   name: Vegan
   color: {r: 0.47620738, g: 0.8113208, b: 0.27095047, a: 1}
   icon: {fileID: 21300000, guid: a31996548ae708c4aaa625fd37d409f0, type: 3}
+  description: love veggie

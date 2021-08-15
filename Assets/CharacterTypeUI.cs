@@ -27,6 +27,7 @@ public class CharacterTypeUI : MonoBehaviour, IPointerExitHandler,IPointerEnterH
         lineImg.color = Color.white;
         characterTxt.color = Color.white;
         characterTxt.text = name;
+        descriptionTxt.text = "";
         Show();
     }
 
@@ -37,6 +38,7 @@ public class CharacterTypeUI : MonoBehaviour, IPointerExitHandler,IPointerEnterH
         lineImg.color = customerType.Color;
         characterTxt.color = customerType.Color;
         characterTxt.text = customerType.Name;
+        descriptionTxt.text = customerType.Description;
         Show();
     }
 

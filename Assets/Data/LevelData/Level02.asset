@@ -18,4 +18,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: cf95893f1e5c9e848a001b1ad9afcde9, type: 2}
   inspector_amount: 0
   meat_lover_amount: 0
-  max_wave: 7
+  customer: 6
+  goalMoney: 600
+  possibleCustomers:
+  - {fileID: 11400000, guid: 533bbf31a767c1c4eb428bf5b8977c8c, type: 2}
+  - {fileID: 11400000, guid: 7e7eafdc25cd25543b6c7d760ade58d0, type: 2}
+  - {fileID: 11400000, guid: 6bc35f5536400944e9eaa1acf4273936, type: 2}
+  - {fileID: 11400000, guid: 15a1eca6da066c248bdd5f54f789523e, type: 2}
+  - {fileID: 11400000, guid: 6c4b525735fd4684eb589b24d4333c94, type: 2}
+  - {fileID: 11400000, guid: dbf11ed658a138b47aea4d658271b538, type: 2}
+  - {fileID: 11400000, guid: 8b05a4ec51cdfe240ab6f1d4abb9bebe, type: 2}
+  - {fileID: 11400000, guid: 6d7761c36e14e024382d5725a6557463, type: 2}
+  fixedRequests: []
