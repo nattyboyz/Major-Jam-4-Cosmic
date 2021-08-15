@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3fc826adb2f4524dae358d757e09d9f, type: 3}
   m_Name: RatSteak
   m_EditorClassIdentifier: 
-  key: ratsteak
+  key: steak
   color: {r: 0.7169812, g: 0.253649, b: 0.253649, a: 1}
   icon: {fileID: 21300000, guid: 70ec3323e7bccff408956526f9356ed4, type: 3}
   name: Rat Steak
