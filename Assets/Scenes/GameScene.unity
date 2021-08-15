@@ -2619,10 +2619,6 @@ PrefabInstance:
       value: '#GameManager'
       objectReference: {fileID: 0}
     - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
-      propertyPath: pan
-      value: 
-      objectReference: {fileID: 480506642}
-    - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
       propertyPath: hand
       value: 
       objectReference: {fileID: 1922567469}
@@ -2630,10 +2626,6 @@ PrefabInstance:
       propertyPath: buyUI
       value: 
       objectReference: {fileID: 624552695}
-    - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
-      propertyPath: knife
-      value: 
-      objectReference: {fileID: 804519159}
     - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
       propertyPath: moneyUI
       value: 
@@ -2694,6 +2686,14 @@ PrefabInstance:
       propertyPath: requests.Array.data[2]
       value: 
       objectReference: {fileID: 786565174}
+    - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
+      propertyPath: kitchenTools.Array.data[0]
+      value: 
+      objectReference: {fileID: 480506642}
+    - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
+      propertyPath: kitchenTools.Array.data[1]
+      value: 
+      objectReference: {fileID: 804519159}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
 --- !u!1001 &7987156503788819653

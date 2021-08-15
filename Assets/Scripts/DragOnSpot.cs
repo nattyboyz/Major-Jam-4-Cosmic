@@ -10,8 +10,6 @@ public class DragOnSpot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public Action<DragOnSpot> onEnterDrag;
     public Action<DragOnSpot> onExitDrag;
     public Action<Dragable> onExecute;
-    //public Action<Card> onExecuteComplete;
-    //public Action<Card> onExecuteFail;
 
     public virtual void OnPointerEnter(PointerEventData eventData)
     {
@@ -31,7 +29,6 @@ public class DragOnSpot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         }
     }
 
-
     public virtual void Focus(Dragable dragable)
     {
        // Debug.Log("Focus");
@@ -48,14 +45,14 @@ public class DragOnSpot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
        // Debug.Log("Execute");
     }
 
-    //public virtual void ExecuteFail(Card card)
-    //{
-    //    onExecuteFail?.Invoke(card);
-    //}
+    public  virtual void Highlight()
+    {
+        Debug.Log("<color=yellow> Highlight </color>" + name);
+    }
 
-    //public virtual void ExecuteComplete(Card card)
-    //{
-    //    onExecuteComplete?.Invoke(card);
-    //}
+    public virtual void UnHighlight()
+    {
+        Debug.Log("<color=orange> UnHighlight </color>" + name);
+    }
 
 }

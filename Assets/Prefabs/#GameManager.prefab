@@ -84,8 +84,9 @@ MonoBehaviour:
   ratCard: {fileID: 0}
   discardSpot: {fileID: 0}
   deckSpot: {fileID: 0}
-  pan: {fileID: 0}
-  knife: {fileID: 0}
+  kitchenTools:
+  - {fileID: 0}
+  - {fileID: 0}
   shopOpenUI: {fileID: 0}
   resultUI: {fileID: 0}
   moneyUI: {fileID: 0}
