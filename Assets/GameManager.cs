@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Discard")]
     [SerializeField] DiscardSpot discardSpot;
+    [SerializeField] DeckSpot deckSpot;
 
     [Header("Utensil")]
     [SerializeField] KitchenTool pan;
@@ -99,6 +100,7 @@ public class GameManager : MonoBehaviour
         resultUI.onHome += ToTitle;
 
         InitCheatCards();
+        InitDeckSpot();
         InitDiscardSpot();
         InitKitchenTool(pan);
         InitKitchenTool(knife);
@@ -271,6 +273,47 @@ public class GameManager : MonoBehaviour
             }
         };
 
+    }
+
+    void InitDeckSpot()
+    {
+        deckSpot.onEnterDrag += (spot) => {
+            if (currentDragable != null)
+            {
+                if (currentDragable is Card)
+                {
+                    var card = currentDragable as Card;
+                    dragOnSpot = spot;
+                    deckSpot.Focus(currentDragable);
+                    card.Active(false);
+                }
+            }
+        };
+
+        deckSpot.onExitDrag += (spot) => {
+            if (currentDragable != null)
+            {
+                if (currentDragable is Card)
+                {
+                    var card = currentDragable as Card;
+                    dragOnSpot = null;
+                    spot.UnFocus();
+                    card.Active(true);
+                }
+            }
+        };
+
+        deckSpot.onExecute += (Dragable dragableObject) =>
+        {
+            if (dragableObject is Card)
+            {
+                Card card = dragableObject as Card;
+                deckSpot.UnFocus();
+                deck.Add(card.cardData);
+                hand.Remove(card);
+                //ConsumeCard(card);
+            }
+        };
     }
 
     void InitKitchenTool(KitchenTool tool)

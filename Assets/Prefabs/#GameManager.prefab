@@ -43,7 +43,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3391ac789687de5419f964c514e1f9d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerData:
+    money: 0
+    star: 3
+    maxStar: 5
+    ingredients:
+      m_keys: []
+      m_values: 
+    cheats:
+      m_keys: []
+      m_values: 
   playerDataScriptableObject: {fileID: 11400000, guid: 308d88ae9bf284e4d898bd3f68a5d61b, type: 2}
+  spyCost: 30
   baseCard: {fileID: 2437222501836713281, guid: f28062228418b004082ce29eea260a8d, type: 3}
   hand: {fileID: 0}
   deck: []
@@ -53,7 +64,15 @@ MonoBehaviour:
   cheatCards: []
   currentDragable: {fileID: 0}
   dragOnSpot: {fileID: 0}
-  levelData: {fileID: 11400000, guid: 734757c816c53754296864e08843cc2a, type: 2}
+  currentLevel: 0
+  levelDatas:
+  - {fileID: 11400000, guid: 734757c816c53754296864e08843cc2a, type: 2}
+  - {fileID: 11400000, guid: 567d1e0e5bcf24c4e8cbcdd2d96c6e93, type: 2}
+  - {fileID: 11400000, guid: 9091fac353ba0504c933c3b5bd62f02f, type: 2}
+  - {fileID: 11400000, guid: d7b7c60c46b6cfd44a44a4261c89ecbd, type: 2}
+  - {fileID: 11400000, guid: a8fcac8600ab48c429ce56a74bd35932, type: 2}
+  currentLevelData: {fileID: 0}
+  fallbackCustomer: {fileID: 11400000, guid: 7e7eafdc25cd25543b6c7d760ade58d0, type: 2}
   allRequests: []
   requests:
   - {fileID: 0}
@@ -64,6 +83,7 @@ MonoBehaviour:
   customerPerWave: 3
   ratCard: {fileID: 0}
   discardSpot: {fileID: 0}
+  deckSpot: {fileID: 0}
   pan: {fileID: 0}
   knife: {fileID: 0}
   shopOpenUI: {fileID: 0}
@@ -71,3 +91,15 @@ MonoBehaviour:
   moneyUI: {fileID: 0}
   penaltyUI: {fileID: 0}
   customerLeftUI: {fileID: 0}
+  shopCloseUI: {fileID: 0}
+  buyUI: {fileID: 0}
+  gameOverUI: {fileID: 0}
+  veganType: {fileID: 11400000, guid: 1f027c0db4a2a494ea65eb8f45c8989f, type: 2}
+  meatLoverType: {fileID: 11400000, guid: cffbc6b7999e3304fa4523f830e22f4c, type: 2}
+  celebType: {fileID: 11400000, guid: 0a651532eb61ab249bd3fb5e2b5f3197, type: 2}
+  rusherType: {fileID: 11400000, guid: 690d4d5065298da488908ac81b7281b8, type: 2}
+  meat: {fileID: 11400000, guid: 1134af86f99b921439e36b1af7ea73c9, type: 2}
+  veggie: {fileID: 11400000, guid: 6de6880e0d7bb11439efe8e010827e23, type: 2}
+  spyIcon: {fileID: 0}
+  scanlineAnimator: {fileID: 0}
+  scanLineIn: {fileID: 7400000, guid: 4a04d7a8ab8047a4c939caaa5b767a28, type: 2}

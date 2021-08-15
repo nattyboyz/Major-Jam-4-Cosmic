@@ -153,6 +153,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &453434957 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6432609012282905169, guid: d9f9ad3283d7c6d4abc5e1311caaef25, type: 3}
+  m_PrefabInstance: {fileID: 5308241684932803018}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7eadb1de04e7f7a48a90382bfab85ea2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &480506642 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7987156503312951255, guid: 84b59c67607508c44a20e200e54ba751, type: 3}
@@ -2612,10 +2623,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1922567469}
     - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
-      propertyPath: meat
-      value: 
-      objectReference: {fileID: 11400000, guid: 1134af86f99b921439e36b1af7ea73c9, type: 2}
-    - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
       propertyPath: buyUI
       value: 
       objectReference: {fileID: 624552695}
@@ -2623,10 +2630,6 @@ PrefabInstance:
       propertyPath: knife
       value: 
       objectReference: {fileID: 804519159}
-    - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
-      propertyPath: veggie
-      value: 
-      objectReference: {fileID: 11400000, guid: 6de6880e0d7bb11439efe8e010827e23, type: 2}
     - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
       propertyPath: moneyUI
       value: 
@@ -2636,33 +2639,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1064722188}
     - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
+      propertyPath: deckSpot
+      value: 
+      objectReference: {fileID: 453434957}
+    - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
       propertyPath: resultUI
       value: 
       objectReference: {fileID: 1776783244}
-    - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
-      propertyPath: celebType
-      value: 
-      objectReference: {fileID: 11400000, guid: 0a651532eb61ab249bd3fb5e2b5f3197, type: 2}
     - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
       propertyPath: penaltyUI
       value: 
       objectReference: {fileID: 1868149595082488770}
     - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
-      propertyPath: veganType
-      value: 
-      objectReference: {fileID: 11400000, guid: 1f027c0db4a2a494ea65eb8f45c8989f, type: 2}
-    - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
       propertyPath: gameOverUI
       value: 
       objectReference: {fileID: 2814887784369475766}
-    - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
-      propertyPath: rusherType
-      value: 
-      objectReference: {fileID: 11400000, guid: 690d4d5065298da488908ac81b7281b8, type: 2}
-    - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
-      propertyPath: scanLineIn
-      value: 
-      objectReference: {fileID: 7400000, guid: 4a04d7a8ab8047a4c939caaa5b767a28, type: 2}
     - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
       propertyPath: shopOpenUI
       value: 
@@ -2676,10 +2667,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1224895729205572858}
     - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
-      propertyPath: meatLoverType
-      value: 
-      objectReference: {fileID: 11400000, guid: cffbc6b7999e3304fa4523f830e22f4c, type: 2}
-    - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
       propertyPath: customerLeftUI
       value: 
       objectReference: {fileID: 8284657229673317017}
@@ -2688,17 +2675,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1918110944}
     - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
-      propertyPath: fallbackCustomer
-      value: 
-      objectReference: {fileID: 11400000, guid: 7e7eafdc25cd25543b6c7d760ade58d0, type: 2}
-    - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
       propertyPath: scanlineAnimator
       value: 
       objectReference: {fileID: 1756922870}
-    - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
-      propertyPath: levelDatas.Array.size
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
       propertyPath: requests.Array.data[0]
       value: 
@@ -2711,26 +2690,6 @@ PrefabInstance:
       propertyPath: requests.Array.data[2]
       value: 
       objectReference: {fileID: 786565174}
-    - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
-      propertyPath: levelDatas.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: 734757c816c53754296864e08843cc2a, type: 2}
-    - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
-      propertyPath: levelDatas.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: 567d1e0e5bcf24c4e8cbcdd2d96c6e93, type: 2}
-    - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
-      propertyPath: levelDatas.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: 9091fac353ba0504c933c3b5bd62f02f, type: 2}
-    - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
-      propertyPath: levelDatas.Array.data[3]
-      value: 
-      objectReference: {fileID: 11400000, guid: d7b7c60c46b6cfd44a44a4261c89ecbd, type: 2}
-    - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
-      propertyPath: levelDatas.Array.data[4]
-      value: 
-      objectReference: {fileID: 11400000, guid: a8fcac8600ab48c429ce56a74bd35932, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
 --- !u!1001 &7987156503788819653

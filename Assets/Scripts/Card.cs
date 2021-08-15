@@ -174,6 +174,7 @@ public class CardData
     public IngredientData ingredient;
     public bool isSpoil = false;
     public List<ModifierData> modifiers = new List<ModifierData>();
+    
 
     public CardData(IngredientData data, List<ModifierData> modifiers, bool isSpoil= false)
     {
