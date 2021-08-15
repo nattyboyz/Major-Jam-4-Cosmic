@@ -10,14 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4ca922cc6a0ecd54688adea796a11f38, type: 3}
-  m_Name: Inspector01
+  m_Name: Normal_03
   m_EditorClassIdentifier: 
   customerType: {fileID: 11400000, guid: 669efb037d874ef41ab657ee7a0bd61c, type: 2}
-  name: Bab
-  description: Bab BabBabBabBabBab
-  color: {r: 0.9339623, g: 0.21498753, b: 0.61890584, a: 1}
-  sprite: {fileID: 21300000, guid: 9c11b5c7e5b35e04d8030a72018e8fbc, type: 3}
+  name: Bob
+  description: Normal
+  color: {r: 0.33962262, g: 0.33962262, b: 0.33962262, a: 1}
+  idle: {fileID: 21300000, guid: 0fd6ba52ca3a7f141a5442e4511e7dc6, type: 3}
+  sus: {fileID: 0}
+  happy: {fileID: 21300000, guid: a93e5753a337c384a9b5adbb831dc536, type: 3}
+  angry: {fileID: 21300000, guid: 5c4ad24a2150d364188ecdaa7229e3a1, type: 3}
   timeModifier:
-    min: -5
-    max: 20
+    min: 0
+    max: 10
     waitForeaver: 0

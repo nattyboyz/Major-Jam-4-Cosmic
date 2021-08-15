@@ -13,13 +13,19 @@ public class CustomerData: ScriptableObject
     [TextArea]
     [SerializeField] string description;
     [SerializeField] Color color = new Color32(232,167,11,255);
-    [SerializeField] Sprite sprite;
+    [SerializeField] Sprite idle;
+    [SerializeField] Sprite sus;
+    [SerializeField] Sprite happy;
+    [SerializeField] Sprite angry;
     [SerializeField] TimeData timeModifier;
 
     public CustomerType CustomerType { get => customerType; }
     public string Name { get => name;}
     public string Description { get => description;}
-    public Sprite Sprite { get => sprite; }
+    public Sprite SpriteIdle { get => idle; }
+    public Sprite SpriteSus { get => sus; }
+    public Sprite SpriteHappy { get => happy; }
+    public Sprite SpriteAngry { get => angry; }
     public TimeData TimeModifier { get => timeModifier; }
 }
 

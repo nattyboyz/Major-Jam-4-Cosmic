@@ -51,7 +51,7 @@ public class CustomerPortrait : MonoBehaviour, IPointerEnterHandler, IPointerExi
     public void SetCharacter(CustomerData customerData)
     {
         this.customerData = customerData;
-        this.sprite.sprite = customerData.Sprite;
+        this.sprite.sprite = customerData.SpriteIdle;
     }
 
     public void SetShow(bool value)
@@ -156,4 +156,29 @@ public class CustomerPortrait : MonoBehaviour, IPointerEnterHandler, IPointerExi
     //{
     //    specialIcon.gameObject.SetActive(value);
     //}
+
+    public void SetExpression(CharExpression expression)
+    {
+        switch (expression)
+        {
+            case CharExpression.Idle: sprite.sprite = customerData.SpriteIdle; break;
+            case CharExpression.Sus:
+                {
+                    if(customerData.SpriteSus != null)
+                        sprite.sprite = customerData.SpriteSus;
+                    else
+                        Debug.Log("No sus expression");
+                    break;
+                }
+            case CharExpression.Happy: sprite.sprite = customerData.SpriteHappy; break;
+            case CharExpression.Angry: sprite.sprite = customerData.SpriteAngry; break;
+            default: sprite.sprite = customerData.SpriteIdle; break;
+        }
+    }
+
+}
+
+public enum CharExpression
+{
+    Idle, Sus, Happy, Angry
 }

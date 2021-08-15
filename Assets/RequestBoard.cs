@@ -197,6 +197,7 @@ public class RequestBoard : DragOnSpot
                             if (m.Type == ModifierType.Curse)
                             {
                                 _check = CheckType.Doubt;
+                                customerPotrait.SetExpression(CharExpression.Sus);
                                 break;
                             }
                             else if (m.Type == ModifierType.Buff)
@@ -246,6 +247,8 @@ public class RequestBoard : DragOnSpot
         isProcessing = false;
         time = 0;
         Hide(onComplete);
+
+        customerPotrait.SetExpression(CharExpression.Happy);
     }
 
     public void Fail(string reason = "", Action onComplete = null)
@@ -254,6 +257,8 @@ public class RequestBoard : DragOnSpot
         isProcessing = false;
         time = 0;
         Hide(onComplete);
+
+        customerPotrait.SetExpression(CharExpression.Angry);
     }
 
     public void Timeout( Action onComplete = null)

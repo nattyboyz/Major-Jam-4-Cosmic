@@ -10,13 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4ca922cc6a0ecd54688adea796a11f38, type: 3}
-  m_Name: MeatLover01
+  m_Name: MeatLover_01
   m_EditorClassIdentifier: 
   customerType: {fileID: 11400000, guid: cffbc6b7999e3304fa4523f830e22f4c, type: 2}
-  name: Rushguy
-  description: Rushguy
-  color: {r: 0.18516374, g: 0.6886792, b: 0.2926373, a: 1}
-  sprite: {fileID: 21300000, guid: ef00d18c82631cb4d8e829837e66a1cf, type: 3}
+  name: Meat Lover A
+  description: MeatLover_01
+  color: {r: 0.8018868, g: 0.17880182, b: 0.13995194, a: 1}
+  idle: {fileID: 21300000, guid: 4ef165e41fe7da140bb0a0ebdd4d1250, type: 3}
+  sus: {fileID: 21300000, guid: f820cce437ceefe46a8c5ab75c1aca2c, type: 3}
+  happy: {fileID: 21300000, guid: 9899936f58c9670419229692c133d355, type: 3}
+  angry: {fileID: 21300000, guid: 26c1b0f5ed5ee39448e3967b3fcf32f4, type: 3}
   timeModifier:
     min: 0
     max: 0
