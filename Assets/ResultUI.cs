@@ -22,7 +22,7 @@ public class ResultUI : BaseUI
 
     public void Btn_Retry()
     {
-       // Hide(onRetry);
+        Hide(onRetry);
     }
 
     public void Btn_Home()

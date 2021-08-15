@@ -322,7 +322,7 @@ PrefabInstance:
       objectReference: {fileID: 628344181}
     - target: {fileID: 3826240253949814371, guid: 46db1a6df08fae349af7c617dc3fb3cc, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3826240253949814684, guid: 46db1a6df08fae349af7c617dc3fb3cc, type: 3}
       propertyPath: m_Pivot.x
@@ -466,7 +466,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5337154777483963307, guid: 46db1a6df08fae349af7c617dc3fb3cc, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000030517578
+      value: -0.00048828125
       objectReference: {fileID: 0}
     - target: {fileID: 5455571449891477112, guid: 46db1a6df08fae349af7c617dc3fb3cc, type: 3}
       propertyPath: m_IsActive
@@ -1414,17 +1414,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 500449978503509838, guid: 257e7918127d6cb40b8b8d1fae20412a, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -139.10004
-      objectReference: {fileID: 0}
     - target: {fileID: 500449979916782834, guid: 257e7918127d6cb40b8b8d1fae20412a, type: 3}
       propertyPath: m_Name
       value: MoneyCanvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 500449979916782834, guid: 257e7918127d6cb40b8b8d1fae20412a, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 500449979916782837, guid: 257e7918127d6cb40b8b8d1fae20412a, type: 3}
       propertyPath: m_Pivot.x
@@ -1778,10 +1770,6 @@ PrefabInstance:
     - target: {fileID: 3089694861014808572, guid: 2f5dd42b7d1eac44dae9e60ac756a820, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5408879866418984727, guid: 2f5dd42b7d1eac44dae9e60ac756a820, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -89.00006
       objectReference: {fileID: 0}
     - target: {fileID: 6566616127787527537, guid: 2f5dd42b7d1eac44dae9e60ac756a820, type: 3}
       propertyPath: m_AnchorMax.y

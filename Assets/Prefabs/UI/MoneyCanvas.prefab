@@ -187,7 +187,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -139.1, y: -78.20001}
+  m_AnchoredPosition: {x: -139.10004, y: -78.20001}
   m_SizeDelta: {x: 262.5, y: 140.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &500449978710653415
@@ -518,6 +518,7 @@ MonoBehaviour:
   in_clip: {fileID: 0}
   out_clip: {fileID: 0}
   moneyTxt: {fileID: 500449978710653413}
+  goalTxt: {fileID: 3080445247632420503}
 --- !u!95 &558874794
 Animator:
   serializedVersion: 3

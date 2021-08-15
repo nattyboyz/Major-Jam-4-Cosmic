@@ -777,6 +777,8 @@ MonoBehaviour:
   buyUi: {fileID: 0}
   open_btn: {fileID: 1629951812608331105}
   buy_btn: {fileID: 1110559743}
+  day_txt: {fileID: 1948330353087660106}
+  goal_txt: {fileID: 1504919710865917692}
 --- !u!95 &1629951813988843981
 Animator:
   serializedVersion: 3
@@ -905,7 +907,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 316.9}
+  m_AnchoredPosition: {x: 0, y: 310.1}
   m_SizeDelta: {x: 270.58997, y: 130.29999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5217843288405624786
@@ -990,7 +992,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -89, y: -313.625}
+  m_AnchoredPosition: {x: -89.00006, y: -313.625}
   m_SizeDelta: {x: 0, y: 690.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &342017561860103644

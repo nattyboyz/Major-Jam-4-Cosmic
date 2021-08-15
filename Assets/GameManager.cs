@@ -98,6 +98,9 @@ public class GameManager : MonoBehaviour
 
         resultUI.onNext += NextLevel;
         resultUI.onHome += ToTitle;
+        resultUI.onRetry += () => {
+            SceneManager.LoadScene("GameScene");
+        };
 
         InitCheatCards();
         InitDeckSpot();
@@ -229,7 +232,8 @@ public class GameManager : MonoBehaviour
                     }
                 };
                 
-                cheatCards.Add(cheatCard); 
+                cheatCards.Add(cheatCard);
+                cheatCard.SetAmount(playerData.cheats[cheatCard.cardData.ingredient]);
             }
             else
             {
@@ -894,6 +898,9 @@ public class GameManager : MonoBehaviour
         penaltyUI.SetStar(playerData.star);
         moneyUI.UpdateText(playerData.money);
 
+        shopOpenUI.SetDay("DAY " + (currentLevel + 1));
+        shopOpenUI.SetGoal("Goal: $" + currentLevelData.GoalMoney);
+        moneyUI.UpdateGoal(currentLevelData.GoalMoney);
         shopOpenUI.ActiveButton(true);
         buyUI.Show(()=> { });
     }
