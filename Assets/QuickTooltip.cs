@@ -38,7 +38,6 @@ public class QuickTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         }
     }
 
-
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (EnableTooltip)

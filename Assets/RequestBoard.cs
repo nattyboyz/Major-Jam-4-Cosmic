@@ -142,8 +142,6 @@ public class RequestBoard : DragOnSpot
     IngredientSetting CreateIngredientSetting(IngredientData ingredient)
     {
         IngredientSetting setting = new IngredientSetting(ingredient, false);
-        Settings.Add(setting);
-
         var icon = Instantiate<IngredientIcon>(baseIngredientIcon);
         icon.Set(setting.Ingredient);
         icon.transform.SetParent(ingredientParent);

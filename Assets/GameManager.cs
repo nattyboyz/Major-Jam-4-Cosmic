@@ -382,17 +382,58 @@ public class GameManager : MonoBehaviour
 
                 if (r.IsComplete())
                 {
+                    CustomerData customer = r.RequestData.CustomerData;
+                    float baseHp = 100;
                     float hp = 100;
-                    foreach(var setting in r.Settings)
+
+                    foreach (var setting in r.Settings)
                     {
                         if (setting.CardData == null) Debug.LogError("Card data is NULL");
                         if (setting.CardData.modifiers != null)
                         {
                             foreach (var modifier in setting.CardData.modifiers)
                             {
-                                if (hp + modifier.QualityValue < 0) hp = 0;
-                                else if (hp + modifier.QualityValue > 100) hp = 100;
-                                else hp += modifier.QualityValue;
+                                if (modifier.Type == ModifierType.Curse)
+                                {
+                                    baseHp = hp = 90;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                    foreach (var setting in r.Settings)
+                    {
+                        if (setting.CardData == null) Debug.LogError("Card data is NULL");
+                        if (setting.CardData.modifiers != null)
+                        {
+                            Debug.Log(setting.CardData.modifiers.Count);
+                            foreach (var modifier in setting.CardData.modifiers)
+                            {
+                                var val = modifier.QualityValue;
+                                if (modifier.Type== ModifierType.Curse)
+                                {
+                                    if (string.CompareOrdinal(customer.CustomerType.Name, "Delivery guy") ==0)
+                                    {
+                                        val = 0;
+                                        Debug.Log("Delivery guy set value to 0");
+                                    }
+                                    else
+                                    {
+                                        Debug.Log(setting.CardData.ingredient.Key + " " + modifier.Key);
+                                        float add = GetCurseModifierBaseOnCustomer(customer.CustomerType.Name, setting.Ingredient.Key);
+                                        val += add;
+                                        Debug.Log(customer.CustomerType.Name + "add value " + add);
+                                    }
+                                }
+                                else
+                                {
+
+                                }
+
+                                if (hp + val < 0) hp = 0;
+                                else if (hp + val > 100) hp = 100;
+                                else hp += val;
                             }
                         }
                     }
@@ -471,6 +512,32 @@ public class GameManager : MonoBehaviour
         //};
     }
 
+
+    public float GetCurseModifierBaseOnCustomer(string customerKey, string ingredientKey)
+    {
+        if (customerKey == "MeatLover")
+        {
+            if (ingredientKey == "steak") return -5;
+        }
+        else if (customerKey == "Vegan")
+        {
+            if (ingredientKey == "veggie") return -5;
+        }
+        else if (customerKey == "Inspector")
+        {
+            return -9;
+        }
+        else if (customerKey == "ByPasser")
+        {
+            return 5;
+        }
+        else if (customerKey == "Celebrity")
+        {
+            return -2;
+        }
+
+        return 0;
+    }
 
     #region Request Board
 
