@@ -79,10 +79,10 @@ public class QuickTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (EnableTooltip)
-        {
-            isHover = true;
-        }
+        //if (EnableTooltip)
+        //{
+        //    isHover = true;
+        //}
     }
 
     public void SetText(string description)
