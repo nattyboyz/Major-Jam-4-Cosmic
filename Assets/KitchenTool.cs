@@ -185,7 +185,8 @@ public class KitchenTool : DragOnSpot, IPointerClickHandler
 public class Pack
 {
     public IngredientData data;
-    public int amount;
+    [Min(1)]
+    public int amount = 1;
     public List<ModifierData> modifier;
 }
 
