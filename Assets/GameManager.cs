@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] List<KitchenTool> kitchenTools;
 
     [Header("UI")]
+    [SerializeField] Canvas shopCanvas;
     [SerializeField] ShopOpenUI shopOpenUI;
     [SerializeField] ResultUI resultUI;
     [SerializeField] MoneyUI moneyUI;
@@ -167,6 +168,9 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        shopCanvas.gameObject.SetActive(false);
+        shopCanvas.gameObject.SetActive(true);
+
         hand.gameObject.SetActive(false);
         LoadLevel();
         hand.gameObject.SetActive(true);
