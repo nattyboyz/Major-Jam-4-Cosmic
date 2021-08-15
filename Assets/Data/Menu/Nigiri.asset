@@ -16,6 +16,6 @@ MonoBehaviour:
   ingredients:
   - {fileID: 11400000, guid: f510d65d656f19d4eb45b4ed85ad9d10, type: 2}
   - {fileID: 11400000, guid: 683fcf4febe01a346b026d20906fc9a0, type: 2}
-  basePrice: 10
-  baseTime: 60
+  basePrice: 15
+  baseTime: 30
   sprite: {fileID: 21300000, guid: c7032f08f1d026444b541a1b913261e9, type: 3}

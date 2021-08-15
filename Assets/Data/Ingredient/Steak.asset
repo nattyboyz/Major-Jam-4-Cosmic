@@ -19,5 +19,5 @@ MonoBehaviour:
   description: 
   qualityValue: 0
   modifiers: []
-  buyPrice: 5
+  buyPrice: 10
   sellPrice: 1

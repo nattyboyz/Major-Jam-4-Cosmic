@@ -21,6 +21,6 @@ MonoBehaviour:
   happy: {fileID: 21300000, guid: 3da1e659f77f3e049b2c4843295821f8, type: 3}
   angry: {fileID: 21300000, guid: d6e4981d9e4347a49b1a8adf0c6d72d6, type: 3}
   timeModifier:
-    min: -5
-    max: 20
+    min: 20
+    max: 60
     waitForeaver: 0

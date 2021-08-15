@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ca922cc6a0ecd54688adea796a11f38, type: 3}
+  m_Name: Normal_05 2
+  m_EditorClassIdentifier: 
+  customerType: {fileID: 11400000, guid: cffbc6b7999e3304fa4523f830e22f4c, type: 2}
+  name: Bob
+  description: Normal
+  color: {r: 0.8, g: 0.18039216, b: 0.14117648, a: 1}
+  idle: {fileID: 21300000, guid: 492fef9347f513b478c5529570c416c3, type: 3}
+  sus: {fileID: 0}
+  happy: {fileID: 21300000, guid: 541f3a74f62f0324896a0e06b59d8df5, type: 3}
+  angry: {fileID: 21300000, guid: 8b5328a067f75884c97ac8e97379760f, type: 3}
+  timeModifier:
+    min: 0
+    max: 10
+    waitForeaver: 0

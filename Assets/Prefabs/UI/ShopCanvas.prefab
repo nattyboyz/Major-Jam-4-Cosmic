@@ -1479,6 +1479,14 @@ PrefabInstance:
       propertyPath: processMenu.m_values.Array.data[2].amount
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2481907247372146444, guid: 60639dc3624c15640b3ac4f61fec7eb7, type: 3}
+      propertyPath: processMenu.m_values.Array.data[2].modifier.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2481907247372146444, guid: 60639dc3624c15640b3ac4f61fec7eb7, type: 3}
+      propertyPath: processMenu.m_values.Array.data[2].modifier.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 1b377cea892007446a84dd4baf7b3b9a, type: 2}
     - target: {fileID: 6815791887612082734, guid: 60639dc3624c15640b3ac4f61fec7eb7, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
