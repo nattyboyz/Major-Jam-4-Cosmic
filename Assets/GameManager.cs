@@ -1149,7 +1149,14 @@ public class GameManager : MonoBehaviour
         //moneyUI.Hide();
 
         shopCloseUI.Hide();
-        shopOpenUI.Show(ShowResult);
+        if (playerData.money >= currentLevelData.GoalMoney)
+        {
+            shopOpenUI.Show(ShowResult);
+        }
+        else
+        {
+            shopOpenUI.Show(Gameover);
+        }
 
     }
 
