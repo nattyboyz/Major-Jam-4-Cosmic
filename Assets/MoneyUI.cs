@@ -12,4 +12,14 @@ public class MoneyUI : BaseUI
         moneyTxt.text = "$ " + money;
     }
 
+    public void Success()
+    {
+        animator.SetTrigger("success");
+    }
+
+    public void Fail()
+    {
+        animator.SetTrigger("fail");
+    }
+
 }

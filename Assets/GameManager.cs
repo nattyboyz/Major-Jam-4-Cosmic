@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] PlayerDataScriptableObject playerDataScriptableObject;
     bool isPlaying = false;
 
+    [SerializeField] int spyCost = 30;
+
     [Header("Card")]
     [SerializeField] Card baseCard;
     [SerializeField] Hand hand;
@@ -98,11 +100,9 @@ public class GameManager : MonoBehaviour
 
     void BuyIngredient(CardBuySlotUI cardBuySlot)
     {
-        if(playerData.money>= cardBuySlot.IngredientData.BuyPrice)
+        if (TryModifyMoney(-cardBuySlot.IngredientData.BuyPrice))
         {
             int amount = 0;
-            ModifyMoney(-cardBuySlot.IngredientData.BuyPrice);
-
             if (playerData.cheats.ContainsKey(cardBuySlot.IngredientData))
             {
                 amount =  playerData.cheats[cardBuySlot.IngredientData] += 1;
@@ -149,7 +149,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("Success selling ingredient " + target.Name + " " + amount);
         }
 
-        ModifyMoney(+sellPrice);
+        TryModifyMoney(+sellPrice);
         cardBuySlot.UpdateAmount(amount);
 
     }
@@ -402,9 +402,8 @@ public class GameManager : MonoBehaviour
                     {
                         Debug.Log("<color=green><b>Pass</b></color>");
                         var price = r.RequestData.Menu.basePrice;
-                        ModifyMoney(price);
+                        TryModifyMoney(price);
                         r.ShowMoney(price);
-                        moneyUI.UpdateText(playerData.money);
                         completeRequests.Add(r.RequestData);
                         r.Success("", ()=> { CompleteRequest(r); });
                       
@@ -475,10 +474,17 @@ public class GameManager : MonoBehaviour
 
     #region Request Board
 
-    void ModifyMoney(int amount)
+    bool TryModifyMoney(int amount)
     {
-       playerData.money += amount;
-       moneyUI.UpdateText(playerData.money);
+        if (playerData.money + amount >= 0)
+        {
+            playerData.money += amount;
+            moneyUI.UpdateText(playerData.money);
+            moneyUI.Success();
+            return true;
+        }
+        moneyUI.Fail();
+        return false;
     }
 
 
@@ -874,7 +880,14 @@ public class GameManager : MonoBehaviour
 
     public void Btn_Spy()
     {
-        StartCoroutine(ieSpy());
+        if (TryModifyMoney(-spyCost))
+        {
+            StartCoroutine(ieSpy());
+        }
+        else
+        {
+            Debug.Log("Nomoney");
+        }
       
     }
 
