@@ -22,10 +22,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: cf95893f1e5c9e848a001b1ad9afcde9, type: 2}
   - {fileID: 11400000, guid: d7de569243ae05b41806bfb3a8093c1e, type: 2}
   - {fileID: 11400000, guid: a11a3927e0824e54da3a13a6402d59d1, type: 2}
-  inspector_amount: 10
-  meat_lover_amount: 20
-  customer: 99
-  goalMoney: 1000
+  inspector_amount: 3
+  meat_lover_amount: 5
+  customer: 30
+  goalMoney: 500
   possibleCustomers:
   - {fileID: 11400000, guid: 7e7eafdc25cd25543b6c7d760ade58d0, type: 2}
   - {fileID: 11400000, guid: 67c2cb2a350957a429e4f7024ce2d75e, type: 2}

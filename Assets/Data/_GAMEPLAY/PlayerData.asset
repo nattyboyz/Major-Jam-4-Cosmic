@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfe67cef67630324db71c80d940803c0, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  money: 500
+  money: 100
   star: 3
   maxStar: 5
   ingredients:

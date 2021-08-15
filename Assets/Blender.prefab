@@ -789,16 +789,16 @@ MonoBehaviour:
     - {fileID: 11400000, guid: b399f4ea1b706df43b5348e000a3ea9a, type: 2}
     m_values:
     - data: {fileID: 11400000, guid: ffaa80dfc8bae0144b0874c30ae95f21, type: 2}
-      amount: 1
+      amount: 3
       modifier: []
     - data: {fileID: 11400000, guid: 3bcaaf1f4a0ef414c999573a991d68da, type: 2}
-      amount: 1
+      amount: 2
       modifier: []
     - data: {fileID: 11400000, guid: da4d6160304c52547b74ccdf8760e9fb, type: 2}
       amount: 1
       modifier: []
     - data: {fileID: 11400000, guid: ffaa80dfc8bae0144b0874c30ae95f21, type: 2}
-      amount: 1
+      amount: 3
       modifier:
       - {fileID: 11400000, guid: 1b377cea892007446a84dd4baf7b3b9a, type: 2}
     - data: {fileID: 11400000, guid: 8ea2ae70b1b1e3f4286a05ba7af07858, type: 2}
