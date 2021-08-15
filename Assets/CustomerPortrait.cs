@@ -159,20 +159,23 @@ public class CustomerPortrait : MonoBehaviour, IPointerEnterHandler, IPointerExi
 
     public void SetExpression(CharExpression expression)
     {
-        switch (expression)
+        if (customerData!=null)
         {
-            case CharExpression.Idle: sprite.sprite = customerData.SpriteIdle; break;
-            case CharExpression.Sus:
-                {
-                    if(customerData.SpriteSus != null)
-                        sprite.sprite = customerData.SpriteSus;
-                    else
-                        Debug.Log("No sus expression");
-                    break;
-                }
-            case CharExpression.Happy: sprite.sprite = customerData.SpriteHappy; break;
-            case CharExpression.Angry: sprite.sprite = customerData.SpriteAngry; break;
-            default: sprite.sprite = customerData.SpriteIdle; break;
+            switch (expression)
+            {
+                case CharExpression.Idle: sprite.sprite = customerData.SpriteIdle; break;
+                case CharExpression.Sus:
+                    {
+                        if (customerData.SpriteSus != null)
+                            sprite.sprite = customerData.SpriteSus;
+                        else
+                            Debug.Log("No sus expression");
+                        break;
+                    }
+                case CharExpression.Happy: sprite.sprite = customerData.SpriteHappy; break;
+                case CharExpression.Angry: sprite.sprite = customerData.SpriteAngry; break;
+                default: sprite.sprite = customerData.SpriteIdle; break;
+            }
         }
     }
 

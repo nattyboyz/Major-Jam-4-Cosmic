@@ -32,5 +32,4 @@ public class DiscardSpot : DragOnSpot
         focusImage.gameObject.SetActive(false);
     }
 
-
 }

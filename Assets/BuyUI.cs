@@ -10,6 +10,7 @@ public class BuyUI : BaseUI
     [SerializeField] List<CardBuySlotUI> cheatCardSlot;
     public Action<CardBuySlotUI> onBuy;
     public Action<CardBuySlotUI> onSell;
+    public Action onStartShow;
 
 
     public Button ingredientBtn;
@@ -43,6 +44,23 @@ public class BuyUI : BaseUI
         }
     }
 
+    public void UpdateShopInventory(PlayerData playerData)
+    {
+        foreach (var slot in cardSlots)
+        {
+            if (slot != null && slot.TryInit(playerData))
+            {
+            }
+        }
+
+        foreach (var slot in cheatCardSlot)
+        {
+            if (slot != null && slot.TryInit(playerData))
+            {
+            }
+        }
+    }
+
     public void Btn_Done()
     {
         Hide();
@@ -64,4 +82,9 @@ public class BuyUI : BaseUI
         blackMarketBtn.interactable = false;
     }
 
+    public override IEnumerator ieShow(Action onComplete = null)
+    {
+        onStartShow?.Invoke();
+        return base.ieShow(onComplete);
+    }
 }

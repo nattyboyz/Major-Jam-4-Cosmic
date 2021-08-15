@@ -175,6 +175,12 @@ public class RequestBoard : DragOnSpot
         focusGraphic.gameObject.SetActive(false);
     }
 
+
+    void SetCheckIcon()
+    {
+
+    }
+
     public override void Execute(Dragable dragableObject)
     {
         if (dragableObject is Card)
@@ -219,10 +225,64 @@ public class RequestBoard : DragOnSpot
             CheatCard card = dragableObject as CheatCard;
             UnFocus();
             Debug.Log("RequestBoard:: try use CHEAT CARD ->" + card.cardData.ingredient.Name);
-            if(card.cardData.ingredient.Name == "Ratz")
+            if(string.CompareOrdinal(card.cardData.ingredient.Key,"rat") == 0)
             {
-                //requestData.
                 ChargeTime(5);
+            }
+            else if (string.CompareOrdinal(card.cardData.ingredient.Key, "msg") == 0)
+            {
+                int rand = UnityEngine.Random.Range(0, 3);
+                List<IngredientSetting> curseSetting = new List<IngredientSetting>();
+                List<IngredientSetting> blessSetting = new List<IngredientSetting>();
+
+                //Purify or  Curse
+                foreach (var setting in settings)
+                {
+                    if(setting.Complete)
+                    {
+                        bool isCurse = false;
+                        foreach(var modifier in setting.CardData.modifiers)
+                        {
+                            if(modifier.Type == ModifierType.Curse)
+                            {
+                                isCurse = true;
+                                Debug.Log("Msg consider this ingredient to purify " + setting.Ingredient.Name);
+                                break;
+                            }
+                        }
+
+                        if (isCurse) curseSetting.Add(setting);
+                        else blessSetting.Add(setting);
+
+                    }
+                }
+
+                curseSetting.Shuffle();
+                blessSetting.Shuffle();
+
+                if (rand < 2)//Bless
+                {
+                    Debug.Log("Bless");
+                    if (curseSetting.Count > 0)
+                    {
+                        curseSetting[0].CardData.modifiers.Clear();
+                        ingredientIcons[curseSetting[0]].SetCheck(CheckType.Pass);
+                    }
+                }
+                else//Curse
+                {
+                    Debug.Log("Cheat");
+                    if (blessSetting.Count > 0)
+                    {
+                        foreach (var m in card.cardData.modifiers)
+                        {
+                            blessSetting[0].CardData.modifiers.Add(m);
+                            ingredientIcons[blessSetting[0]].SetCheck(CheckType.Doubt);
+                        }
+
+                    }
+                }
+
             }
         }
     }

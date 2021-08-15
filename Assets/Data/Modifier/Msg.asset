@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3429acc5471a004face7baa96426527, type: 3}
+  m_Name: Msg
+  m_EditorClassIdentifier: 
+  key: msg
+  modifierName: Mono Sodium Glutamate
+  description: make one's thirsty.
+  sprite: {fileID: 21300000, guid: a2caa8398f23843de8308059954c8b01, type: 3}
+  qualityValue: -5
+  type: 1

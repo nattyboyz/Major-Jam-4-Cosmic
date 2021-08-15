@@ -470,7 +470,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5455571449891477112, guid: 46db1a6df08fae349af7c617dc3fb3cc, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5455571450545934324, guid: 46db1a6df08fae349af7c617dc3fb3cc, type: 3}
       propertyPath: m_IsActive
@@ -558,27 +558,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6118168918569007958, guid: 46db1a6df08fae349af7c617dc3fb3cc, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6118168918569007958, guid: 46db1a6df08fae349af7c617dc3fb3cc, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6118168918569007958, guid: 46db1a6df08fae349af7c617dc3fb3cc, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 230
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6118168918569007958, guid: 46db1a6df08fae349af7c617dc3fb3cc, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 300
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6118168918569007958, guid: 46db1a6df08fae349af7c617dc3fb3cc, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 411
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6118168918569007958, guid: 46db1a6df08fae349af7c617dc3fb3cc, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -176
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6448256230158162365, guid: 46db1a6df08fae349af7c617dc3fb3cc, type: 3}
       propertyPath: m_AnchorMax.y
@@ -652,6 +652,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -176
       objectReference: {fileID: 0}
+    - target: {fileID: 9071179662071473311, guid: 46db1a6df08fae349af7c617dc3fb3cc, type: 3}
+      propertyPath: ingredientData
+      value: 
+      objectReference: {fileID: 11400000, guid: 5c9e2e2d77ba88e4680c4f760998cc50, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46db1a6df08fae349af7c617dc3fb3cc, type: 3}
 --- !u!114 &624552695 stripped

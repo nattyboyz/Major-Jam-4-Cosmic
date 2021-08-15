@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c3fc826adb2f4524dae358d757e09d9f, type: 3}
-  m_Name: Bootz
+  m_Name: Msg
   m_EditorClassIdentifier: 
-  key: boot
+  key: msg
   color: {r: 0.7169812, g: 0.301366, b: 0.030437866, a: 1}
-  icon: {fileID: 21300000, guid: a31996548ae708c4aaa625fd37d409f0, type: 3}
-  name: Kick
+  icon: {fileID: 21300000, guid: a2caa8398f23843de8308059954c8b01, type: 3}
+  name: MSG
   qualityValue: 0
-  modifiers: []
-  buyPrice: 2
+  modifiers:
+  - {fileID: 11400000, guid: a5c580c4f4d735648a1dc164caf9d679, type: 2}
+  buyPrice: 4
   sellPrice: 0

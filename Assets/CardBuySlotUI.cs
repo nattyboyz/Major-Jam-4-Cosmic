@@ -55,14 +55,6 @@ public class CardBuySlotUI : MonoBehaviour
 
     public void UpdateAmount(int amount)
     {
-        //int amount = 0;
-        //if (!GameManager.playerData.ingredients.TryGetValue(IngredientData, out amount))
-        //{
-        //    if (!GameManager.playerData.cheats.TryGetValue(IngredientData, out amount))
-        //    {
-
-        //    }
-        //}
         owned_txt.text = amount.ToString();
     }
 

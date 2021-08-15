@@ -80,9 +80,10 @@ public class GameManager : MonoBehaviour
         shopOpenUI.onOpen += Open;
         shopCloseUI.onClose += LevelEnd;
 
-
+        
         buyUI.onBuy += BuyIngredient;
         buyUI.onSell += SellIngredient;
+        buyUI.onStartShow += () => { buyUI.UpdateShopInventory(playerData); };
         buyUI.Init(playerData);
 
 
@@ -311,6 +312,7 @@ public class GameManager : MonoBehaviour
                 deckSpot.UnFocus();
                 deck.Add(card.cardData);
                 hand.Remove(card);
+                Destroy(card.gameObject);
                 //ConsumeCard(card);
             }
         };
@@ -904,6 +906,8 @@ public class GameManager : MonoBehaviour
 
     public void CreateAllRequest()
     {
+        currentLevelData.PossibleCustomers.RemoveAll(item => item == null);
+
         allRequests = new List<RequestData>();
         failRequests = new List<RequestData>();
         completeRequests = new List<RequestData>();
