@@ -332,6 +332,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 1134af86f99b921439e36b1af7ea73c9, type: 2}
     - {fileID: 11400000, guid: 8a19c73b2ae5b634fa07536b528eda15, type: 2}
     - {fileID: 11400000, guid: ffaa80dfc8bae0144b0874c30ae95f21, type: 2}
+    - {fileID: 11400000, guid: 6d3ac28d7072edb48a5026d457c33475, type: 2}
     m_values:
     - data: {fileID: 11400000, guid: 99598123499740b4498bb2c7c22154dd, type: 2}
       amount: 2
@@ -352,6 +353,9 @@ MonoBehaviour:
       amount: 2
       modifier: []
     - data: {fileID: 11400000, guid: 8ea2ae70b1b1e3f4286a05ba7af07858, type: 2}
+      amount: 2
+      modifier: []
+    - data: {fileID: 11400000, guid: 621c95dd0a59ab946b7eb4a35d648a49, type: 2}
       amount: 2
       modifier: []
   resultCards: []
