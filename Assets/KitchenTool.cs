@@ -26,7 +26,7 @@ public class KitchenTool : DragOnSpot, IPointerClickHandler
     public Action<CheatCard> onExecuteCheatComplete;
     public Action<CheatCard> onExecuteCheatFail;
 
-    List<CardData> resultCards = new List<CardData>();
+    [SerializeField] List<CardData> resultCards = new List<CardData>();
 
     CardData processingCard;
     bool processing = false;
@@ -123,6 +123,19 @@ public class KitchenTool : DragOnSpot, IPointerClickHandler
                     for (int i = 0; i < pack.amount; i++)
                     {
                         List<ModifierData> mod = new List<ModifierData>(processingCard.modifiers);
+
+                        foreach(var modif in pack.data.Modifiers)
+                        {
+                            if (!mod.Contains(modif))
+                            {
+                                mod.Add(modif);
+                            }
+                            else
+                            {
+                                Debug.Log("Skip add modifier " + modif.ModifierName);
+                            }
+                        }
+
                         foreach(var modif in pack.modifier)
                         {
                             if (!mod.Contains(modif))
