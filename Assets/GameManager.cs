@@ -71,8 +71,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] CustomerType veganType;
     [SerializeField] CustomerType meatLoverType;
     [SerializeField] CustomerType celebType;
+    [SerializeField] CustomerType rusherType;
+
     [SerializeField] IngredientData meat;
     [SerializeField] IngredientData veggie;
+
 
 
     private void Awake()
@@ -458,6 +461,15 @@ public class GameManager : MonoBehaviour
                         r.ShowMoney(price);
                         completeRequests.Add(r.RequestData);
                         r.Success("", ()=> { CompleteRequest(r); });
+
+                        if (r.RequestData.StarReward > 0)
+                        {
+                            if (playerData.star + r.RequestData.StarReward <= playerData.maxStar)
+                            {
+                                Debug.Log("Get Star " + r.RequestData.StarReward);
+                                penaltyUI.SetStar(playerData.star += r.RequestData.StarReward);
+                            }
+                        }
                       
                     }
                     else
@@ -790,7 +802,6 @@ public class GameManager : MonoBehaviour
         RequestData requestData = new RequestData();
         requestData.Menu = currentLevelData.Menus[index];
 
-
         for (int i =0;i< 3; i++)
         {
             if(requests[i].isComplete)
@@ -832,10 +843,9 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("Call Next Customer " + index);       
         customerLeftUI.Fade(index);
+        requestBoard.isComplete = false;
         requestBoard.Show();
-
     }
-
 
     public void CreateAllRequest()
     {
@@ -921,10 +931,20 @@ public class GameManager : MonoBehaviour
             requestData.StarReward = 1;
         }
 
+        //เพิ่มดาวถ้าทำสำเร็จถ้าเป็น celeb
+        if (customer.CustomerType == rusherType)
+        {
+            requestData.Time = menu.baseTime - (menu.baseTime*0.5f);
+        }
+        else
+        {
+            requestData.Time = menu.baseTime + customer.TimeModifier.GetRandomTime();
+        }
+
+
         requestData.Ingredients = ingredients;
         requestData.CustomerData = customer;
         requestData.Menu = menu;
-        requestData.Time = menu.baseTime + customer.TimeModifier.GetRandomTime();
         requestData.Price += menu.basePrice;
         return requestData;
     }
