@@ -12,6 +12,7 @@ public class Dragable : MonoBehaviour, IBeginDragHandler,IDragHandler,IEndDragHa
     public Action<Dragable> onEndDrag;
     public Action<GameObject> onDragRayUpdate;
     public Action<GameObject> onDragRelease;
+    public bool isDrag = false;
 
     public static Vector3 zero = new Vector3(0, 0, 0);
     public static Vector3 one = new Vector3(1, 1, 1);
@@ -21,7 +22,7 @@ public class Dragable : MonoBehaviour, IBeginDragHandler,IDragHandler,IEndDragHa
        
         if (allowDrag)
         {
-
+            isDrag = true;
             this.transform.localScale *= 1.2f;
             deltaDragPos = transform.position - Camera.main.ScreenToWorldPoint(eventData.position);
             deltaDragPos.Set(deltaDragPos.x, deltaDragPos.y, 0);
@@ -49,7 +50,6 @@ public class Dragable : MonoBehaviour, IBeginDragHandler,IDragHandler,IEndDragHa
     {
         if (allowDrag)
         {
-
             this.transform.localScale = new Vector3(1, 1, 1);
             deltaDragPos = zero;
 
@@ -58,7 +58,7 @@ public class Dragable : MonoBehaviour, IBeginDragHandler,IDragHandler,IEndDragHa
             {
                 onDragRelease?.Invoke(result.gameObject);
             }
-
+            isDrag = false;
             onEndDrag?.Invoke(this);
         }
     }

@@ -39,8 +39,11 @@ public class Card : Dragable, IPointerEnterHandler, IPointerExitHandler
 
     public Image headerImage;
     public Image iconImage;
+
     public TextMeshProUGUI cardName;
     public CanvasGroup canvasGroup;
+
+    public QuickTooltip quickTooltip;
 
 
     public RectTransform Rect { get => rect; set => rect = value; }
@@ -51,41 +54,6 @@ public class Card : Dragable, IPointerEnterHandler, IPointerExitHandler
         else canvasGroup.alpha = 0;
     }
 
-    //public override void OnBeginDrag(PointerEventData eventData)
-    //{
-    //    this.transform.localScale *= 1.2f;
-    //    deltaDragPos = transform.position - Camera.main.ScreenToWorldPoint(eventData.position);
-    //    deltaDragPos.Set(deltaDragPos.x, deltaDragPos.y, this.transform.position.z);
-    //    onStartDrag?.Invoke(this);
-    //}
-
-    //public override void OnDrag(PointerEventData eventData)
-    //{
-    //    var pos = Camera.main.ScreenToWorldPoint(eventData.position);
-    //    pos.Set(pos.x, pos.y, this.transform.position.z);
-    //   // Debug.Log(pos);
-
-    //    this.gameObject.transform.position = pos + deltaDragPos;
-    //    var result = eventData.pointerCurrentRaycast;
-    //    if(result.gameObject != null && result.gameObject != gameObject)
-    //    {
-    //        onDragRayUpdate?.Invoke(result.gameObject);
-    //    }
-    //}
-
-    //public override void OnEndDrag(PointerEventData eventData)
-    //{
-    //    this.transform.localScale = new Vector3(1, 1, 1);
-    //    deltaDragPos = zero;
-
-    //    var result = eventData.pointerCurrentRaycast;
-    //    if (result.gameObject != null && result.gameObject != gameObject)
-    //    {
-    //        onDragRelease?.Invoke(result.gameObject);
-    //    }
-
-    //    onEndDrag?.Invoke(this);
-    //}
 
     public virtual void OnPointerEnter(PointerEventData eventData)
     {
@@ -137,6 +105,20 @@ public class Card : Dragable, IPointerEnterHandler, IPointerExitHandler
         SetColor(data.Color);
         SetName(data.Name);
         SetImage(data.Icon);
+
+        if (quickTooltip != null)
+        {
+            if (string.IsNullOrEmpty(data.Description))
+            {
+                quickTooltip.EnableTooltip = false;
+                quickTooltip.SetText(string.Empty);
+            }
+            else
+            {
+                quickTooltip.EnableTooltip = true;
+                quickTooltip.SetText(data.Description);
+            }
+        }
     }
 
     public virtual void SetColor(Color color)

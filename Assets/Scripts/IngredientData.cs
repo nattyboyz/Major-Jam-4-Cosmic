@@ -9,6 +9,10 @@ public class IngredientData : ScriptableObject
     [SerializeField] Color color;
     [SerializeField] Sprite icon;
     [SerializeField] string name;
+
+    [TextArea]
+    [SerializeField] string description = string.Empty;
+
     [Range(-100, 100)]
     [SerializeField] float qualityValue = 0;
     [SerializeField] List<ModifierData> modifiers;
@@ -26,4 +30,5 @@ public class IngredientData : ScriptableObject
     public List<ModifierData> Modifiers { get => modifiers;}
     public int BuyPrice { get => buyPrice;}
     public int SellPrice { get => sellPrice;}
+    public string Description { get => description;}
 }

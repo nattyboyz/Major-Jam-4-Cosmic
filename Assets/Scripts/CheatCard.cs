@@ -22,7 +22,7 @@ public class CheatCard : Dragable
     public TextMeshProUGUI cardName;
     public int amountLeft = 0;
     public Action<int> onSetAmount;
-   
+    public QuickTooltip quickTooltip;
 
     private void Start()
     {
@@ -37,6 +37,20 @@ public class CheatCard : Dragable
             headerImage.color = cardData.ingredient.Color;
             iconImage.sprite = cardData.ingredient.Icon;
             cardName.text = cardData.ingredient.Name;
+
+            if (quickTooltip != null)
+            {
+                if (string.IsNullOrEmpty(cardData.ingredient.Description))
+                {
+                    quickTooltip.EnableTooltip = false;
+                    quickTooltip.SetText(string.Empty);
+                }
+                else
+                {
+                    quickTooltip.EnableTooltip = true;
+                    quickTooltip.SetText(cardData.ingredient.Description);
+                }
+            }
         }
     }
 

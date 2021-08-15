@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class QuickTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class QuickTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IDragHandler,IEndDragHandler
 {
     [SerializeField] bool enableTooltip = true;
    [SerializeField] GameObject toolTipGameobject;
-    [SerializeField] float hoverTime = 1f;
+    [SerializeField] TextMeshProUGUI text;
+
+  [SerializeField] float hoverTime = 1f;
 
     bool isHover = false;
     float time = 0;
@@ -15,6 +18,7 @@ public class QuickTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public bool EnableTooltip { get => enableTooltip; set => enableTooltip = value; }
     public float HoverTime { get => hoverTime; set => hoverTime = value; }
+    public TextMeshProUGUI Text { get => text; set => text = value; }
 
     private void Awake()
     {
@@ -40,7 +44,7 @@ public class QuickTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (EnableTooltip)
+        if (EnableTooltip && !eventData.dragging)
         {
             //if (toolTipGameobject) toolTipGameobject.SetActive(true);
             isHover = true;
@@ -49,11 +53,40 @@ public class QuickTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (EnableTooltip)
+        if (EnableTooltip && !eventData.dragging)
         {
             isHover = false;
             time = 0;
             if (toolTipGameobject) toolTipGameobject.SetActive(false);
         }
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        isHover = false;
+        if (EnableTooltip )
+        {
+            isHover = false;
+            time = 0;
+            if (toolTipGameobject) toolTipGameobject.SetActive(false);
+        }
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        if (EnableTooltip)
+        {
+            isHover = true;
+        }
+    }
+
+    public void SetText(string description)
+    {
+      if(Text!=null)Text.text = description;
     }
 }

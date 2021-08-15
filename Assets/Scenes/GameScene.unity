@@ -1538,10 +1538,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ResultCanvas
       objectReference: {fileID: 0}
-    - target: {fileID: 1247051795336667795, guid: ae5d3b153a38f9f4facd222121c37a2c, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1247051795336667806, guid: ae5d3b153a38f9f4facd222121c37a2c, type: 3}
       propertyPath: m_Camera
       value: 
@@ -1639,6 +1635,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1440723784713811005, guid: 2f5dd42b7d1eac44dae9e60ac756a820, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1440723784713811005, guid: 2f5dd42b7d1eac44dae9e60ac756a820, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1440723784713811005, guid: 2f5dd42b7d1eac44dae9e60ac756a820, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1440723784713811005, guid: 2f5dd42b7d1eac44dae9e60ac756a820, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1629951813988843980, guid: 2f5dd42b7d1eac44dae9e60ac756a820, type: 3}
       propertyPath: m_Name
       value: ShopOpenCanvas
@@ -1735,9 +1747,57 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1934164131414753490, guid: 2f5dd42b7d1eac44dae9e60ac756a820, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1934164131414753490, guid: 2f5dd42b7d1eac44dae9e60ac756a820, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1934164131414753490, guid: 2f5dd42b7d1eac44dae9e60ac756a820, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1934164131414753490, guid: 2f5dd42b7d1eac44dae9e60ac756a820, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3089694861014808572, guid: 2f5dd42b7d1eac44dae9e60ac756a820, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3089694861014808572, guid: 2f5dd42b7d1eac44dae9e60ac756a820, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3089694861014808572, guid: 2f5dd42b7d1eac44dae9e60ac756a820, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3089694861014808572, guid: 2f5dd42b7d1eac44dae9e60ac756a820, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5408879866418984727, guid: 2f5dd42b7d1eac44dae9e60ac756a820, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -89.00006
+      objectReference: {fileID: 0}
+    - target: {fileID: 6566616127787527537, guid: 2f5dd42b7d1eac44dae9e60ac756a820, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6566616127787527537, guid: 2f5dd42b7d1eac44dae9e60ac756a820, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6566616127787527537, guid: 2f5dd42b7d1eac44dae9e60ac756a820, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6566616127787527537, guid: 2f5dd42b7d1eac44dae9e60ac756a820, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f5dd42b7d1eac44dae9e60ac756a820, type: 3}
