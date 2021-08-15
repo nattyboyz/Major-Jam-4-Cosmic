@@ -916,7 +916,7 @@ public class GameManager : MonoBehaviour
         }
 
         shopCloseUI.Show(() => {
-                customerLeftUI.Show(() => {
+            customerLeftUI.Show(() => {
                     hand.Show(()=> {
                         isPlaying = true;
                         ShowStartRequest();
@@ -1151,10 +1151,12 @@ public class GameManager : MonoBehaviour
         shopCloseUI.Hide();
         if (playerData.money >= currentLevelData.GoalMoney)
         {
+            shopOpenUI.ActiveButton(false);
             shopOpenUI.Show(ShowResult);
         }
         else
         {
+            shopOpenUI.ActiveButton(false);
             shopOpenUI.Show(Gameover);
         }
 
