@@ -2370,6 +2370,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2814887784369475766}
     - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
+      propertyPath: shopCanvas
+      value: 
+      objectReference: {fileID: 7987156503788819654}
+    - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
       propertyPath: shopOpenUI
       value: 
       objectReference: {fileID: 673408480}
@@ -2552,6 +2556,11 @@ PrefabInstance:
       objectReference: {fileID: 6523344690878159720}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 84b59c67607508c44a20e200e54ba751, type: 3}
+--- !u!223 &7987156503788819654 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 7987156502867615802, guid: 84b59c67607508c44a20e200e54ba751, type: 3}
+  m_PrefabInstance: {fileID: 7987156503788819653}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8284657229673317016
 PrefabInstance:
   m_ObjectHideFlags: 0
