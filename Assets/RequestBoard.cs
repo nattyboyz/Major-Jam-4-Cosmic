@@ -334,7 +334,7 @@ public class RequestBoard : DragOnSpot
 
     public void ShowMoney(int amount)
     {
-        CustomerPotrait.SetMoneyFloat(amount, moneyFloatSpeed, moneyFloatTime);
+        CustomerPotrait.SetMoneyFloat(amount, moneyFloatSpeed, moneyFloatTime, menuImage.transform.position);
     }
 
     #endregion
