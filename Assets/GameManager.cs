@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-
     [SerializeField] PlayerData playerData = new PlayerData();
     [SerializeField] PlayerDataScriptableObject playerDataScriptableObject;
     bool isPlaying = false;
@@ -18,7 +17,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] Hand hand;
     [SerializeField] List<CardData> deck;
     [SerializeField] int maxHand = 5;
-
 
     [Header("Cheat Card")]
     [SerializeField] CheatCard baseCheatCard;
@@ -66,7 +64,6 @@ public class GameManager : MonoBehaviour
 
     Dictionary<RequestBoard,Coroutine> customerCoroutine = new Dictionary<RequestBoard, Coroutine>();
 
-
     [Header("Ingredient")]
     [SerializeField] CustomerType veganType;
     [SerializeField] CustomerType meatLoverType;
@@ -75,8 +72,6 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] IngredientData meat;
     [SerializeField] IngredientData veggie;
-
-
 
     private void Awake()
     {
@@ -210,10 +205,10 @@ public class GameManager : MonoBehaviour
                 {
                     if (dragOnSpot != null)
                     {
-                        if (playerData.cheats.TryGetValue(cheatCard.ingredientData, out var amount) && amount>0)
+                        if (playerData.cheats.TryGetValue(cheatCard.cardData.ingredient, out var amount) && amount>0)
                         {
-                            playerData.cheats[cheatCard.ingredientData] -= 1;
-                            cheatCard.SetAmount(playerData.cheats[cheatCard.ingredientData]);
+                            playerData.cheats[cheatCard.cardData.ingredient] -= 1;
+                            cheatCard.SetAmount(playerData.cheats[cheatCard.cardData.ingredient]);
                             dragOnSpot.Execute(cheatCard);
                             cheatCard.ResetPosition();
                             cheatCard.Active(true);
@@ -298,7 +293,7 @@ public class GameManager : MonoBehaviour
                 else if(currentDragable is CheatCard)
                 {
                     var card = currentDragable as CheatCard;
-                    if (tool.processMenu.TryGetValue(card.ingredientData, out var pack))
+                    if (tool.processMenu.TryGetValue(card.cardData.ingredient, out var pack))
                     {
                         tool.processIngredient.Set(pack.data, pack.amount);
                         tool.processIngredient.gameObject.SetActive(true);
@@ -358,7 +353,7 @@ public class GameManager : MonoBehaviour
 
         tool.onClickToRecieveCard += (CardData cardData) =>
         {
-            var newCard = CreateCard(cardData.ingredient, cardData.modifiers);
+            var newCard = CreateCard(cardData.ingredient, cardData.modifiers,true);
             newCard.SetType(CardType.Spoil);
             AddToHand(newCard);
         };
@@ -469,8 +464,7 @@ public class GameManager : MonoBehaviour
                                 Debug.Log("Get Star " + r.RequestData.StarReward);
                                 penaltyUI.SetStar(playerData.star += r.RequestData.StarReward);
                             }
-                        }
-                      
+                        }   
                     }
                     else
                     {
@@ -607,10 +601,11 @@ public class GameManager : MonoBehaviour
 
     #region CardPlay
 
-    public Card CreateCard(IngredientData data , List<ModifierData> modifiers = null)
+    public Card CreateCard(IngredientData data , List<ModifierData> modifiers = null,bool isSpoil = false)
     {
+        CardData cardData = new CardData(data, modifiers, isSpoil);
         Card card = Instantiate<Card>(baseCard);
-        card.Init(data, modifiers);
+        card.Init(cardData);
 
         card.onStartDrag += (c) => 
         { 
@@ -727,6 +722,14 @@ public class GameManager : MonoBehaviour
 
     void ConsumeCard(Card card)
     {
+        if(!card.cardData.isSpoil && playerData.ingredients.TryGetValue(card.cardData.ingredient, out var amount))
+        {
+            playerData.ingredients[card.cardData.ingredient] -= 1;
+        }
+        else
+        {
+            Debug.LogError("No ingredient left!!!!!!!!!!!!!!!!!!!");
+        }
         Destroy(card.gameObject);
     }
 
@@ -1067,8 +1070,6 @@ public class GameManager : MonoBehaviour
 
         }
     }
-
-
 
     #endregion
 

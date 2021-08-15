@@ -165,11 +165,13 @@ public class Card : Dragable, IPointerEnterHandler, IPointerExitHandler
 public class CardData
 {
     public IngredientData ingredient;
+    public bool isSpoil = false;
     public List<ModifierData> modifiers = new List<ModifierData>();
 
-    public CardData(IngredientData data,List<ModifierData> modifiers)
+    public CardData(IngredientData data,List<ModifierData> modifiers,bool isSpoil= false)
     {
         this.ingredient = data;
         this.modifiers = modifiers;
+        this.isSpoil = isSpoil;
     }
 }
