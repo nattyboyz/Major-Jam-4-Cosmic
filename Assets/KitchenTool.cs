@@ -152,6 +152,11 @@ public class KitchenTool : DragOnSpot, IPointerClickHandler
 
         }
     }
+
+    public bool HasRecipe(IngredientData ingredient)
+    {
+        return processMenu.ContainsKey(ingredient);
+    }
 }
 
 [Serializable]

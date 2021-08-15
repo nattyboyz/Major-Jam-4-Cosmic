@@ -322,7 +322,7 @@ PrefabInstance:
       objectReference: {fileID: 628344181}
     - target: {fileID: 3826240253949814371, guid: 46db1a6df08fae349af7c617dc3fb3cc, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3826240253949814684, guid: 46db1a6df08fae349af7c617dc3fb3cc, type: 3}
       propertyPath: m_Pivot.x
@@ -2619,10 +2619,6 @@ PrefabInstance:
       value: '#GameManager'
       objectReference: {fileID: 0}
     - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
-      propertyPath: pan
-      value: 
-      objectReference: {fileID: 480506642}
-    - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
       propertyPath: hand
       value: 
       objectReference: {fileID: 1922567469}
@@ -2630,10 +2626,6 @@ PrefabInstance:
       propertyPath: buyUI
       value: 
       objectReference: {fileID: 624552695}
-    - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
-      propertyPath: knife
-      value: 
-      objectReference: {fileID: 804519159}
     - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
       propertyPath: moneyUI
       value: 
@@ -2694,6 +2686,14 @@ PrefabInstance:
       propertyPath: requests.Array.data[2]
       value: 
       objectReference: {fileID: 786565174}
+    - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
+      propertyPath: kitchenTools.Array.data[0]
+      value: 
+      objectReference: {fileID: 480506642}
+    - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
+      propertyPath: kitchenTools.Array.data[1]
+      value: 
+      objectReference: {fileID: 804519159}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
 --- !u!1001 &7987156503788819653
@@ -2703,26 +2703,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 870300387, guid: 84b59c67607508c44a20e200e54ba751, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1416684966, guid: 84b59c67607508c44a20e200e54ba751, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1518348003}
-    - target: {fileID: 5202462662538839693, guid: 84b59c67607508c44a20e200e54ba751, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5870733656888979348, guid: 84b59c67607508c44a20e200e54ba751, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5870733658110077006, guid: 84b59c67607508c44a20e200e54ba751, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7987156502867615801, guid: 84b59c67607508c44a20e200e54ba751, type: 3}
       propertyPath: m_Name
       value: ShopCanvas
