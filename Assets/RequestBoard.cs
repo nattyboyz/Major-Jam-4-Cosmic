@@ -162,12 +162,12 @@ public class RequestBoard : DragOnSpot
 
     public override void Focus(Dragable dragable)
     {
-        focus_img.gameObject.SetActive(true);
+        focus.SetActive(true);
     }
 
     public override void UnFocus()
     {
-        focus_img.gameObject.SetActive(false);
+        focus.SetActive(false);
     }
 
 
@@ -417,6 +417,18 @@ public class RequestBoard : DragOnSpot
 
     #endregion
 
+
+    public bool RequiredIngredient(IngredientData ingredientData)
+    {
+        foreach(var setting in settings)
+        {
+            if(string.CompareOrdinal(setting.Ingredient.Key,ingredientData.Key) == 0)
+            {
+                return true;
+            }
+        }
+        return false;
+    } 
 }
 
 [System.Serializable]

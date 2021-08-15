@@ -6,19 +6,13 @@ using UnityEngine.UI;
 public class DiscardSpot : DragOnSpot
 {
     [SerializeField] Image spotImage;
-    [SerializeField] Image focusImage;
-
-    private void Start()
-    {
-        focusImage.gameObject.SetActive(false);
-    }
 
     public override void Focus(Dragable dragable)
     {
         base.Focus(dragable);
         if (dragable is Card)
         {
-            focusImage.gameObject.SetActive(true);
+            focus.SetActive(true);
         }
         else
         {
@@ -29,7 +23,7 @@ public class DiscardSpot : DragOnSpot
     public override void UnFocus()
     {
         base.UnFocus();
-        focusImage.gameObject.SetActive(false);
+        focus.SetActive(false);
     }
 
 }

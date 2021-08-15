@@ -280,6 +280,42 @@ public class GameManager : MonoBehaviour
         focusedDragOnSpot.Clear();
     }
 
+    void OnCardStartDrag(Card card)
+    {
+
+        foreach (RequestBoard requestBoard in requests)
+        {
+            if (requestBoard.RequiredIngredient(card.cardData.ingredient))
+            {
+                requestBoard.Highlight();
+                focusedDragOnSpot.Add(requestBoard);
+            }
+        }
+
+        foreach (KitchenTool kitchenTool in kitchenTools)
+        {
+            if (kitchenTool.HasRecipe(card.cardData.ingredient))
+            {
+                kitchenTool.Highlight();
+                focusedDragOnSpot.Add(kitchenTool);
+            }
+        }
+
+        discardSpot.Highlight();
+        focusedDragOnSpot.Add(discardSpot);
+        deckSpot.Highlight();
+        focusedDragOnSpot.Add(deckSpot);
+    }
+
+    void OnCardEndDrag(Card card)
+    {
+        foreach (var spot in focusedDragOnSpot)
+        {
+            spot.UnHighlight();
+        }
+        focusedDragOnSpot.Clear();
+    }
+
     void InitDiscardSpot()
     {
         discardSpot.onEnterDrag += (spot) => {
@@ -698,19 +734,7 @@ public class GameManager : MonoBehaviour
     public Card CreateCard(IngredientData data , List<ModifierData> modifiers = null,bool isSpoil = false)
     {
         CardData cardData = new CardData(data, modifiers, isSpoil);
-        Card card = Instantiate<Card>(baseCard);
-        card.Init(cardData);
-
-        card.onStartDrag += (c) => 
-        { 
-            currentDragable = card; 
-        };
-
-        card.onEndDrag += (c) => 
-        {
-            if (currentDragable == card) currentDragable = null; 
-        };
-
+        Card card = CreateCard(cardData);
         return card;
     }
 
@@ -722,11 +746,16 @@ public class GameManager : MonoBehaviour
         card.onStartDrag += (c) =>
         {
             currentDragable = card;
+            OnCardStartDrag(card);
         };
 
         card.onEndDrag += (c) =>
         {
-            if (currentDragable == card) currentDragable = null;
+            if (currentDragable == card)
+            {
+                currentDragable = null;
+                OnCardEndDrag(card);
+            }  
         };
 
         return card;

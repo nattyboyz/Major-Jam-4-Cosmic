@@ -51,7 +51,7 @@ public class KitchenTool : DragOnSpot, IPointerClickHandler
             var card = dragable as Card;
             if (processMenu.TryGetValue(card.cardData.ingredient, out var pack))
             {
-                focus_img.gameObject.SetActive(true);
+                focus.gameObject.SetActive(true);
             }
         }
         else if (dragable is CheatCard)
@@ -59,7 +59,7 @@ public class KitchenTool : DragOnSpot, IPointerClickHandler
             var card = dragable as CheatCard;
             if (processMenu.TryGetValue(card.cardData.ingredient, out var pack))
             {
-                focus_img.gameObject.SetActive(true);
+                focus.gameObject.SetActive(true);
             }
         }
     }
@@ -67,7 +67,7 @@ public class KitchenTool : DragOnSpot, IPointerClickHandler
     public override void UnFocus()
     {
         if(!IsOccupied) processIngredient.gameObject.SetActive(false);
-        focus_img.gameObject.SetActive(false);
+        focus.gameObject.SetActive(false);
     }
 
     public override void Execute(Dragable dragableObject)

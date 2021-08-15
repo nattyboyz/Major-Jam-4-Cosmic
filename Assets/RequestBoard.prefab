@@ -480,8 +480,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dfa97d91a1081a42a912547a49a24b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  focus_img: {fileID: 7585742016919993163}
-  highlight_img: {fileID: 2450788358342759558}
+  focus: {fileID: 26417214274334819}
+  highlight: {fileID: 4887268566085502384}
   customerPotrait: {fileID: 0}
   canvasGroup: {fileID: 4117719738428362120}
   baseIngredientIcon: {fileID: 949882280841233835, guid: 1f7795c1a83d32e469ef4a46c9c5cc8f, type: 3}
