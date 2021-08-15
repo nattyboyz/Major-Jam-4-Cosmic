@@ -15,4 +15,4 @@ MonoBehaviour:
   name: Celebrity
   color: {r: 1, g: 0.48490566, b: 0.8120555, a: 1}
   icon: {fileID: 21300000, guid: a31996548ae708c4aaa625fd37d409f0, type: 3}
-  description: celeb
+  description: Picky eater, but help spead the fame around internet.
