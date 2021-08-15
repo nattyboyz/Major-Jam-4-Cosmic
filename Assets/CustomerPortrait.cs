@@ -93,19 +93,21 @@ public class CustomerPortrait : MonoBehaviour, IPointerEnterHandler, IPointerExi
         }
     }
 
-    public void SetMoneyFloat(int amount,float speed, float duration )
+    public void SetMoneyFloat(int amount,float speed, float duration, Vector3 targetTransform)
     {
         var floatText = Instantiate(baseFloatingText);
         string sign = "+";
         if (amount < 0) sign = "-";
-        floatText.SetText(sign+" $" + amount);
+        floatText.SetText(sign+"$" + amount);
         floatText.transform.SetParent(floatTextParent);
+        floatText.transform.position = targetTransform;
         floatText.transform.localScale = new Vector3(1, 1, 1);
         floatText.transform.localPosition = new Vector3(0, 0, 0);
 
         Sequence seq = DOTween.Sequence();
-        seq.Append(floatText.RectTransform.DOAnchorPosY(speed, duration).SetSpeedBased());
-        seq.Join( floatText.Text.DOFade(0, duration).OnComplete(()=>{ Destroy(floatText.gameObject); }));
+        seq.Append(floatText.RectTransform.DOAnchorPosY(speed, duration).SetSpeedBased().SetEase(Ease.OutCubic));
+        seq.Join(floatText.Text.DOFade(0, duration).SetEase(Ease.InCubic).OnComplete(()=>{ Destroy(floatText.gameObject); }));
+        seq.Join(floatText.TextBG.DOFade(0, duration).SetEase(Ease.InCubic));
         seq.Play();
 
     }
