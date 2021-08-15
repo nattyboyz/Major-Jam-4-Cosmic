@@ -322,7 +322,7 @@ PrefabInstance:
       objectReference: {fileID: 628344181}
     - target: {fileID: 3826240253949814371, guid: 46db1a6df08fae349af7c617dc3fb3cc, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3826240253949814684, guid: 46db1a6df08fae349af7c617dc3fb3cc, type: 3}
       propertyPath: m_Pivot.x
@@ -2703,26 +2703,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 870300387, guid: 84b59c67607508c44a20e200e54ba751, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1416684966, guid: 84b59c67607508c44a20e200e54ba751, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1518348003}
-    - target: {fileID: 5202462662538839693, guid: 84b59c67607508c44a20e200e54ba751, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5870733656888979348, guid: 84b59c67607508c44a20e200e54ba751, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5870733658110077006, guid: 84b59c67607508c44a20e200e54ba751, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7987156502867615801, guid: 84b59c67607508c44a20e200e54ba751, type: 3}
       propertyPath: m_Name
       value: ShopCanvas
