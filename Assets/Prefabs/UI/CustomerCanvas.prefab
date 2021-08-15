@@ -769,6 +769,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Customer1
       objectReference: {fileID: 0}
+    - target: {fileID: 6673045285687698522, guid: 77c3fb2d11a6961479a1861e6e7aef9f, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 77c3fb2d11a6961479a1861e6e7aef9f, type: 3}
 --- !u!224 &8637698283796643123 stripped
@@ -895,6 +899,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Customer2
       objectReference: {fileID: 0}
+    - target: {fileID: 6673045285687698522, guid: 77c3fb2d11a6961479a1861e6e7aef9f, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 77c3fb2d11a6961479a1861e6e7aef9f, type: 3}
 --- !u!224 &5549367749137463521 stripped
@@ -1020,6 +1028,10 @@ PrefabInstance:
     - target: {fileID: 5970190947725451102, guid: 77c3fb2d11a6961479a1861e6e7aef9f, type: 3}
       propertyPath: m_Name
       value: Customer3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6673045285687698522, guid: 77c3fb2d11a6961479a1861e6e7aef9f, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 77c3fb2d11a6961479a1861e6e7aef9f, type: 3}
