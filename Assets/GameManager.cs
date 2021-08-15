@@ -455,6 +455,7 @@ public class GameManager : MonoBehaviour
                         //var price = r.RequestData.Menu.basePrice;
                         //ModifyMoney(price);
                         //r.ShowMoney(price);
+                        r.ShowFail(-1);
                         failRequests.Add(r.RequestData);
                         r.Fail("", () => { FailRequest(r); });
                         //FailRequest(r);

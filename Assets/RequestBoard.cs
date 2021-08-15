@@ -60,6 +60,10 @@ public class RequestBoard : DragOnSpot
     [SerializeField] float moneyFloatTime = 2;
     [SerializeField] float moneyFloatSpeed = 4;
 
+    [Header("FX")]
+    [SerializeField] ParticleSystem fxCoin;
+    [SerializeField] ParticleSystem fxFail;
+
     Coroutine coroutine;
 
     private void Start()
@@ -335,6 +339,13 @@ public class RequestBoard : DragOnSpot
     public void ShowMoney(int amount)
     {
         CustomerPotrait.SetMoneyFloat(amount, moneyFloatSpeed, moneyFloatTime, menuImage.transform.position);
+        fxCoin.gameObject.SetActive(true);
+    }
+
+    public void ShowFail(int amount)
+    {
+        CustomerPotrait.SetRatingFloat(amount, moneyFloatSpeed, moneyFloatTime, menuImage.transform.position);
+        fxFail.gameObject.SetActive(true);
     }
 
     #endregion

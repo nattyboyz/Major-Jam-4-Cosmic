@@ -467,6 +467,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseFloatingText: {fileID: 6752450415628854933, guid: cde9d876d48959f459fdd0400d73d53d, type: 3}
+  baseRatingText: {fileID: 6752450415628854933, guid: 1793bb343241a464fb6b59ba331f5cd7, type: 3}
   floatTextParent: {fileID: 2327277560943563836}
   animator: {fileID: 1496168688606390541}
   sprite: {fileID: 3284575772176415516}

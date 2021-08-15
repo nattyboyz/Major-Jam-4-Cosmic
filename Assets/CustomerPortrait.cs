@@ -9,6 +9,7 @@ using UnityEngine.EventSystems;
 public class CustomerPortrait : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     [SerializeField] FloatingTextUI baseFloatingText;
+    [SerializeField] FloatingTextUI baseRatingText;
     [SerializeField] Transform floatTextParent;
 
     [SerializeField] Animator animator;
@@ -93,14 +94,14 @@ public class CustomerPortrait : MonoBehaviour, IPointerEnterHandler, IPointerExi
         }
     }
 
-    public void SetMoneyFloat(int amount,float speed, float duration, Vector3 targetTransform)
+    public void SetMoneyFloat(int amount,float speed, float duration, Vector3 targetPosition)
     {
         var floatText = Instantiate(baseFloatingText);
         string sign = "+";
         if (amount < 0) sign = "-";
         floatText.SetText(sign+"$" + amount);
         floatText.transform.SetParent(floatTextParent);
-        floatText.transform.position = targetTransform;
+        floatText.transform.position = targetPosition;
         floatText.transform.localScale = new Vector3(1, 1, 1);
         floatText.transform.localPosition = new Vector3(0, 0, 0);
 
@@ -111,6 +112,26 @@ public class CustomerPortrait : MonoBehaviour, IPointerEnterHandler, IPointerExi
         seq.Play();
 
     }
+
+    public void SetRatingFloat(int amount, float speed, float duration, Vector3 targetPosition)
+    {
+        var floatText = Instantiate(baseRatingText);
+        string sign = "+";
+        if (amount < 0) sign = "-";
+        floatText.SetText(sign + Mathf.Abs(amount));
+        floatText.transform.SetParent(floatTextParent);
+        floatText.transform.position = targetPosition;
+        floatText.transform.localScale = new Vector3(1, 1, 1);
+        floatText.transform.localPosition = new Vector3(0, 0, 0);
+
+        Sequence seq = DOTween.Sequence();
+        seq.Append(floatText.RectTransform.DOAnchorPosY(speed, duration).SetSpeedBased().SetEase(Ease.OutCubic));
+        seq.Join(floatText.Text.DOFade(0, duration).SetEase(Ease.InCubic).OnComplete(() => { Destroy(floatText.gameObject); }));
+        seq.Join(floatText.TextBG.DOFade(0, duration).SetEase(Ease.InCubic));
+        seq.Play();
+
+    }
+
 
     //public void SetSpecialIcon(Sprite sprite)
     //{
