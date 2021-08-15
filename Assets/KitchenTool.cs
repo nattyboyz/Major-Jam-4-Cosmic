@@ -12,7 +12,6 @@ public class KitchenTool : DragOnSpot, IPointerClickHandler
 {
     [SerializeField] Processbar processbar;
     public ProcessResourceIcon processIngredient;
-    [SerializeField] Image focus_img;
 
 
     public IngredientProcessDict processMenu;
@@ -50,6 +49,14 @@ public class KitchenTool : DragOnSpot, IPointerClickHandler
         if (dragable is Card)
         {
             var card = dragable as Card;
+            if (processMenu.TryGetValue(card.cardData.ingredient, out var pack))
+            {
+                focus_img.gameObject.SetActive(true);
+            }
+        }
+        else if (dragable is CheatCard)
+        {
+            var card = dragable as CheatCard;
             if (processMenu.TryGetValue(card.cardData.ingredient, out var pack))
             {
                 focus_img.gameObject.SetActive(true);
@@ -157,6 +164,8 @@ public class KitchenTool : DragOnSpot, IPointerClickHandler
     {
         return processMenu.ContainsKey(ingredient);
     }
+
+
 }
 
 [Serializable]

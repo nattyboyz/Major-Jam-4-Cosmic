@@ -15,8 +15,8 @@ public class RequestBoard : DragOnSpot
     [Header("UI")]
     [SerializeField] CanvasGroup canvasGroup;
     [SerializeField] IngredientIcon baseIngredientIcon;
-    [SerializeField] Image focusGraphic;
     [SerializeField] Image menuImage;
+
 
     [SerializeField] Image name_img;
     [SerializeField] TextMeshProUGUI name_txt;
@@ -65,11 +65,6 @@ public class RequestBoard : DragOnSpot
     [SerializeField] ParticleSystem fxFail;
 
     Coroutine coroutine;
-
-    private void Start()
-    {
-        UnFocus();
-    }
 
     private void Update()
     {
@@ -167,12 +162,12 @@ public class RequestBoard : DragOnSpot
 
     public override void Focus(Dragable dragable)
     {
-        focusGraphic.gameObject.SetActive(true);
+        focus_img.gameObject.SetActive(true);
     }
 
     public override void UnFocus()
     {
-        focusGraphic.gameObject.SetActive(false);
+        focus_img.gameObject.SetActive(false);
     }
 
 
@@ -397,7 +392,6 @@ public class RequestBoard : DragOnSpot
         //onComplete?.Invoke();
         yield return CustomerPotrait.ieOut(onComplete);
     }
-
     #endregion
 
     #region Customer
