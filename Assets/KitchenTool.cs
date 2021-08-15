@@ -29,7 +29,7 @@ public class KitchenTool : DragOnSpot, IPointerClickHandler
 
     List<CardData> resultCards = new List<CardData>();
 
-    IngredientData processingIngredient;
+    CardData processingCard;
     bool processing = false;
     [SerializeField] float processTime = 2f;
     float time = 0;
@@ -71,7 +71,7 @@ public class KitchenTool : DragOnSpot, IPointerClickHandler
             Card card = dragableObject as Card;
             if (processMenu.TryGetValue(card.cardData.ingredient, out var pack))
             {
-                processingIngredient = card.cardData.ingredient;
+                processingCard = card.cardData;
                 processing = true;
                 processbar.gameObject.SetActive(true);
                 onExecuteComplete?.Invoke(card);
@@ -85,9 +85,9 @@ public class KitchenTool : DragOnSpot, IPointerClickHandler
         {
             Debug.Log("Execute processing cheat card");
             CheatCard card = dragableObject as CheatCard;
-            if (processMenu.TryGetValue(card.ingredientData, out var pack))
+            if (processMenu.TryGetValue(card.cardData.ingredient, out var pack))
             {
-                processingIngredient = card.ingredientData;
+                processingCard = card.cardData;
                 processing = true;
                 processbar.gameObject.SetActive(true);
                 onExecuteCheatComplete?.Invoke(card);
@@ -108,16 +108,29 @@ public class KitchenTool : DragOnSpot, IPointerClickHandler
             processbar.image.fillAmount = time / processTime;
             if (time >= processTime)
             {   
-                if (processMenu.TryGetValue(processingIngredient, out var pack))
-                {
+                if (processMenu.TryGetValue(processingCard.ingredient, out var pack))
+                {                    
                     onProcessComplete?.Invoke(pack);
                     resultCards = new List<CardData>();
+
                     for (int i = 0; i < pack.amount; i++)
                     {
-                        resultCards.Add(new CardData(pack.data, pack.modifier));
+                        List<ModifierData> mod = new List<ModifierData>(processingCard.modifiers);
+                        foreach(var modif in pack.modifier)
+                        {
+                            if (!mod.Contains(modif))
+                            {
+                                mod.Add(modif);
+                            }
+                            else
+                            {
+                                Debug.Log("Skip add modifier " + modif.ModifierName );
+                            }
+                        }
+                        resultCards.Add(new CardData(pack.data, mod));
                     }
                 }
-                processingIngredient = null;
+                processingCard = null;
                 processing = false;
                 time = 0;
                 processbar.gameObject.SetActive(false);

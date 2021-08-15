@@ -11,7 +11,11 @@ public class CheatCard : Dragable
     public RectTransform rectTransform;
     public Vector3 originalPosition;
 
-    public IngredientData ingredientData;
+    public CardData cardData;
+    //public IngredientData ingredientData;
+
+
+
     public CanvasGroup canvasGroup;
     public Image headerImage;
     public Image iconImage;
@@ -29,7 +33,7 @@ public class CheatCard : Dragable
     {
         if (cardData != null)
         {
-            ingredientData = cardData.ingredient;
+            this.cardData = cardData; ;
             headerImage.color = cardData.ingredient.Color;
             iconImage.sprite = cardData.ingredient.Icon;
             cardName.text = cardData.ingredient.Name;

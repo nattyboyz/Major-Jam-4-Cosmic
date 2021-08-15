@@ -293,6 +293,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -7.999998
       objectReference: {fileID: 0}
+    - target: {fileID: 3808096488996428926, guid: 46db1a6df08fae349af7c617dc3fb3cc, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3826240253949814368, guid: 46db1a6df08fae349af7c617dc3fb3cc, type: 3}
       propertyPath: m_Name
       value: BuyCanvas
@@ -307,7 +311,7 @@ PrefabInstance:
       objectReference: {fileID: 628344181}
     - target: {fileID: 3826240253949814371, guid: 46db1a6df08fae349af7c617dc3fb3cc, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3826240253949814684, guid: 46db1a6df08fae349af7c617dc3fb3cc, type: 3}
       propertyPath: m_Pivot.x
@@ -451,7 +455,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5337154777483963307, guid: 46db1a6df08fae349af7c617dc3fb3cc, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 0.000030517578
       objectReference: {fileID: 0}
     - target: {fileID: 5455571449891477112, guid: 46db1a6df08fae349af7c617dc3fb3cc, type: 3}
       propertyPath: m_IsActive
@@ -2651,6 +2655,10 @@ PrefabInstance:
       propertyPath: gameOverUI
       value: 
       objectReference: {fileID: 2814887784369475766}
+    - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
+      propertyPath: rusherType
+      value: 
+      objectReference: {fileID: 11400000, guid: 690d4d5065298da488908ac81b7281b8, type: 2}
     - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
       propertyPath: scanLineIn
       value: 

@@ -218,8 +218,8 @@ public class RequestBoard : DragOnSpot
         {
             CheatCard card = dragableObject as CheatCard;
             UnFocus();
-            Debug.Log("RequestBoard:: try use CHEAT CARD ->" + card.ingredientData.Name);
-            if(card.ingredientData.Name == "Ratz")
+            Debug.Log("RequestBoard:: try use CHEAT CARD ->" + card.cardData.ingredient.Name);
+            if(card.cardData.ingredient.Name == "Ratz")
             {
                 //requestData.
                 ChargeTime(5);
@@ -322,10 +322,8 @@ public class RequestBoard : DragOnSpot
         animator.SetTrigger("in");
         yield return new WaitForSeconds(in_clip.length);
 
-
         onComplete?.Invoke();
         isProcessing = true;
-
     }
 
     IEnumerator ieHide(Action onComplete = null)
@@ -364,7 +362,6 @@ public class RequestBoard : DragOnSpot
     }
 
     #endregion
-
 
 }
 
