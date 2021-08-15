@@ -357,19 +357,19 @@ MonoBehaviour:
       amount: 2
       modifier:
       - {fileID: 11400000, guid: f432eb68e7c88564c8097d58a93bac54, type: 2}
-    - data: {fileID: 11400000, guid: 32726adcf2c79cf42b1b40f94204610b, type: 2}
+    - data: {fileID: 0}
       amount: 2
       modifier: []
-    - data: {fileID: 11400000, guid: c1f07e4a578902244adbada544301814, type: 2}
+    - data: {fileID: 0}
       amount: 2
       modifier: []
-    - data: {fileID: 11400000, guid: ad138bd41003e6a4eb38f4cf89e17b49, type: 2}
+    - data: {fileID: 0}
       amount: 2
       modifier: []
-    - data: {fileID: 11400000, guid: 3959fbe525abcc243af0e3cd7e7acfcc, type: 2}
+    - data: {fileID: 0}
       amount: 2
       modifier: []
-    - data: {fileID: 11400000, guid: e5a76540acb23534a824a03813105685, type: 2}
+    - data: {fileID: 0}
       amount: 2
       modifier: []
   processTime: 1
@@ -465,8 +465,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 38
-  m_fontSizeBase: 38
+  m_fontSize: 34
+  m_fontSizeBase: 34
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -545,7 +545,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 3.9}
-  m_SizeDelta: {x: 120, y: 120}
+  m_SizeDelta: {x: 110, y: 110}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6865955472043487689
 CanvasRenderer:
@@ -788,8 +788,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -19.80001, y: -23.99998}
-  m_SizeDelta: {x: 60, y: 60}
+  m_AnchoredPosition: {x: -8, y: -12}
+  m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6865955472388381870
 CanvasRenderer:

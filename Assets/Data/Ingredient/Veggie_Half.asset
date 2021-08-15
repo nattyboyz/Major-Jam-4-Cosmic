@@ -14,8 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   key: veggie
   color: {r: 0.33281618, g: 0.754717, b: 0.28123888, a: 1}
-  icon: {fileID: 21300000, guid: a31996548ae708c4aaa625fd37d409f0, type: 3}
+  icon: {fileID: 21300000, guid: 3bf94dfba36cae34591f557d0d414731, type: 3}
   name: 1/2 Veggie
+  description: 
   qualityValue: 0
   modifiers:
   - {fileID: 11400000, guid: f432eb68e7c88564c8097d58a93bac54, type: 2}
+  buyPrice: 0
+  sellPrice: 0

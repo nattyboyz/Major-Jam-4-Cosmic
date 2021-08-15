@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   key: bun
   color: {r: 0.8509804, g: 0.5596526, b: 0.2941177, a: 1}
-  icon: {fileID: 21300000, guid: 64a9a3afd2bcf8147a8e237d6f9a30c5, type: 3}
+  icon: {fileID: 21300000, guid: 06d73775a72c96542bb3f130567ca0fb, type: 3}
   name: Bun
+  description: 
   qualityValue: 0
   modifiers: []
   buyPrice: 3

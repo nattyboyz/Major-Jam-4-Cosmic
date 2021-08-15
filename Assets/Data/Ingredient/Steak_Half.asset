@@ -13,9 +13,12 @@ MonoBehaviour:
   m_Name: Steak_Half
   m_EditorClassIdentifier: 
   key: steak
-  color: {r: 0.8490566, g: 0.29236382, b: 0.29236382, a: 1}
-  icon: {fileID: 21300000, guid: e555113a8339cf14bb4f045e3fc2758e, type: 3}
+  color: {r: 0.7176471, g: 0.25490198, b: 0.25490198, a: 1}
+  icon: {fileID: 21300000, guid: 7daa49822ebc0e84a99452964efde0a0, type: 3}
   name: 1/2 Steak
+  description: 
   qualityValue: 0
   modifiers:
   - {fileID: 11400000, guid: f432eb68e7c88564c8097d58a93bac54, type: 2}
+  buyPrice: 0
+  sellPrice: 0
