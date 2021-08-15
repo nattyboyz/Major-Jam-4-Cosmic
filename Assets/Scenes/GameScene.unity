@@ -2608,6 +2608,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1922567469}
     - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
+      propertyPath: meat
+      value: 
+      objectReference: {fileID: 11400000, guid: 1134af86f99b921439e36b1af7ea73c9, type: 2}
+    - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
       propertyPath: buyUI
       value: 
       objectReference: {fileID: 624552695}
@@ -2615,6 +2619,10 @@ PrefabInstance:
       propertyPath: knife
       value: 
       objectReference: {fileID: 804519159}
+    - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
+      propertyPath: veggie
+      value: 
+      objectReference: {fileID: 11400000, guid: 6de6880e0d7bb11439efe8e010827e23, type: 2}
     - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
       propertyPath: moneyUI
       value: 
@@ -2628,9 +2636,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1776783244}
     - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
+      propertyPath: celebType
+      value: 
+      objectReference: {fileID: 11400000, guid: 0a651532eb61ab249bd3fb5e2b5f3197, type: 2}
+    - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
       propertyPath: penaltyUI
       value: 
       objectReference: {fileID: 1868149595082488770}
+    - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
+      propertyPath: veganType
+      value: 
+      objectReference: {fileID: 11400000, guid: 1f027c0db4a2a494ea65eb8f45c8989f, type: 2}
     - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
       propertyPath: gameOverUI
       value: 
@@ -2651,6 +2667,10 @@ PrefabInstance:
       propertyPath: shopCloseUI
       value: 
       objectReference: {fileID: 1224895729205572858}
+    - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
+      propertyPath: meatLoverType
+      value: 
+      objectReference: {fileID: 11400000, guid: cffbc6b7999e3304fa4523f830e22f4c, type: 2}
     - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
       propertyPath: customerLeftUI
       value: 
@@ -2712,6 +2732,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 870300387, guid: 84b59c67607508c44a20e200e54ba751, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1416684966, guid: 84b59c67607508c44a20e200e54ba751, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

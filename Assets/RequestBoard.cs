@@ -115,12 +115,22 @@ public class RequestBoard : DragOnSpot
         ingredientIcons = new Dictionary<IngredientSetting, IngredientIcon>();
         settings = new List<IngredientSetting>();
 
-        foreach (var ingredient in requestData.Menu.ingredients)
+        //if (requestData.Ingredients == null || requestData.Ingredients.Count == 0)
+        //{
+        //    foreach (var ingredient in requestData.Menu.ingredients)
+        //    {
+        //        Settings.Add(CreateIngredientSetting(ingredient));
+        //    }
+        //}
+        //else
+        //{
+        foreach (var ingredient in requestData.Ingredients)
         {
             Settings.Add(CreateIngredientSetting(ingredient));
         }
+        //}
 
-        foreach(var ingredient in requestData.Extra_ingredients)
+        foreach (var ingredient in requestData.Extra_ingredients)
         {
             Settings.Add(CreateIngredientSetting(ingredient));
         }
@@ -135,7 +145,7 @@ public class RequestBoard : DragOnSpot
         //    CustomerPotrait.HideType();
         //};
 
-        price_txt.text = "$" +requestData.Price.ToString();
+        price_txt.text = "$" + requestData.Price.ToString();
         name_txt.text = requestData.Menu.menuName;
     }
 
