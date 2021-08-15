@@ -79,13 +79,13 @@ public class CharacterTypeUI : MonoBehaviour, IPointerExitHandler,IPointerEnterH
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        Debug.Log("Exit");
+        //Debug.Log("Exit");
         descriptionTxt.gameObject.SetActive(false);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log("Enter");
+        //Debug.Log("Enter");
         descriptionTxt.gameObject.SetActive(true);
     }
 }

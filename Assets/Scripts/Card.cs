@@ -179,7 +179,14 @@ public class CardData
     public CardData(IngredientData data, List<ModifierData> modifiers, bool isSpoil= false)
     {
         this.ingredient = data;
-        this.modifiers = modifiers;
+        if (modifiers != null)
+        {
+            this.modifiers = new List<ModifierData>(modifiers);
+        }
+        else
+        {
+            Debug.Log("Modifier is NULL " + data.Name);
+        }
         this.isSpoil = isSpoil;
     }
 }
