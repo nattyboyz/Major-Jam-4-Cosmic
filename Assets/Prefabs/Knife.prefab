@@ -349,11 +349,12 @@ MonoBehaviour:
       amount: 2
       modifier: []
     - data: {fileID: 11400000, guid: 492b9b41153eeaa4c8d99cdec60a6c5d, type: 2}
-      amount: 4
+      amount: 2
       modifier: []
     - data: {fileID: 11400000, guid: 8ea2ae70b1b1e3f4286a05ba7af07858, type: 2}
       amount: 2
       modifier: []
+  resultCards: []
   processTime: 1
 --- !u!1 &6865955471910456986
 GameObject:
