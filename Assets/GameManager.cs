@@ -167,7 +167,9 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        hand.gameObject.SetActive(false);
         LoadLevel();
+        hand.gameObject.SetActive(true);
     }
 
     void InitDeck()

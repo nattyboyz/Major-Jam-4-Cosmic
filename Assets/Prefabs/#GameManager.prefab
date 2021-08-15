@@ -87,6 +87,7 @@ MonoBehaviour:
   kitchenTools:
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
   shopOpenUI: {fileID: 0}
   resultUI: {fileID: 0}
   moneyUI: {fileID: 0}
