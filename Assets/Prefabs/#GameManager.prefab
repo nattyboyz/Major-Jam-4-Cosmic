@@ -54,7 +54,7 @@ MonoBehaviour:
       m_keys: []
       m_values: 
   playerDataScriptableObject: {fileID: 11400000, guid: 308d88ae9bf284e4d898bd3f68a5d61b, type: 2}
-  spyCost: 30
+  spyCost: 20
   baseCard: {fileID: 2437222501836713281, guid: f28062228418b004082ce29eea260a8d, type: 3}
   hand: {fileID: 0}
   deck: []
