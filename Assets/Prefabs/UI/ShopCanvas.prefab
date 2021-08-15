@@ -1346,7 +1346,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enableTooltip: 1
-  toolTipGameobject: {fileID: 0}
+  toolTipGameobject: {fileID: 1984927619}
+  hoverTime: 0.5
 --- !u!1 &1418714730
 GameObject:
   m_ObjectHideFlags: 0
@@ -2001,12 +2002,12 @@ GameObject:
   - component: {fileID: 1984927622}
   - component: {fileID: 1984927621}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Tooltip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1984927620
 RectTransform:
   m_ObjectHideFlags: 0
