@@ -20,5 +20,5 @@ MonoBehaviour:
 
 '
   sprite: {fileID: 21300000, guid: e12ebb1372e5d5240a46d1dae5f3c71a, type: 3}
-  qualityValue: -10
+  qualityValue: -8
   type: 1

@@ -16,5 +16,5 @@ MonoBehaviour:
   modifierName: Half
   description: 
   sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
-  qualityValue: -25
+  qualityValue: -15
   type: 1
