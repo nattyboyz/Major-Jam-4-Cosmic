@@ -1036,7 +1036,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6055678877191365176, guid: 12225c85e8ecf9b4e994d958fd8442fe, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -850.00006
+      value: -850
       objectReference: {fileID: 0}
     - target: {fileID: 6055678877531394000, guid: 12225c85e8ecf9b4e994d958fd8442fe, type: 3}
       propertyPath: m_Pivot.x
@@ -1157,6 +1157,17 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 1756922870, guid: 4efe44be108e92047956319a1041e59b, type: 3}
   m_PrefabInstance: {fileID: 3851107071639291154}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1762709217 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2381680993374009361, guid: d9f9ad3283d7c6d4abc5e1311caaef25, type: 3}
+  m_PrefabInstance: {fileID: 5308241684932803018}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1776783244 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1247051795336667800, guid: ae5d3b153a38f9f4facd222121c37a2c, type: 3}
@@ -1866,18 +1877,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 698353721077039100, guid: 4efe44be108e92047956319a1041e59b, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2631769465891117034, guid: 4efe44be108e92047956319a1041e59b, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3705645838005287470, guid: 4efe44be108e92047956319a1041e59b, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8712212043951189688, guid: 4efe44be108e92047956319a1041e59b, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -2434,6 +2433,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1756922870}
     - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
+      propertyPath: textTotalCardInDeck
+      value: 
+      objectReference: {fileID: 1762709217}
+    - target: {fileID: 7049476788235498941, guid: 6e5be38f7a5ea6445af6b6c6a4802af2, type: 3}
       propertyPath: requests.Array.data[0]
       value: 
       objectReference: {fileID: 1082643143}
@@ -2470,18 +2473,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1518348003}
-    - target: {fileID: 5202462662538839693, guid: 84b59c67607508c44a20e200e54ba751, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5870733656888979348, guid: 84b59c67607508c44a20e200e54ba751, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5870733658110077006, guid: 84b59c67607508c44a20e200e54ba751, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7987156502867615801, guid: 84b59c67607508c44a20e200e54ba751, type: 3}
       propertyPath: m_Name
       value: ShopCanvas

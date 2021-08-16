@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3fc826adb2f4524dae358d757e09d9f, type: 3}
   m_Name: RawMeat
   m_EditorClassIdentifier: 
-  key: rawmeat
+  key: meat
   color: {r: 0.8509804, g: 0.29411766, b: 0.29411766, a: 1}
   icon: {fileID: 21300000, guid: 324f095c1dd749646b4a074da48d7196, type: 3}
   name: Raw Meat
@@ -20,4 +20,4 @@ MonoBehaviour:
   qualityValue: 0
   modifiers: []
   buyPrice: 10
-  sellPrice: 5
+  sellPrice: 10

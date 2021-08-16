@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Bypasser
   m_EditorClassIdentifier: 
   name: Bypasser
-  color: {r: 1, g: 0.4188679, b: 0.48665756, a: 1}
+  color: {r: 0.8962264, g: 0.5627863, b: 0.2240566, a: 1}
   icon: {fileID: 21300000, guid: a31996548ae708c4aaa625fd37d409f0, type: 3}
-  description: Random by passer
+  description: Not picky. No biggie. Eat almost anything.

@@ -16,7 +16,7 @@ MonoBehaviour:
   modifierName: ratz meat
   description: 'Rat meat
 
-    +15% chance detected bad ingredient
+    +8% chance detected bad ingredient
 
 '
   sprite: {fileID: 21300000, guid: e12ebb1372e5d5240a46d1dae5f3c71a, type: 3}

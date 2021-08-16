@@ -16,10 +16,10 @@ MonoBehaviour:
   color: {r: 0.9433962, g: 0.77647823, b: 0.022249907, a: 1}
   icon: {fileID: 21300000, guid: e0b604c0102fad249a997741c5a6afe3, type: 3}
   name: MSG
-  description: 66% chance to up quality of one ingredient, but spoil one if fail.
-    (Random)
+  description: 80% chance to increase quality of a random ingredient, but spoil one
+    if it fails.
   qualityValue: 0
   modifiers:
   - {fileID: 11400000, guid: a5c580c4f4d735648a1dc164caf9d679, type: 2}
-  buyPrice: 4
-  sellPrice: 0
+  buyPrice: 2
+  sellPrice: 2

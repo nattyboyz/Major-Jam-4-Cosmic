@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2099c251118711e43b8d45571cf9e311, type: 3}
   m_Name: DeliveryGuy
   m_EditorClassIdentifier: 
-  name: Delivery guy
+  name: Delivery Guy
   color: {r: 0.20971872, g: 0.8113208, b: 0.59474427, a: 1}
   icon: {fileID: 21300000, guid: a31996548ae708c4aaa625fd37d409f0, type: 3}
-  description: Not the one who eat this.
+  description: Don't care about food quality. Just delivery.

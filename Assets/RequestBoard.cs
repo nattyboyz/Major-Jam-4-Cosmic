@@ -226,7 +226,7 @@ public class RequestBoard : DragOnSpot
             }
             else if (string.CompareOrdinal(card.cardData.ingredient.Key, "msg") == 0)
             {
-                int rand = UnityEngine.Random.Range(0, 3);
+                int rand = UnityEngine.Random.Range(0, 100);
                 List<IngredientSetting> curseSetting = new List<IngredientSetting>();
                 List<IngredientSetting> blessSetting = new List<IngredientSetting>();
 
@@ -255,7 +255,7 @@ public class RequestBoard : DragOnSpot
                 curseSetting.Shuffle();
                 blessSetting.Shuffle();
 
-                if (rand < 2)//Bless
+                if (rand < 80)//Bless
                 {
                     Debug.Log("Bless");
                     if (curseSetting.Count > 0)

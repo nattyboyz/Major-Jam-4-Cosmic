@@ -19,6 +19,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6de6880e0d7bb11439efe8e010827e23, type: 2}
   - {fileID: 11400000, guid: 683fcf4febe01a346b026d20906fc9a0, type: 2}
   - {fileID: 11400000, guid: 683fcf4febe01a346b026d20906fc9a0, type: 2}
-  basePrice: 35
-  baseTime: 65
+  basePrice: 120
+  baseTime: 75
   sprite: {fileID: 21300000, guid: 480fb327df438ca45a57ea3800bcfce2, type: 3}

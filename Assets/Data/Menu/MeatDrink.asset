@@ -15,6 +15,6 @@ MonoBehaviour:
   menuName: Meat Drink
   ingredients:
   - {fileID: 11400000, guid: da4d6160304c52547b74ccdf8760e9fb, type: 2}
-  basePrice: 10
-  baseTime: 60
+  basePrice: 30
+  baseTime: 50
   sprite: {fileID: 21300000, guid: 15b915e6a53a24a4cb4cff09c12813c2, type: 3}

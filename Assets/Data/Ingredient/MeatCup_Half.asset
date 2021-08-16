@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c3fc826adb2f4524dae358d757e09d9f, type: 3}
-  m_Name: Sausage
+  m_Name: MeatCup_Half
   m_EditorClassIdentifier: 
-  key: sausage
-  color: {r: 0.8509804, g: 0.29411766, b: 0.2941177, a: 1}
-  icon: {fileID: 21300000, guid: 9d1a987e1af405c47a7edf37d4799766, type: 3}
-  name: Sausage
+  key: meatdrink
+  color: {r: 0.8509804, g: 0.29411766, b: 0.29411766, a: 1}
+  icon: {fileID: 21300000, guid: 15b915e6a53a24a4cb4cff09c12813c2, type: 3}
+  name: 1/2 Meat Drink
   description: 
   qualityValue: 0
-  modifiers: []
-  buyPrice: 3
-  sellPrice: 3
+  modifiers:
+  - {fileID: 11400000, guid: f432eb68e7c88564c8097d58a93bac54, type: 2}
+  buyPrice: 2
+  sellPrice: 1

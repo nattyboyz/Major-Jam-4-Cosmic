@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Hand hand;
     [SerializeField] List<CardData> deck;
     [SerializeField] int maxHand = 5;
+    [SerializeField] TMPro.TextMeshProUGUI textTotalCardInDeck;
 
     [Header("Cheat Card")]
     [SerializeField] CheatCard baseCheatCard;
@@ -32,6 +33,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] List<LevelData> levelDatas;
     [SerializeField] LevelData currentLevelData;
     [SerializeField] CustomerData fallbackCustomer;
+    [SerializeField] float minDurNextCustomer = 1;
+    [SerializeField] float maxDurNextCustomer = 10;
 
     [Header("Request")]
     [SerializeField] List<RequestData> allRequests;
@@ -107,6 +110,8 @@ public class GameManager : MonoBehaviour
         InitDeckSpot();
         InitDiscardSpot();
         InitKitchenTool();
+
+        textTotalCardInDeck.transform.parent.gameObject.SetActive(false);
 
     }
 
@@ -190,6 +195,9 @@ public class GameManager : MonoBehaviour
         }
 
         deck.Shuffle();
+
+        UpdateCardRemaining();
+        textTotalCardInDeck.transform.parent.gameObject.SetActive(true);
     }
 
     void InitCheatCards()
@@ -405,6 +413,8 @@ public class GameManager : MonoBehaviour
                 hand.Remove(card);
                 Destroy(card.gameObject);
                 //ConsumeCard(card);
+
+                UpdateCardRemaining();
             }
         };
     }
@@ -562,7 +572,7 @@ public class GameManager : MonoBehaviour
                                 if (modifier.Type== ModifierType.Curse)
                                 {
                                     //LEVEL DESIGN
-                                    if (string.CompareOrdinal(customer.CustomerType.Name, "Delivery guy") ==0)
+                                    if (string.CompareOrdinal(customer.CustomerType.Name, "Delivery Guy") ==0)
                                     {
                                         val = 0;
                                         Debug.Log("Delivery guy set value to 0");
@@ -673,7 +683,7 @@ public class GameManager : MonoBehaviour
     //LEVEL DESIGN
     public float GetCurseModifierBaseOnCustomer(string customerKey, string ingredientKey)
     {
-        if (customerKey == "MeatLover")
+        if (customerKey == "Meat Lover")
         {
             if (ingredientKey == "steak") return -5;
         }
@@ -683,11 +693,15 @@ public class GameManager : MonoBehaviour
         }
         else if (customerKey == "Inspector")
         {
-            return -9;
+            return -6;
         }
-        else if (customerKey == "ByPasser")
+        else if (customerKey == "Bypasser")
         {
             return 5;
+        }
+        else if (customerKey == "Rusher")
+        {
+            return 2;
         }
         else if (customerKey == "Celebrity")
         {
@@ -778,6 +792,8 @@ public class GameManager : MonoBehaviour
             var card = CreateCard(deck[0]);
             AddToHand(card);
             deck.RemoveAt(0);
+
+            UpdateCardRemaining();
         }
         else
         {
@@ -792,6 +808,8 @@ public class GameManager : MonoBehaviour
             card = CreateCard(deck[0]);
             AddToHand(card);
             deck.RemoveAt(0);
+
+            UpdateCardRemaining();
             return true;
         }
         else
@@ -872,6 +890,11 @@ public class GameManager : MonoBehaviour
         }
 
         Destroy(card.gameObject);
+    }
+
+    public void UpdateCardRemaining()
+    {
+        textTotalCardInDeck.text = ""+deck.Count;
     }
 
     #endregion
@@ -977,7 +1000,12 @@ public class GameManager : MonoBehaviour
     {
         if (allRequests.Count > 0)
         {
-            customerCoroutine[requestBoard] = StartCoroutine(NextCustomer(requestBoard, currentCustomerIndex, Random.Range(1, 5)));
+            float tempMax = maxDurNextCustomer;
+
+            if (allRequests.Count == currentLevelData.Customer)
+                tempMax = minDurNextCustomer;
+
+            customerCoroutine[requestBoard] = StartCoroutine(NextCustomer(requestBoard, currentCustomerIndex, Random.Range(minDurNextCustomer, tempMax)));
             currentCustomerIndex++;
         }
     }
@@ -1078,7 +1106,7 @@ public class GameManager : MonoBehaviour
         //เพิ่มดาวถ้าทำสำเร็จถ้าเป็น celeb
         if (customer.CustomerType == celebType)
         {
-            requestData.StarReward = 1;
+            requestData.StarReward = 3;
         }
 
         //เพิ่มดาวถ้าทำสำเร็จถ้าเป็น celeb
@@ -1177,6 +1205,7 @@ public class GameManager : MonoBehaviour
 
     void Gameover()
     {
+        textTotalCardInDeck.transform.parent.gameObject.SetActive(false);
         gameOverUI.Show();
         Debug.Log("Game Over.");
     }
@@ -1207,7 +1236,8 @@ public class GameManager : MonoBehaviour
     IEnumerator ieSpy()
     {
         scanlineAnimator.SetTrigger("in");
-        yield return new WaitForSeconds(scanLineIn.length);
+        yield return new WaitForSeconds(0.2f);
+        //yield return new WaitForSeconds(scanLineIn.length);
         foreach (var req in requests)
         {
             if (req.isShow && !req.isComplete && !req.RequestData.ShowCustomerType)

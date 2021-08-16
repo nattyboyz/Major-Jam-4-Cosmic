@@ -54,11 +54,12 @@ MonoBehaviour:
       m_keys: []
       m_values: 
   playerDataScriptableObject: {fileID: 11400000, guid: 308d88ae9bf284e4d898bd3f68a5d61b, type: 2}
-  spyCost: 20
+  spyCost: 2
   baseCard: {fileID: 2437222501836713281, guid: f28062228418b004082ce29eea260a8d, type: 3}
   hand: {fileID: 0}
   deck: []
   maxHand: 5
+  textTotalCardInDeck: {fileID: 0}
   baseCheatCard: {fileID: 1710644082877907140, guid: 3bcc7bf883ae0ba42a2e6035b9d8e41c, type: 3}
   cheatCardCabinet: {fileID: 0}
   cheatCards: []
@@ -73,6 +74,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a8fcac8600ab48c429ce56a74bd35932, type: 2}
   currentLevelData: {fileID: 0}
   fallbackCustomer: {fileID: 11400000, guid: 7e7eafdc25cd25543b6c7d760ade58d0, type: 2}
+  minDurNextCustomer: 1
+  maxDurNextCustomer: 7
   allRequests: []
   requests:
   - {fileID: 0}

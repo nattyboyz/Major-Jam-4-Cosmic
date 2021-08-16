@@ -15,6 +15,6 @@ MonoBehaviour:
   menuName: Veggie Drink
   ingredients:
   - {fileID: 11400000, guid: 3bcaaf1f4a0ef414c999573a991d68da, type: 2}
-  basePrice: 10
-  baseTime: 60
+  basePrice: 15
+  baseTime: 50
   sprite: {fileID: 21300000, guid: 3e2f41345f6b14f44ae44cd08a7b9451, type: 3}

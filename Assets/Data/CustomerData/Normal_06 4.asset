@@ -15,12 +15,12 @@ MonoBehaviour:
   customerType: {fileID: 11400000, guid: 974c65201365b7349ba43b89d7b4df54, type: 2}
   name: Bob
   description: Normal
-  color: {r: 0.16470589, g: 0.5882353, b: 0.8509804, a: 1}
+  color: {r: 0.8784314, g: 0.57254905, b: 0.1764706, a: 1}
   idle: {fileID: 21300000, guid: 498664c8aa513134db13dcd84f79064d, type: 3}
   sus: {fileID: 0}
   happy: {fileID: 21300000, guid: 02f7914f439a1b14984538f927bfac1e, type: 3}
   angry: {fileID: 21300000, guid: 15d71395a949d3d4fac72d3becc807c2, type: 3}
   timeModifier:
-    min: 0
-    max: 10
+    min: 10
+    max: 30
     waitForeaver: 0

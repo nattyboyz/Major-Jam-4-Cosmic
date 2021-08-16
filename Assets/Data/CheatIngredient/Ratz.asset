@@ -16,8 +16,8 @@ MonoBehaviour:
   color: {r: 0.52029836, g: 0.35955858, b: 0.754717, a: 1}
   icon: {fileID: 21300000, guid: 7f6c5e5e8c19287428e87e4a01d456d8, type: 3}
   name: Ratz
-  description: Replace meat, smell bad, low cost, but get caught easily.
+  description: Replace meat, but with lower quality. Smell bad.
   qualityValue: 0
   modifiers: []
   buyPrice: 5
-  sellPrice: 0
+  sellPrice: 5

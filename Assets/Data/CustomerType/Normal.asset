@@ -15,4 +15,4 @@ MonoBehaviour:
   name: Normal
   color: {r: 1, g: 1, b: 1, a: 1}
   icon: {fileID: 21300000, guid: a31996548ae708c4aaa625fd37d409f0, type: 3}
-  description: Seem to be just a normal customer,
+  description: Typical customer. No effect.

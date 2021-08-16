@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3fc826adb2f4524dae358d757e09d9f, type: 3}
   m_Name: MeatCup
   m_EditorClassIdentifier: 
-  key: meatcup
+  key: meatdrink
   color: {r: 0.8509804, g: 0.29411766, b: 0.29411766, a: 1}
   icon: {fileID: 21300000, guid: 15b915e6a53a24a4cb4cff09c12813c2, type: 3}
-  name: Veggie Cup
+  name: Meat Drink
   description: 
   qualityValue: 0
   modifiers: []
   buyPrice: 2
-  sellPrice: 1
+  sellPrice: 2

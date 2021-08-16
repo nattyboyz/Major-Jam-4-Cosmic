@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3fc826adb2f4524dae358d757e09d9f, type: 3}
   m_Name: RatMeat
   m_EditorClassIdentifier: 
-  key: ratmeat
+  key: meat
   color: {r: 0.8509804, g: 0.29411766, b: 0.29411766, a: 1}
   icon: {fileID: 21300000, guid: 406edc2862f8b3b4ca06eaa182434cfb, type: 3}
   name: Rat Meat
@@ -21,4 +21,4 @@ MonoBehaviour:
   modifiers:
   - {fileID: 11400000, guid: 1b377cea892007446a84dd4baf7b3b9a, type: 2}
   buyPrice: 1
-  sellPrice: 0
+  sellPrice: 1

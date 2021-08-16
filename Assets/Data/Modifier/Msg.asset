@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   key: msg
   modifierName: Mono Sodium Glutamate
-  description: make one's thirsty.
+  description: Make one's thirsty.
   sprite: {fileID: 21300000, guid: a2caa8398f23843de8308059954c8b01, type: 3}
   qualityValue: -5
   type: 1

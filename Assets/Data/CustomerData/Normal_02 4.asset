@@ -15,12 +15,12 @@ MonoBehaviour:
   customerType: {fileID: 11400000, guid: 974c65201365b7349ba43b89d7b4df54, type: 2}
   name: Inspector AAAA
   description: Inspect
-  color: {r: 0.16470589, g: 0.5882353, b: 0.8509804, a: 1}
+  color: {r: 0.8784314, g: 0.57254905, b: 0.1764706, a: 1}
   idle: {fileID: 21300000, guid: 71fc99081a4d6ff46b37bb54b2c51fcc, type: 3}
   sus: {fileID: 0}
   happy: {fileID: 21300000, guid: 31e24abffb825124298ef2304bf8c74d, type: 3}
   angry: {fileID: 21300000, guid: 7f7d0d41495f1fe4ebc5f9388199c074, type: 3}
   timeModifier:
-    min: 0
-    max: 0
+    min: 10
+    max: 30
     waitForeaver: 0

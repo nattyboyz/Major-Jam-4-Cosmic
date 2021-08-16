@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3fc826adb2f4524dae358d757e09d9f, type: 3}
   m_Name: RawMeat_Half
   m_EditorClassIdentifier: 
-  key: rawmeat
+  key: meat
   color: {r: 0.8509804, g: 0.29411766, b: 0.29411766, a: 1}
   icon: {fileID: 21300000, guid: 14a70020838445d4287676871ac3164e, type: 3}
   name: 1/2 Raw Meat
